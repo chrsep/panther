@@ -2,7 +2,7 @@ package com.cakrasuryainti.panther
 
 import java.time.ZonedDateTime
 
-data class Report(
+data class PanelReport(
     val id: String,
     val work: String,
     val panelName: String,
