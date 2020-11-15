@@ -1,4 +1,4 @@
-package com.cakrasuryainti.panther.components.theme
+package com.cakrasuryainti.panther.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
