@@ -5,10 +5,7 @@ import com.itextpdf.kernel.geom.PageSize
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.layout.Document
-import com.itextpdf.layout.element.AreaBreak
-import com.itextpdf.layout.element.Cell
-import com.itextpdf.layout.element.Paragraph
-import com.itextpdf.layout.element.Table
+import com.itextpdf.layout.element.*
 import com.itextpdf.layout.property.TextAlignment
 import com.itextpdf.layout.property.VerticalAlignment
 import java.io.FileOutputStream
@@ -64,7 +61,7 @@ fun generatePanelReport(report: PanelReport, outputPath: String) {
         val signatureTable = createSignatureTable()
         document.add(signatureTable)
 
-
+        document.add(AreaBreak())
     } catch (ioe: IOException) {
         System.err.println(ioe)
     } finally {
