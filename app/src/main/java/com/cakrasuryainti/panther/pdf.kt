@@ -46,7 +46,7 @@ fun generatePanelReport(report: PanelReport, outputPath: String) {
         document.add(metaTable)
 
         val table = Table(floatArrayOf(55f, 55f, 55f, 50f, 50f, 50f, 45f, 45f, 45f, 50f, 50f, 50f))
-        // Column Names
+        // ====================== NEW LINE ===============================================
         table.addCell(
             Cell(1, 3)
                 .add(Paragraph("PARAMETER").center())
@@ -72,6 +72,7 @@ fun generatePanelReport(report: PanelReport, outputPath: String) {
                 .alignMiddle()
         )
 
+        // ====================== NEW LINE ===============================================
         table.addCell(
             Cell(1, 3)
                 .setBackgroundColor(GREEN)
@@ -94,6 +95,7 @@ fun generatePanelReport(report: PanelReport, outputPath: String) {
         )
         table.addCell(Cell(5, 3))
 
+        // ====================== NEW LINE ===============================================
         table.addCell(Cell().add(smallParagraph("R - S").center()))
         table.addCell(Cell().add(smallParagraph("S - T").center()))
         table.addCell(Cell().add(smallParagraph("T - R").center()))
@@ -102,6 +104,7 @@ fun generatePanelReport(report: PanelReport, outputPath: String) {
         table.addCell("")
         table.addCell("")
 
+        // ====================== NEW LINE ===============================================
         table.addCell(
             Cell(1, 3)
                 .setBackgroundColor(GREEN)
@@ -113,6 +116,7 @@ fun generatePanelReport(report: PanelReport, outputPath: String) {
             )
         )
 
+        // ====================== NEW LINE ===============================================
         table.addCell(Cell().add(smallParagraph("R - N").center()))
         table.addCell(Cell().add(smallParagraph("S - N").center()))
         table.addCell(Cell().add(smallParagraph("T - N").center()))
@@ -121,6 +125,7 @@ fun generatePanelReport(report: PanelReport, outputPath: String) {
         table.addCell("")
         table.addCell("")
 
+        // ====================== NEW LINE ===============================================
         table.addCell("")
         table.addCell(Cell().add(smallParagraph("G - N").center()))
         table.addCell("")
@@ -129,6 +134,7 @@ fun generatePanelReport(report: PanelReport, outputPath: String) {
         table.addCell("")
         table.addCell("")
 
+        // ====================== NEW LINE ===============================================
         table.addCell(
             Cell(1, 3)
                 .setBackgroundColor(GREEN)
@@ -139,6 +145,7 @@ fun generatePanelReport(report: PanelReport, outputPath: String) {
         table.addCell(Cell(1, 3))
         table.addCell(Cell(1, 3))
 
+        // ====================== NEW LINE ===============================================
         table.addCell(Cell().add(smallParagraph("R").center()))
         table.addCell(Cell().add(smallParagraph("S").center()))
         table.addCell(Cell().add(smallParagraph("T").center()))
@@ -150,6 +157,7 @@ fun generatePanelReport(report: PanelReport, outputPath: String) {
         table.addCell(Cell(1, 3))
         table.addCell(Cell(1, 3))
 
+        // ====================== NEW LINE ===============================================
         table.addCell(
             Cell(1, 3)
                 .setBackgroundColor(GREEN)
@@ -159,6 +167,7 @@ fun generatePanelReport(report: PanelReport, outputPath: String) {
         table.addCell(Cell(1, 3).add(smallParagraph("50.00HZ").center()))
         table.addCell(Cell(1, 3))
 
+        // ====================== NEW LINE ===============================================
         table.addCell(
             Cell(1, 3)
                 .setBackgroundColor(GREEN)
@@ -168,6 +177,7 @@ fun generatePanelReport(report: PanelReport, outputPath: String) {
         table.addCell(Cell(1, 3).add(smallParagraph("0,8-1,0").center()))
         table.addCell(Cell(1, 3))
 
+        // ====================== NEW LINE ===============================================
         table.addCell(
             Cell(1, 3)
                 .setBackgroundColor(GREEN)
