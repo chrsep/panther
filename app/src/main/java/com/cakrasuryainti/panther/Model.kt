@@ -18,6 +18,22 @@ data class PanelReport(
     val jobDesc: JobDesc,
     val dateTime: Instant,
 
+    val teganganPhaseToPhaseRS: Float,
+    val teganganPhaseToPhaseST: Float,
+    val teganganPhaseToPhaseTR: Float,
+
+    val teganganPhaseToNeutralRN: Float,
+    val teganganPhaseToNeutralSN: Float,
+    val teganganPhaseToNeutralTN: Float,
+    val teganganPhaseToNeutralGN: Float,
+
+    val arusR: Float,
+    val arusS: Float,
+    val arusT: Float,
+
+    val frekuens: Float,
+    val powerFactor: Float,
+
     // visual checks
     val relay: Status,
     val kabel: Status,
@@ -62,8 +78,8 @@ enum class Status {
 data class PanelReportWithImages(
     @Embedded val report: PanelReport,
     @Relation(
-          parentColumn = "id",
-          entityColumn = "reportId"
+        parentColumn = "id",
+        entityColumn = "reportId"
     )
     val playlists: List<ReportImage>
 )
