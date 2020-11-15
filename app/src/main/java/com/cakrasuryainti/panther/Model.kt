@@ -1,8 +1,12 @@
 package com.cakrasuryainti.panther
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.time.Instant
 
+@Entity
 data class PanelReport(
+    @PrimaryKey
     val id: String,
     val work: String,
     val panelName: String,
@@ -51,7 +55,9 @@ enum class Status {
     NotAvailable,
 }
 
+@Entity
 data class ReportImage(
+    @PrimaryKey
     val id: String,
     val file: String,
     val note: String

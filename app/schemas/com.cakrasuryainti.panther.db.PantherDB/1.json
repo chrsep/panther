@@ -1,0 +1,240 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "1272c0e982dce2572f435870b2891d93",
+    "entities": [
+      {
+        "tableName": "PanelReport",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `work` TEXT NOT NULL, `panelName` TEXT NOT NULL, `model` TEXT NOT NULL, `serialNumber` TEXT NOT NULL, `location` TEXT NOT NULL, `jobDesc` TEXT NOT NULL, `dateTime` TEXT NOT NULL, `Relay` TEXT NOT NULL, `Kabel` TEXT NOT NULL, `MCBInput` TEXT NOT NULL, `MCBOutput` TEXT NOT NULL, `LampuIndikatorPanel` TEXT NOT NULL, `Fuse` TEXT NOT NULL, `TerminalPower` TEXT NOT NULL, `AmpereMeter` TEXT NOT NULL, `VoltMeter` TEXT NOT NULL, `ModulControlStatus` TEXT NOT NULL, `Timer` TEXT NOT NULL, `PushButtonOn` TEXT NOT NULL, `PushButtonOff` TEXT NOT NULL, `SelectorMOA` TEXT NOT NULL, `StatusIndikator` TEXT NOT NULL, `LuarPanel` TEXT NOT NULL, `DalamPanel` TEXT NOT NULL, `JalurKabelPower` TEXT NOT NULL, `KondisiRuangan` TEXT NOT NULL, `Lingkungan` TEXT NOT NULL, `Penerangan` TEXT NOT NULL, `FanRuangan` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "work",
+            "columnName": "work",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "panelName",
+            "columnName": "panelName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "model",
+            "columnName": "model",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "serialNumber",
+            "columnName": "serialNumber",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "location",
+            "columnName": "location",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "jobDesc",
+            "columnName": "jobDesc",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateTime",
+            "columnName": "dateTime",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Relay",
+            "columnName": "Relay",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Kabel",
+            "columnName": "Kabel",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "MCBInput",
+            "columnName": "MCBInput",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "MCBOutput",
+            "columnName": "MCBOutput",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "LampuIndikatorPanel",
+            "columnName": "LampuIndikatorPanel",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Fuse",
+            "columnName": "Fuse",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "TerminalPower",
+            "columnName": "TerminalPower",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "AmpereMeter",
+            "columnName": "AmpereMeter",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "VoltMeter",
+            "columnName": "VoltMeter",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ModulControlStatus",
+            "columnName": "ModulControlStatus",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Timer",
+            "columnName": "Timer",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "PushButtonOn",
+            "columnName": "PushButtonOn",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "PushButtonOff",
+            "columnName": "PushButtonOff",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SelectorMOA",
+            "columnName": "SelectorMOA",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "StatusIndikator",
+            "columnName": "StatusIndikator",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "LuarPanel",
+            "columnName": "LuarPanel",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "DalamPanel",
+            "columnName": "DalamPanel",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "JalurKabelPower",
+            "columnName": "JalurKabelPower",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "KondisiRuangan",
+            "columnName": "KondisiRuangan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Lingkungan",
+            "columnName": "Lingkungan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Penerangan",
+            "columnName": "Penerangan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "FanRuangan",
+            "columnName": "FanRuangan",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ReportImage",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `file` TEXT NOT NULL, `note` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "file",
+            "columnName": "file",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "note",
+            "columnName": "note",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1272c0e982dce2572f435870b2891d93')"
+    ]
+  }
+}

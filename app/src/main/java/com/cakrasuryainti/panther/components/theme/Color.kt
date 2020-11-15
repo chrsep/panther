@@ -1,4 +1,4 @@
-package com.cakrasuryainti.panther.ui
+package com.cakrasuryainti.panther.components.theme
 
 import androidx.compose.ui.graphics.Color
 
