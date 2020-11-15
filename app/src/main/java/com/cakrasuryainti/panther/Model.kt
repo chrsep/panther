@@ -1,16 +1,16 @@
 package com.cakrasuryainti.panther
 
-import java.time.ZonedDateTime
+import java.time.Instant
 
 data class PanelReport(
     val id: String,
     val work: String,
     val panelName: String,
-    val type: String,
+    val model: String,
     val serialNumber: String,
     val location: String,
     val jobDesc: JobDesc,
-    val time: ZonedDateTime,
+    val dateTime: Instant,
 
     // visual checks
     val Relay: Status,

@@ -1,6 +1,7 @@
 package com.cakrasuryainti.panther
 
 import org.junit.Test
+import java.time.Instant
 import java.time.ZonedDateTime
 import java.util.*
 
@@ -11,8 +12,8 @@ import java.util.*
  */
 class MaintenancePdfUnitTest {
     @Test
-    fun addition_isCorrect() {
-        val pdf = generatePanelReport(
+    fun can_generate_panel_pdf() {
+        generatePanelReport(
             PanelReport(
                 UUID.randomUUID().toString(),
                 "Test",
@@ -21,7 +22,7 @@ class MaintenancePdfUnitTest {
                 "test",
                 "test",
                 JobDesc.Maintenance,
-                ZonedDateTime.now(),
+                Instant.now(),
                 Status.Ok,
                 Status.Ok,
                 Status.Ok,

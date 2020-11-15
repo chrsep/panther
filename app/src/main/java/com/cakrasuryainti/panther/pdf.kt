@@ -1,11 +1,10 @@
 package com.cakrasuryainti.panther
 
-import android.graphics.fonts.FontFamily
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.itextpdf.kernel.colors.DeviceRgb
-import com.itextpdf.kernel.font.PdfFont
 import com.itextpdf.kernel.geom.PageSize
 import com.itextpdf.kernel.pdf.PdfDocument
-import com.itextpdf.kernel.pdf.PdfName.Font
 import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.layout.Document
 import com.itextpdf.layout.element.Cell
@@ -15,6 +14,10 @@ import com.itextpdf.layout.property.TextAlignment
 import com.itextpdf.layout.property.VerticalAlignment
 import java.io.FileOutputStream
 import java.io.IOException
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 fun generatePanelReport(report: PanelReport, outputPath: String) {
     val writer = PdfWriter(FileOutputStream(outputPath))
@@ -31,7 +34,15 @@ fun generatePanelReport(report: PanelReport, outputPath: String) {
         document.add(title)
 
 
-        val metaTable = createMetaTable()
+        val metaTable =
+            createMetaTable(
+                report.location,
+                report.panelName,
+                report.dateTime,
+                report.model,
+                report.jobDesc,
+                report.serialNumber
+            )
         document.add(metaTable)
 
     } catch (ioe: IOException) {
@@ -41,7 +52,14 @@ fun generatePanelReport(report: PanelReport, outputPath: String) {
     }
 }
 
-fun createMetaTable(): Table {
+fun createMetaTable(
+    location: String,
+    panelName: String,
+    date: Instant,
+    model: String,
+    jobDesc: JobDesc,
+    serialNumber: String
+): Table {
     val table = Table(listOf(150f, 150f, 150f, 150f).toFloatArray())
     table.addCell(Cell().apply {
         add(Paragraph("Customer Name"))
@@ -54,39 +72,43 @@ fun createMetaTable(): Table {
         setVerticalAlignment(VerticalAlignment.TOP)
         setBackgroundColor(DeviceRgb(255, 102, 102))
     })
-    table.addCell("")
+    table.addCell(location)
 
     table.addCell(Cell().apply {
         add(Paragraph("Panel Name"))
         setVerticalAlignment(VerticalAlignment.TOP)
         setBackgroundColor(DeviceRgb(255, 102, 102))
     })
-    table.addCell("")
+    table.addCell(panelName)
+
+    val formattedDate =
+        date.atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("dd MMM yyyy, HH:MM"))
     table.addCell(Cell().apply {
         add(Paragraph("Date"))
         setVerticalAlignment(VerticalAlignment.TOP)
         setBackgroundColor(DeviceRgb(255, 102, 102))
     })
-    table.addCell("")
+    table.addCell(formattedDate)
 
     table.addCell(Cell().apply {
         add(Paragraph("Model/Type"))
         setVerticalAlignment(VerticalAlignment.TOP)
         setBackgroundColor(DeviceRgb(255, 102, 102))
     })
-    table.addCell("")
+    table.addCell(model)
+
     table.addCell(Cell().apply {
         add(Paragraph("Job Description"))
         setVerticalAlignment(VerticalAlignment.TOP)
         setBackgroundColor(DeviceRgb(255, 102, 102))
     })
-    table.addCell("")
+    table.addCell(jobDesc.name)
 
     table.addCell(Cell().apply {
         add(Paragraph("Serial Number"))
         setVerticalAlignment(VerticalAlignment.TOP)
         setBackgroundColor(DeviceRgb(255, 102, 102))
     })
-    table.addCell("")
+    table.addCell(serialNumber)
     return table
 }
