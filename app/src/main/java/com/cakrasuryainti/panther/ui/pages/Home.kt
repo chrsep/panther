@@ -1,6 +1,5 @@
 package com.cakrasuryainti.panther.ui.pages
 
-import android.util.Log
 import androidx.compose.foundation.Text
 import androidx.compose.material.Button
 import androidx.compose.runtime.Composable
