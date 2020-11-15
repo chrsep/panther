@@ -41,6 +41,8 @@ data class PanelReport(
     val Lingkungan: Status,
     val Penerangan: Status,
     val FanRuangan: Status,
+
+    val Notes: String
 )
 
 enum class JobDesc {

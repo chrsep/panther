@@ -5,6 +5,7 @@ import com.itextpdf.kernel.geom.PageSize
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.layout.Document
+import com.itextpdf.layout.element.AreaBreak
 import com.itextpdf.layout.element.Cell
 import com.itextpdf.layout.element.Paragraph
 import com.itextpdf.layout.element.Table
@@ -18,6 +19,7 @@ import java.time.format.DateTimeFormatter
 
 val RED = DeviceRgb(255, 26, 26)
 val GREEN = DeviceRgb(17, 255, 0)
+val BLUE = DeviceRgb(57, 210, 255)
 
 fun generatePanelReport(report: PanelReport, outputPath: String) {
     val writer = PdfWriter(FileOutputStream(outputPath))
@@ -45,149 +47,23 @@ fun generatePanelReport(report: PanelReport, outputPath: String) {
             )
         document.add(metaTable)
 
-        val table = Table(floatArrayOf(55f, 55f, 55f, 50f, 50f, 50f, 45f, 45f, 45f, 50f, 50f, 50f))
-        // ====================== NEW LINE ===============================================
-        table.addCell(
-            Cell(1, 3)
-                .add(Paragraph("PARAMETER").center())
-                .setBackgroundColor(RED)
-                .alignMiddle()
-        )
-        table.addCell(
-            Cell(1, 3)
-                .add(Paragraph("PEMBACAAN").center())
-                .setBackgroundColor(RED)
-                .alignMiddle()
-        )
-        table.addCell(
-            Cell(1, 3)
-                .add(Paragraph("PARAMETER NORMAL").center())
-                .setBackgroundColor(RED)
-                .alignMiddle()
-        )
-        table.addCell(
-            Cell(1, 3)
-                .add(Paragraph("KETERANGAN").center())
-                .setBackgroundColor(RED)
-                .alignMiddle()
-        )
 
-        // ====================== NEW LINE ===============================================
-        table.addCell(
-            Cell(1, 3)
-                .setBackgroundColor(GREEN)
-                .add(smallParagraph("TEGANGAN PHASE TO PHASE"))
-        )
+        val mainReportTable = createMainReportTable(report)
+        document.add(mainReportTable)
 
-        table.addCell(
-            Cell(1, 3).add(smallParagraph("(VAC)").center())
-        )
+        document.add(AreaBreak())
 
+        val cleanlinessTable = createCleanlinessTable(report)
+        cleanlinessTable.setMarginBottom(16f)
+        document.add(cleanlinessTable)
 
-        table.addCell(
-            Cell(5, 3)
-                .add(
-                    Paragraph("3 × 380 V / 220 V + N\n3 × 400 V / 230 V + N\n3 × 415 V / 240 V + N")
-                        .setFontSize(10f)
-                        .center()
-                )
-                .alignMiddle()
-        )
-        table.addCell(Cell(5, 3))
+        val notesTable = createNotesTable(report)
+        notesTable.setMarginBottom(32f)
+        document.add(notesTable)
 
-        // ====================== NEW LINE ===============================================
-        table.addCell(Cell().add(smallParagraph("R - S").center()))
-        table.addCell(Cell().add(smallParagraph("S - T").center()))
-        table.addCell(Cell().add(smallParagraph("T - R").center()))
+        val signatureTable = createSignatureTable()
+        document.add(signatureTable)
 
-        table.addCell("")
-        table.addCell("")
-        table.addCell("")
-
-        // ====================== NEW LINE ===============================================
-        table.addCell(
-            Cell(1, 3)
-                .setBackgroundColor(GREEN)
-                .add(smallParagraph("TEGANGAN PHASE TO NEUTRAL"))
-        )
-        table.addCell(
-            Cell(1, 3).add(
-                smallParagraph("(VOLT)").center()
-            )
-        )
-
-        // ====================== NEW LINE ===============================================
-        table.addCell(Cell().add(smallParagraph("R - N").center()))
-        table.addCell(Cell().add(smallParagraph("S - N").center()))
-        table.addCell(Cell().add(smallParagraph("T - N").center()))
-
-        table.addCell("")
-        table.addCell("")
-        table.addCell("")
-
-        // ====================== NEW LINE ===============================================
-        table.addCell("")
-        table.addCell(Cell().add(smallParagraph("G - N").center()))
-        table.addCell("")
-
-        table.addCell("")
-        table.addCell("")
-        table.addCell("")
-
-        // ====================== NEW LINE ===============================================
-        table.addCell(
-            Cell(1, 3)
-                .setBackgroundColor(GREEN)
-                .add(smallParagraph("ARUS / CURRENT"))
-        )
-
-        table.addCell(Cell(1, 3).add(smallParagraph("(AMPERE)").center()))
-        table.addCell(Cell(1, 3))
-        table.addCell(Cell(1, 3))
-
-        // ====================== NEW LINE ===============================================
-        table.addCell(Cell().add(smallParagraph("R").center()))
-        table.addCell(Cell().add(smallParagraph("S").center()))
-        table.addCell(Cell().add(smallParagraph("T").center()))
-
-        table.addCell("")
-        table.addCell("")
-        table.addCell("")
-
-        table.addCell(Cell(1, 3))
-        table.addCell(Cell(1, 3))
-
-        // ====================== NEW LINE ===============================================
-        table.addCell(
-            Cell(1, 3)
-                .setBackgroundColor(GREEN)
-                .add(smallParagraph("FREKUENSI (HZ)"))
-        )
-        table.addCell(Cell(1, 3))
-        table.addCell(Cell(1, 3).add(smallParagraph("50.00HZ").center()))
-        table.addCell(Cell(1, 3))
-
-        // ====================== NEW LINE ===============================================
-        table.addCell(
-            Cell(1, 3)
-                .setBackgroundColor(GREEN)
-                .add(smallParagraph("POWER FACTOR (PF)"))
-        )
-        table.addCell(Cell(1, 3))
-        table.addCell(Cell(1, 3).add(smallParagraph("0,8-1,0").center()))
-        table.addCell(Cell(1, 3))
-
-        // ====================== NEW LINE ===============================================
-        table.addCell(
-            Cell(1, 3)
-                .setBackgroundColor(GREEN)
-                .add(smallParagraph("KONDISI PERANGKAT"))
-        )
-        table.addCell(Cell(1, 3))
-        table.addCell(Cell(1, 3))
-        table.addCell(Cell(1, 3))
-
-        document.add(table)
 
     } catch (ioe: IOException) {
         System.err.println(ioe)
@@ -196,17 +72,265 @@ fun generatePanelReport(report: PanelReport, outputPath: String) {
     }
 }
 
-fun smallParagraph(text: String): Paragraph {
-    return Paragraph(text).setFontSize(8f)
+fun createSignatureTable(): Table {
+    val table = Table(floatArrayOf(150f, 150f, 150f, 150f))
+    table.addCell(Cell(1, 2).add(smallParagraph("PT. CAKRA SURYA INTI").center()))
+    table.addCell(Cell(1, 2))
+    table.addCell(Cell(1, 2).setHeight(86f))
+    table.addCell(Cell(1, 2).setHeight(86f))
+    table.addCell(Cell(1, 2).add(smallParagraph("Nama:")))
+    table.addCell(Cell(1, 2).add(smallParagraph("Nama:")))
+    return table
 }
 
-fun Paragraph.center(): Paragraph {
-    return setTextAlignment(TextAlignment.CENTER)
+fun createNotesTable(report: PanelReport): Table {
+    val table = Table(floatArrayOf(150f, 150f, 150f, 150f))
+    table.addCell(
+        Cell(1, 4)
+            .add(smallParagraph("CATATAN DAN REKOMENDASI:").setMarginBottom(8f))
+            .add(smallParagraph(report.Notes))
+    ).setMinHeight(128f)
+    return table
 }
 
-fun Cell.alignMiddle(): Cell {
-    return setVerticalAlignment(VerticalAlignment.MIDDLE)
+fun createCleanlinessTable(report: PanelReport): Table {
+    val table = Table(
+        floatArrayOf(
+            27.5f,
+            27.5f,
+            27.5f,
+            27.5f,
+            27.5f,
+            27.5f,
+            50f,
+            50f,
+            50f,
+            45f,
+            45f,
+            45f,
+            50f,
+            50f,
+            50f
+        )
+    )
+    table.addCell(
+        Cell(8, 1)
+            .alignMiddle()
+            .setBackgroundColor(BLUE)
+            .add(
+                smallParagraph("KEBERSIHAN").center().setRotationAngle(1.57f)
+            )
+    )
+    addChecklistRow(table, 1, "Luar panel", report.LuarPanel)
+    addChecklistRow(table, 2, "Dalam panel", report.DalamPanel)
+    addChecklistRow(table, 3, "Jalur kabel power", report.JalurKabelPower)
+    addChecklistRow(table, 4, "Kondisi ruangan", report.KondisiRuangan)
+    addChecklistRow(table, 5, "Ruangan / Lingkungan", report.Lingkungan)
+    addChecklistRow(table, 6, "Penerangan", report.Penerangan)
+    addChecklistRow(table, 7, "Fan Ruangan", report.FanRuangan)
+    return table
 }
+
+fun createMainReportTable(report: PanelReport): Table {
+    val table = Table(
+        floatArrayOf(
+            27.5f,
+            27.5f,
+            27.5f,
+            27.5f,
+            27.5f,
+            27.5f,
+            50f,
+            50f,
+            50f,
+            45f,
+            45f,
+            45f,
+            50f,
+            50f,
+            50f
+        )
+    )
+    // ====================== NEW LINE ===============================================
+    table.addCell(
+        Cell(1, 6)
+            .add(Paragraph("PARAMETER").center())
+            .setBackgroundColor(RED)
+            .alignMiddle()
+    )
+    table.addCell(
+        Cell(1, 3)
+            .add(Paragraph("PEMBACAAN").center())
+            .setBackgroundColor(RED)
+            .alignMiddle()
+    )
+    table.addCell(
+        Cell(1, 3)
+            .add(Paragraph("PARAMETER NORMAL").center())
+            .setBackgroundColor(RED)
+            .alignMiddle()
+    )
+    table.addCell(
+        Cell(1, 3)
+            .add(Paragraph("KETERANGAN").center())
+            .setBackgroundColor(RED)
+            .alignMiddle()
+    )
+
+    // ====================== NEW LINE ===============================================
+    table.addCell(
+        Cell(1, 6)
+            .setBackgroundColor(GREEN)
+            .add(smallParagraph("TEGANGAN PHASE TO PHASE"))
+    )
+
+    table.addCell(
+        Cell(1, 3).add(smallParagraph("(VAC)").center())
+    )
+
+
+    table.addCell(
+        Cell(5, 3)
+            .add(
+                Paragraph("3 × 380 V / 220 V + N\n3 × 400 V / 230 V + N\n3 × 415 V / 240 V + N")
+                    .setFontSize(10f)
+                    .center()
+            )
+            .alignMiddle()
+    )
+    table.addCell(Cell(5, 3))
+
+    // ====================== NEW LINE ===============================================
+    table.addCell(Cell(1, 2).add(smallParagraph("R - S").center()))
+    table.addCell(Cell(1, 2).add(smallParagraph("S - T").center()))
+    table.addCell(Cell(1, 2).add(smallParagraph("T - R").center()))
+
+    table.addCell("")
+    table.addCell("")
+    table.addCell("")
+
+    // ====================== NEW LINE ===============================================
+    table.addCell(
+        Cell(1, 6)
+            .setBackgroundColor(GREEN)
+            .add(smallParagraph("TEGANGAN PHASE TO NEUTRAL"))
+    )
+    table.addCell(
+        Cell(1, 3).add(
+            smallParagraph("(VOLT)").center()
+        )
+    )
+
+    // ====================== NEW LINE ===============================================
+    table.addCell(Cell(1, 2).add(smallParagraph("R - N").center()))
+    table.addCell(Cell(1, 2).add(smallParagraph("S - N").center()))
+    table.addCell(Cell(1, 2).add(smallParagraph("T - N").center()))
+
+    table.addCell("")
+    table.addCell("")
+    table.addCell("")
+
+    // ====================== NEW LINE ===============================================
+    table.addCell(Cell(1, 2))
+    table.addCell(Cell(1, 2).add(smallParagraph("G - N").center()))
+    table.addCell(Cell(1, 2))
+
+    table.addCell("")
+    table.addCell("")
+    table.addCell("")
+
+    // ====================== NEW LINE ===============================================
+    table.addCell(
+        Cell(1, 6)
+            .setBackgroundColor(GREEN)
+            .add(smallParagraph("ARUS / CURRENT"))
+    )
+
+    table.addCell(Cell(1, 3).add(smallParagraph("(AMPERE)").center()))
+    table.addCell(Cell(1, 3))
+    table.addCell(Cell(1, 3))
+
+    // ====================== NEW LINE ===============================================
+    table.addCell(Cell(1, 2).add(smallParagraph("R").center()))
+    table.addCell(Cell(1, 2).add(smallParagraph("S").center()))
+    table.addCell(Cell(1, 2).add(smallParagraph("T").center()))
+
+    table.addCell("")
+    table.addCell("")
+    table.addCell("")
+
+    table.addCell(Cell(1, 3))
+    table.addCell(Cell(1, 3))
+
+    // ====================== NEW LINE ===============================================
+    table.addCell(
+        Cell(1, 6)
+            .setBackgroundColor(GREEN)
+            .add(smallParagraph("FREKUENSI (HZ)"))
+    )
+    table.addCell(Cell(1, 3))
+    table.addCell(Cell(1, 3).add(smallParagraph("50.00HZ").center()))
+    table.addCell(Cell(1, 3))
+
+    // ====================== NEW LINE ===============================================
+    table.addCell(
+        Cell(1, 6)
+            .setBackgroundColor(GREEN)
+            .add(smallParagraph("POWER FACTOR (PF)"))
+    )
+    table.addCell(Cell(1, 3))
+    table.addCell(Cell(1, 3).add(smallParagraph("0,8-1,0").center()))
+    table.addCell(Cell(1, 3))
+
+    // ====================== NEW LINE ===============================================
+    table.addCell(
+        Cell(1, 6)
+            .setBackgroundColor(GREEN)
+            .add(smallParagraph("KONDISI PERANGKAT"))
+    )
+    table.addCell(Cell(1, 3))
+    table.addCell(Cell(1, 3))
+    table.addCell(Cell(1, 3))
+
+    // ====================== VISUAL CHECK SECTION ================================
+    table.addCell(
+        Cell(15, 1)
+            .alignMiddle()
+            .setBackgroundColor(BLUE)
+            .add(
+                smallParagraph("PENGECEKAN VISUAL").center().setRotationAngle(1.57f)
+            )
+    )
+    addChecklistRow(table, 1, "Relay/timer control", report.Relay)
+    addChecklistRow(table, 2, "Kabel Instalasi", report.Relay)
+    addChecklistRow(table, 3, "ACB/MCCB/MCB (input)", report.MCBInput)
+    addChecklistRow(table, 4, "ACB/MCCB/MCB (output)", report.MCBOutput)
+    addChecklistRow(table, 5, "Lampu indikator panel", report.LampuIndikatorPanel)
+    addChecklistRow(table, 6, "Fuse", report.Fuse)
+    addChecklistRow(table, 7, "Terminal power", report.TerminalPower)
+    addChecklistRow(table, 8, "Amper meter", report.AmpereMeter)
+    addChecklistRow(table, 9, "Volt meter", report.VoltMeter)
+    addChecklistRow(table, 10, "Modul control status", report.ModulControlStatus)
+    addChecklistRow(table, 11, "Timer (hour counter)", report.Timer)
+    addChecklistRow(table, 12, "Push button ON", report.PushButtonOn)
+    addChecklistRow(table, 13, "Push button OFF", report.PushButtonOff)
+    addChecklistRow(table, 14, "Selector MOA", report.SelectorMOA)
+    addChecklistRow(table, 15, "Status Indikator", report.StatusIndikator)
+    return table
+}
+
+fun addChecklistRow(table: Table, rowNumber: Int, name: String, status: Status) {
+    table.addCell(
+        Cell()
+            .add(smallParagraph(rowNumber.toString()).center())
+            .alignMiddle()
+    )
+    table.addCell(Cell(1, 4).add(smallParagraph(name)))
+    table.addCell(Cell(1, 3).add(smallParagraph(status.name).center()).alignMiddle())
+    table.addCell(Cell(1, 3))
+    table.addCell(Cell(1, 3))
+}
+
 
 fun createMetaTable(
     location: String,
@@ -279,4 +403,16 @@ fun createMetaTable(
     )
     table.addCell(serialNumber)
     return table
+}
+
+fun smallParagraph(text: String): Paragraph {
+    return Paragraph(text).setFontSize(9f)
+}
+
+fun Paragraph.center(): Paragraph {
+    return setTextAlignment(TextAlignment.CENTER)
+}
+
+fun Cell.alignMiddle(): Cell {
+    return setVerticalAlignment(VerticalAlignment.MIDDLE)
 }

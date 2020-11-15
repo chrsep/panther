@@ -48,6 +48,7 @@ class HomeViewModel @ViewModelInject constructor() : ViewModel() {
                 Status.Ok,
                 Status.Ok,
                 Status.Ok,
+                "it's all good"
             ),
             outputPath,
         )

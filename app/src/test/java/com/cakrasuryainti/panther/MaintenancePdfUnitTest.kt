@@ -45,6 +45,7 @@ class MaintenancePdfUnitTest {
                 Status.Ok,
                 Status.Ok,
                 Status.Ok,
+                "It's all good."
             ),
             "test.pdf"
         )
