@@ -79,7 +79,9 @@ fun createImageTable(document: Document, images: List<ReportImage>): Table {
     val table = Table(floatArrayOf(300f, 300f))
     images.forEach { image ->
         val imageData = ImageDataFactory.create(image.file)
-        table.addCell(Cell().add(Image(imageData).setAutoScaleWidth(true)).add(Paragraph(image.note)))
+        table.addCell(
+            Cell().add(Image(imageData).setAutoScaleWidth(true)).add(Paragraph(image.note))
+        )
     }
     return table
 }
@@ -217,9 +219,9 @@ fun createMainReportTable(report: PanelReport): Table {
     table.addCell(Cell(1, 2).add(smallParagraph("S - T").center()))
     table.addCell(Cell(1, 2).add(smallParagraph("T - R").center()))
 
-    table.addCell("")
-    table.addCell("")
-    table.addCell("")
+    table.addCell(Cell().add(smallParagraph(report.teganganPhaseToPhaseRS.toString()).center()))
+    table.addCell(Cell().add(smallParagraph(report.teganganPhaseToPhaseST.toString()).center()))
+    table.addCell(Cell().add(smallParagraph(report.teganganPhaseToPhaseTR.toString()).center()))
 
     // ====================== NEW LINE ===============================================
     table.addCell(
@@ -238,9 +240,9 @@ fun createMainReportTable(report: PanelReport): Table {
     table.addCell(Cell(1, 2).add(smallParagraph("S - N").center()))
     table.addCell(Cell(1, 2).add(smallParagraph("T - N").center()))
 
-    table.addCell("")
-    table.addCell("")
-    table.addCell("")
+    table.addCell(Cell().add(smallParagraph(report.teganganPhaseToNeutralRN.toString()).center()))
+    table.addCell(Cell().add(smallParagraph(report.teganganPhaseToNeutralSN.toString()).center()))
+    table.addCell(Cell().add(smallParagraph(report.teganganPhaseToNeutralTN.toString()).center()))
 
     // ====================== NEW LINE ===============================================
     table.addCell(Cell(1, 2))
@@ -248,7 +250,7 @@ fun createMainReportTable(report: PanelReport): Table {
     table.addCell(Cell(1, 2))
 
     table.addCell("")
-    table.addCell("")
+    table.addCell(Cell().add(smallParagraph(report.teganganPhaseToNeutralGN.toString()).center()))
     table.addCell("")
 
     // ====================== NEW LINE ===============================================
@@ -267,9 +269,9 @@ fun createMainReportTable(report: PanelReport): Table {
     table.addCell(Cell(1, 2).add(smallParagraph("S").center()))
     table.addCell(Cell(1, 2).add(smallParagraph("T").center()))
 
-    table.addCell("")
-    table.addCell("")
-    table.addCell("")
+    table.addCell(Cell().add(smallParagraph(report.arusR.toString()).center()))
+    table.addCell(Cell().add(smallParagraph(report.arusS.toString()).center()))
+    table.addCell(Cell().add(smallParagraph(report.arusT.toString()).center()))
 
     table.addCell(Cell(1, 3))
     table.addCell(Cell(1, 3))
@@ -280,7 +282,7 @@ fun createMainReportTable(report: PanelReport): Table {
             .setBackgroundColor(GREEN)
             .add(smallParagraph("FREKUENSI (HZ)"))
     )
-    table.addCell(Cell(1, 3))
+    table.addCell(Cell(1, 3).add(smallParagraph(report.frekuensi.toString()).center()))
     table.addCell(Cell(1, 3).add(smallParagraph("50.00HZ").center()))
     table.addCell(Cell(1, 3))
 
@@ -290,7 +292,7 @@ fun createMainReportTable(report: PanelReport): Table {
             .setBackgroundColor(GREEN)
             .add(smallParagraph("POWER FACTOR (PF)"))
     )
-    table.addCell(Cell(1, 3))
+    table.addCell(Cell(1, 3).add(smallParagraph(report.powerFactor.toString()).center()))
     table.addCell(Cell(1, 3).add(smallParagraph("0,8-1,0").center()))
     table.addCell(Cell(1, 3))
 

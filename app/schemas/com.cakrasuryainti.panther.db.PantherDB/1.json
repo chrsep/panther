@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "8912ce7d439dbbd974dd7915d041f68e",
+    "identityHash": "03f6e73cd2b2f5b1ea4c074fe8631be3",
     "entities": [
       {
         "tableName": "PanelReport",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `pekerjaan` TEXT NOT NULL, `panelName` TEXT NOT NULL, `model` TEXT NOT NULL, `serialNumber` TEXT NOT NULL, `location` TEXT NOT NULL, `jobDesc` TEXT NOT NULL, `dateTime` TEXT NOT NULL, `relay` TEXT NOT NULL, `kabel` TEXT NOT NULL, `MCBInput` TEXT NOT NULL, `MCBOutput` TEXT NOT NULL, `lampuIndikatorPanel` TEXT NOT NULL, `fuse` TEXT NOT NULL, `terminalPower` TEXT NOT NULL, `ampereMeter` TEXT NOT NULL, `voltMeter` TEXT NOT NULL, `modulControlStatus` TEXT NOT NULL, `timer` TEXT NOT NULL, `pushButtonOn` TEXT NOT NULL, `pushButtonOff` TEXT NOT NULL, `selectorMOA` TEXT NOT NULL, `statusIndikator` TEXT NOT NULL, `luarPanel` TEXT NOT NULL, `dalamPanel` TEXT NOT NULL, `jalurKabelPower` TEXT NOT NULL, `kondisiRuangan` TEXT NOT NULL, `lingkungan` TEXT NOT NULL, `penerangan` TEXT NOT NULL, `fanRuangan` TEXT NOT NULL, `notesAndRecommendation` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `pekerjaan` TEXT NOT NULL, `panelName` TEXT NOT NULL, `model` TEXT NOT NULL, `serialNumber` TEXT NOT NULL, `location` TEXT NOT NULL, `jobDesc` TEXT NOT NULL, `dateTime` TEXT NOT NULL, `teganganPhaseToPhaseRS` REAL NOT NULL, `teganganPhaseToPhaseST` REAL NOT NULL, `teganganPhaseToPhaseTR` REAL NOT NULL, `teganganPhaseToNeutralRN` REAL NOT NULL, `teganganPhaseToNeutralSN` REAL NOT NULL, `teganganPhaseToNeutralTN` REAL NOT NULL, `teganganPhaseToNeutralGN` REAL NOT NULL, `arusR` REAL NOT NULL, `arusS` REAL NOT NULL, `arusT` REAL NOT NULL, `frekuensi` REAL NOT NULL, `powerFactor` REAL NOT NULL, `relay` TEXT NOT NULL, `kabel` TEXT NOT NULL, `MCBInput` TEXT NOT NULL, `MCBOutput` TEXT NOT NULL, `lampuIndikatorPanel` TEXT NOT NULL, `fuse` TEXT NOT NULL, `terminalPower` TEXT NOT NULL, `ampereMeter` TEXT NOT NULL, `voltMeter` TEXT NOT NULL, `modulControlStatus` TEXT NOT NULL, `timer` TEXT NOT NULL, `pushButtonOn` TEXT NOT NULL, `pushButtonOff` TEXT NOT NULL, `selectorMOA` TEXT NOT NULL, `statusIndikator` TEXT NOT NULL, `luarPanel` TEXT NOT NULL, `dalamPanel` TEXT NOT NULL, `jalurKabelPower` TEXT NOT NULL, `kondisiRuangan` TEXT NOT NULL, `lingkungan` TEXT NOT NULL, `penerangan` TEXT NOT NULL, `fanRuangan` TEXT NOT NULL, `notesAndRecommendation` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -54,6 +54,78 @@
             "fieldPath": "dateTime",
             "columnName": "dateTime",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "teganganPhaseToPhaseRS",
+            "columnName": "teganganPhaseToPhaseRS",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "teganganPhaseToPhaseST",
+            "columnName": "teganganPhaseToPhaseST",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "teganganPhaseToPhaseTR",
+            "columnName": "teganganPhaseToPhaseTR",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "teganganPhaseToNeutralRN",
+            "columnName": "teganganPhaseToNeutralRN",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "teganganPhaseToNeutralSN",
+            "columnName": "teganganPhaseToNeutralSN",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "teganganPhaseToNeutralTN",
+            "columnName": "teganganPhaseToNeutralTN",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "teganganPhaseToNeutralGN",
+            "columnName": "teganganPhaseToNeutralGN",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "arusR",
+            "columnName": "arusR",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "arusS",
+            "columnName": "arusS",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "arusT",
+            "columnName": "arusT",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "frekuensi",
+            "columnName": "frekuensi",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "powerFactor",
+            "columnName": "powerFactor",
+            "affinity": "REAL",
             "notNull": true
           },
           {
@@ -246,7 +318,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8912ce7d439dbbd974dd7915d041f68e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '03f6e73cd2b2f5b1ea4c074fe8631be3')"
     ]
   }
 }

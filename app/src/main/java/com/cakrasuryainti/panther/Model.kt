@@ -31,7 +31,7 @@ data class PanelReport(
     val arusS: Float,
     val arusT: Float,
 
-    val frekuens: Float,
+    val frekuensi: Float,
     val powerFactor: Float,
 
     // visual checks
