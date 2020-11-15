@@ -21,7 +21,7 @@ class MaintenancePdfUnitTest {
                 "test",
                 "test",
                 "test",
-                JobDesc.Maintenance,
+                JobDesc.Repair,
                 Instant.now(),
                 Status.Ok,
                 Status.Ok,
