@@ -1,14 +1,16 @@
 package com.cakrasuryainti.panther
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.Relation
 import java.time.Instant
 
 @Entity
 data class PanelReport(
     @PrimaryKey
     val id: String,
-    val work: String,
+    val pekerjaan: String,
     val panelName: String,
     val model: String,
     val serialNumber: String,
@@ -17,32 +19,32 @@ data class PanelReport(
     val dateTime: Instant,
 
     // visual checks
-    val Relay: Status,
-    val Kabel: Status,
+    val relay: Status,
+    val kabel: Status,
     val MCBInput: Status,
     val MCBOutput: Status,
-    val LampuIndikatorPanel: Status,
-    val Fuse: Status,
-    val TerminalPower: Status,
-    val AmpereMeter: Status,
-    val VoltMeter: Status,
-    val ModulControlStatus: Status,
-    val Timer: Status,
-    val PushButtonOn: Status,
-    val PushButtonOff: Status,
-    val SelectorMOA: Status,
-    val StatusIndikator: Status,
+    val lampuIndikatorPanel: Status,
+    val fuse: Status,
+    val terminalPower: Status,
+    val ampereMeter: Status,
+    val voltMeter: Status,
+    val modulControlStatus: Status,
+    val timer: Status,
+    val pushButtonOn: Status,
+    val pushButtonOff: Status,
+    val selectorMOA: Status,
+    val statusIndikator: Status,
 
     // Kebersihan
-    val LuarPanel: Status,
-    val DalamPanel: Status,
-    val JalurKabelPower: Status,
-    val KondisiRuangan: Status,
-    val Lingkungan: Status,
-    val Penerangan: Status,
-    val FanRuangan: Status,
+    val luarPanel: Status,
+    val dalamPanel: Status,
+    val jalurKabelPower: Status,
+    val kondisiRuangan: Status,
+    val lingkungan: Status,
+    val penerangan: Status,
+    val fanRuangan: Status,
 
-    val Notes: String
+    val notesAndRecommendation: String,
 )
 
 enum class JobDesc {
@@ -57,10 +59,20 @@ enum class Status {
     NotAvailable,
 }
 
+data class PanelReportWithImages(
+    @Embedded val report: PanelReport,
+    @Relation(
+          parentColumn = "id",
+          entityColumn = "reportId"
+    )
+    val playlists: List<ReportImage>
+)
+
 @Entity
 data class ReportImage(
     @PrimaryKey
     val id: String,
     val file: String,
-    val note: String
+    val note: String,
+    val reportId: String
 )

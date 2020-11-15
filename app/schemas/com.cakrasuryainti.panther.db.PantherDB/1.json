@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f85a68a3b209ab11455aa26a529d63b4",
+    "identityHash": "8912ce7d439dbbd974dd7915d041f68e",
     "entities": [
       {
         "tableName": "PanelReport",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `work` TEXT NOT NULL, `panelName` TEXT NOT NULL, `model` TEXT NOT NULL, `serialNumber` TEXT NOT NULL, `location` TEXT NOT NULL, `jobDesc` TEXT NOT NULL, `dateTime` TEXT NOT NULL, `Relay` TEXT NOT NULL, `Kabel` TEXT NOT NULL, `MCBInput` TEXT NOT NULL, `MCBOutput` TEXT NOT NULL, `LampuIndikatorPanel` TEXT NOT NULL, `Fuse` TEXT NOT NULL, `TerminalPower` TEXT NOT NULL, `AmpereMeter` TEXT NOT NULL, `VoltMeter` TEXT NOT NULL, `ModulControlStatus` TEXT NOT NULL, `Timer` TEXT NOT NULL, `PushButtonOn` TEXT NOT NULL, `PushButtonOff` TEXT NOT NULL, `SelectorMOA` TEXT NOT NULL, `StatusIndikator` TEXT NOT NULL, `LuarPanel` TEXT NOT NULL, `DalamPanel` TEXT NOT NULL, `JalurKabelPower` TEXT NOT NULL, `KondisiRuangan` TEXT NOT NULL, `Lingkungan` TEXT NOT NULL, `Penerangan` TEXT NOT NULL, `FanRuangan` TEXT NOT NULL, `Notes` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `pekerjaan` TEXT NOT NULL, `panelName` TEXT NOT NULL, `model` TEXT NOT NULL, `serialNumber` TEXT NOT NULL, `location` TEXT NOT NULL, `jobDesc` TEXT NOT NULL, `dateTime` TEXT NOT NULL, `relay` TEXT NOT NULL, `kabel` TEXT NOT NULL, `MCBInput` TEXT NOT NULL, `MCBOutput` TEXT NOT NULL, `lampuIndikatorPanel` TEXT NOT NULL, `fuse` TEXT NOT NULL, `terminalPower` TEXT NOT NULL, `ampereMeter` TEXT NOT NULL, `voltMeter` TEXT NOT NULL, `modulControlStatus` TEXT NOT NULL, `timer` TEXT NOT NULL, `pushButtonOn` TEXT NOT NULL, `pushButtonOff` TEXT NOT NULL, `selectorMOA` TEXT NOT NULL, `statusIndikator` TEXT NOT NULL, `luarPanel` TEXT NOT NULL, `dalamPanel` TEXT NOT NULL, `jalurKabelPower` TEXT NOT NULL, `kondisiRuangan` TEXT NOT NULL, `lingkungan` TEXT NOT NULL, `penerangan` TEXT NOT NULL, `fanRuangan` TEXT NOT NULL, `notesAndRecommendation` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -15,8 +15,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "work",
-            "columnName": "work",
+            "fieldPath": "pekerjaan",
+            "columnName": "pekerjaan",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -57,14 +57,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "Relay",
-            "columnName": "Relay",
+            "fieldPath": "relay",
+            "columnName": "relay",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "Kabel",
-            "columnName": "Kabel",
+            "fieldPath": "kabel",
+            "columnName": "kabel",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -81,116 +81,116 @@
             "notNull": true
           },
           {
-            "fieldPath": "LampuIndikatorPanel",
-            "columnName": "LampuIndikatorPanel",
+            "fieldPath": "lampuIndikatorPanel",
+            "columnName": "lampuIndikatorPanel",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "Fuse",
-            "columnName": "Fuse",
+            "fieldPath": "fuse",
+            "columnName": "fuse",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "TerminalPower",
-            "columnName": "TerminalPower",
+            "fieldPath": "terminalPower",
+            "columnName": "terminalPower",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "AmpereMeter",
-            "columnName": "AmpereMeter",
+            "fieldPath": "ampereMeter",
+            "columnName": "ampereMeter",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "VoltMeter",
-            "columnName": "VoltMeter",
+            "fieldPath": "voltMeter",
+            "columnName": "voltMeter",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "ModulControlStatus",
-            "columnName": "ModulControlStatus",
+            "fieldPath": "modulControlStatus",
+            "columnName": "modulControlStatus",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "Timer",
-            "columnName": "Timer",
+            "fieldPath": "timer",
+            "columnName": "timer",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "PushButtonOn",
-            "columnName": "PushButtonOn",
+            "fieldPath": "pushButtonOn",
+            "columnName": "pushButtonOn",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "PushButtonOff",
-            "columnName": "PushButtonOff",
+            "fieldPath": "pushButtonOff",
+            "columnName": "pushButtonOff",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "SelectorMOA",
-            "columnName": "SelectorMOA",
+            "fieldPath": "selectorMOA",
+            "columnName": "selectorMOA",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "StatusIndikator",
-            "columnName": "StatusIndikator",
+            "fieldPath": "statusIndikator",
+            "columnName": "statusIndikator",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "LuarPanel",
-            "columnName": "LuarPanel",
+            "fieldPath": "luarPanel",
+            "columnName": "luarPanel",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "DalamPanel",
-            "columnName": "DalamPanel",
+            "fieldPath": "dalamPanel",
+            "columnName": "dalamPanel",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "JalurKabelPower",
-            "columnName": "JalurKabelPower",
+            "fieldPath": "jalurKabelPower",
+            "columnName": "jalurKabelPower",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "KondisiRuangan",
-            "columnName": "KondisiRuangan",
+            "fieldPath": "kondisiRuangan",
+            "columnName": "kondisiRuangan",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "Lingkungan",
-            "columnName": "Lingkungan",
+            "fieldPath": "lingkungan",
+            "columnName": "lingkungan",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "Penerangan",
-            "columnName": "Penerangan",
+            "fieldPath": "penerangan",
+            "columnName": "penerangan",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "FanRuangan",
-            "columnName": "FanRuangan",
+            "fieldPath": "fanRuangan",
+            "columnName": "fanRuangan",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "Notes",
-            "columnName": "Notes",
+            "fieldPath": "notesAndRecommendation",
+            "columnName": "notesAndRecommendation",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -206,7 +206,7 @@
       },
       {
         "tableName": "ReportImage",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `file` TEXT NOT NULL, `note` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `file` TEXT NOT NULL, `note` TEXT NOT NULL, `reportId` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -225,6 +225,12 @@
             "columnName": "note",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "reportId",
+            "columnName": "reportId",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -240,7 +246,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f85a68a3b209ab11455aa26a529d63b4')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8912ce7d439dbbd974dd7915d041f68e')"
     ]
   }
 }

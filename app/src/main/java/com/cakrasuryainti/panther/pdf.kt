@@ -1,5 +1,6 @@
 package com.cakrasuryainti.panther
 
+import com.itextpdf.io.image.ImageDataFactory
 import com.itextpdf.kernel.colors.DeviceRgb
 import com.itextpdf.kernel.geom.PageSize
 import com.itextpdf.kernel.pdf.PdfDocument
@@ -18,7 +19,7 @@ val RED = DeviceRgb(255, 26, 26)
 val GREEN = DeviceRgb(17, 255, 0)
 val BLUE = DeviceRgb(57, 210, 255)
 
-fun generatePanelReport(report: PanelReport, outputPath: String) {
+fun generatePanelReport(report: PanelReport, reportImages: List<ReportImage>, outputPath: String) {
     val writer = PdfWriter(FileOutputStream(outputPath))
     val pdf = PdfDocument(writer)
     val document = Document(pdf)
@@ -35,6 +36,7 @@ fun generatePanelReport(report: PanelReport, outputPath: String) {
 
         val metaTable =
             createMetaTable(
+                report.pekerjaan,
                 report.location,
                 report.panelName,
                 report.dateTime,
@@ -62,11 +64,24 @@ fun generatePanelReport(report: PanelReport, outputPath: String) {
         document.add(signatureTable)
 
         document.add(AreaBreak())
+
+        val imageTable = createImageTable(document, reportImages)
+        document.add(imageTable)
+
     } catch (ioe: IOException) {
         System.err.println(ioe)
     } finally {
         document.close()
     }
+}
+
+fun createImageTable(document: Document, images: List<ReportImage>): Table {
+    val table = Table(floatArrayOf(300f, 300f))
+    images.forEach { image ->
+        val imageData = ImageDataFactory.create(image.file)
+        table.addCell(Cell().add(Image(imageData).setAutoScaleWidth(true)).add(Paragraph(image.note)))
+    }
+    return table
 }
 
 fun createSignatureTable(): Table {
@@ -85,7 +100,7 @@ fun createNotesTable(report: PanelReport): Table {
     table.addCell(
         Cell(1, 4)
             .add(smallParagraph("CATATAN DAN REKOMENDASI:").setMarginBottom(8f))
-            .add(smallParagraph(report.Notes))
+            .add(smallParagraph(report.notesAndRecommendation))
     ).setMinHeight(128f)
     return table
 }
@@ -118,13 +133,13 @@ fun createCleanlinessTable(report: PanelReport): Table {
                 smallParagraph("KEBERSIHAN").center().setRotationAngle(1.57f)
             )
     )
-    addChecklistRow(table, 1, "Luar panel", report.LuarPanel)
-    addChecklistRow(table, 2, "Dalam panel", report.DalamPanel)
-    addChecklistRow(table, 3, "Jalur kabel power", report.JalurKabelPower)
-    addChecklistRow(table, 4, "Kondisi ruangan", report.KondisiRuangan)
-    addChecklistRow(table, 5, "Ruangan / Lingkungan", report.Lingkungan)
-    addChecklistRow(table, 6, "Penerangan", report.Penerangan)
-    addChecklistRow(table, 7, "Fan Ruangan", report.FanRuangan)
+    addChecklistRow(table, 1, "Luar panel", report.luarPanel)
+    addChecklistRow(table, 2, "Dalam panel", report.dalamPanel)
+    addChecklistRow(table, 3, "Jalur kabel power", report.jalurKabelPower)
+    addChecklistRow(table, 4, "Kondisi ruangan", report.kondisiRuangan)
+    addChecklistRow(table, 5, "Ruangan / Lingkungan", report.lingkungan)
+    addChecklistRow(table, 6, "Penerangan", report.penerangan)
+    addChecklistRow(table, 7, "Fan Ruangan", report.fanRuangan)
     return table
 }
 
@@ -298,21 +313,21 @@ fun createMainReportTable(report: PanelReport): Table {
                 smallParagraph("PENGECEKAN VISUAL").center().setRotationAngle(1.57f)
             )
     )
-    addChecklistRow(table, 1, "Relay/timer control", report.Relay)
-    addChecklistRow(table, 2, "Kabel Instalasi", report.Relay)
+    addChecklistRow(table, 1, "Relay/timer control", report.relay)
+    addChecklistRow(table, 2, "Kabel Instalasi", report.relay)
     addChecklistRow(table, 3, "ACB/MCCB/MCB (input)", report.MCBInput)
     addChecklistRow(table, 4, "ACB/MCCB/MCB (output)", report.MCBOutput)
-    addChecklistRow(table, 5, "Lampu indikator panel", report.LampuIndikatorPanel)
-    addChecklistRow(table, 6, "Fuse", report.Fuse)
-    addChecklistRow(table, 7, "Terminal power", report.TerminalPower)
-    addChecklistRow(table, 8, "Amper meter", report.AmpereMeter)
-    addChecklistRow(table, 9, "Volt meter", report.VoltMeter)
-    addChecklistRow(table, 10, "Modul control status", report.ModulControlStatus)
-    addChecklistRow(table, 11, "Timer (hour counter)", report.Timer)
-    addChecklistRow(table, 12, "Push button ON", report.PushButtonOn)
-    addChecklistRow(table, 13, "Push button OFF", report.PushButtonOff)
-    addChecklistRow(table, 14, "Selector MOA", report.SelectorMOA)
-    addChecklistRow(table, 15, "Status Indikator", report.StatusIndikator)
+    addChecklistRow(table, 5, "Lampu indikator panel", report.lampuIndikatorPanel)
+    addChecklistRow(table, 6, "Fuse", report.fuse)
+    addChecklistRow(table, 7, "Terminal power", report.terminalPower)
+    addChecklistRow(table, 8, "Amper meter", report.ampereMeter)
+    addChecklistRow(table, 9, "Volt meter", report.voltMeter)
+    addChecklistRow(table, 10, "Modul control status", report.modulControlStatus)
+    addChecklistRow(table, 11, "Timer (hour counter)", report.timer)
+    addChecklistRow(table, 12, "Push button ON", report.pushButtonOn)
+    addChecklistRow(table, 13, "Push button OFF", report.pushButtonOff)
+    addChecklistRow(table, 14, "Selector MOA", report.selectorMOA)
+    addChecklistRow(table, 15, "Status Indikator", report.statusIndikator)
     return table
 }
 
@@ -330,6 +345,7 @@ fun addChecklistRow(table: Table, rowNumber: Int, name: String, status: Status) 
 
 
 fun createMetaTable(
+    pekerjaan: String,
     location: String,
     panelName: String,
     date: Instant,
@@ -337,7 +353,7 @@ fun createMetaTable(
     jobDesc: JobDesc,
     serialNumber: String
 ): Table {
-    val table = Table(floatArrayOf(150f, 150f, 150f, 150f))
+    val table = Table(floatArrayOf(110f, 150f, 150f, 150f))
     table.setMarginBottom(16f)
 
     // Customer
@@ -346,7 +362,7 @@ fun createMetaTable(
             .add(Paragraph("CUSTOMER"))
             .setBackgroundColor(RED)
     )
-    table.addCell("")
+    table.addCell(pekerjaan)
     table.addCell(
         Cell()
             .add(Paragraph("LOCATION"))

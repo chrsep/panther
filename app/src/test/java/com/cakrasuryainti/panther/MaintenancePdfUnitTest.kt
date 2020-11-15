@@ -13,6 +13,86 @@ import java.util.*
 class MaintenancePdfUnitTest {
     @Test
     fun can_generate_panel_pdf() {
+        val mockImages = listOf(
+            ReportImage(
+                UUID.randomUUID().toString(),
+                "test-image-2.jpg",
+                "Deskripsi tentang gambar 1",
+                ""
+            ),
+            ReportImage(
+                UUID.randomUUID().toString(),
+                "test-image-3.jpg",
+                "Deskripsi tentang gambar 2",
+                ""
+            ),
+            ReportImage(
+                UUID.randomUUID().toString(),
+                "test-image.jpg",
+                "Deskripsi tentang gambar 3",
+                ""
+            ),
+            ReportImage(
+                UUID.randomUUID().toString(),
+                "test-image-2.jpg",
+                "Deskripsi tentang gambar 4",
+                ""
+            ),
+            ReportImage(
+                UUID.randomUUID().toString(),
+                "test-image-3.jpg",
+                "Deskripsi tentang gambar 5",
+                ""
+            ),
+            ReportImage(
+                UUID.randomUUID().toString(),
+                "test-image-2.jpg",
+                "Deskripsi tentang gambar 6",
+                ""
+            ),
+            ReportImage(
+                UUID.randomUUID().toString(),
+                "test-image-3.jpg",
+                "Deskripsi tentang gambar 7",
+                ""
+            ),
+            ReportImage(
+                UUID.randomUUID().toString(),
+                "test-image-3.jpg",
+                "Deskripsi tentang gambar 8",
+                ""
+            ),
+            ReportImage(
+                UUID.randomUUID().toString(),
+                "test-image.jpg",
+                "Deskripsi tentang gambar 9",
+                ""
+            ),
+            ReportImage(
+                UUID.randomUUID().toString(),
+                "test-image.jpg",
+                "Deskripsi tentang gambar 10",
+                ""
+            ),
+            ReportImage(
+                UUID.randomUUID().toString(),
+                "test-image.jpg",
+                "Deskripsi tentang gambar 11",
+                ""
+            ),
+            ReportImage(
+                UUID.randomUUID().toString(),
+                "test-image-2.jpg",
+                "Deskripsi tentang gambar 12",
+                ""
+            ),
+            ReportImage(
+                UUID.randomUUID().toString(),
+                "test-image-2.jpg",
+                "Deskripsi tentang gambar 13",
+                ""
+            )
+        )
         generatePanelReport(
             PanelReport(
                 UUID.randomUUID().toString(),
@@ -47,6 +127,7 @@ class MaintenancePdfUnitTest {
                 Status.Ok,
                 "It's all good."
             ),
+            mockImages,
             "test.pdf"
         )
     }
