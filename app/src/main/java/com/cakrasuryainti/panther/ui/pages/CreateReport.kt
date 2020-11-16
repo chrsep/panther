@@ -11,16 +11,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 
 @Composable
-fun Home(navController: NavHostController) {
+fun CreateReport(navController: NavHostController) {
     Column {
-        Button(onClick = { navController.navigate("create") }, Modifier.padding(16.dp)) {
-            Text(text = "Create Report")
+        Button(onClick = { navController.navigate("create/panel") }, Modifier.padding(16.dp)) {
+            Text(text = "Panel Maintenance ")
         }
-        Button(onClick = { navController.navigate("saved") }, Modifier.padding(16.dp)) {
-            Text(text = "Saved Report")
-        }
-        Button(onClick = { navController.navigate("help") }, Modifier.padding(16.dp)) {
-            Text(text = "Saved Report")
+        Button(onClick = { navController.navigate("create/genset") }, Modifier.padding(16.dp)) {
+            Text(text = "Genset Maintenance")
         }
     }
 }
