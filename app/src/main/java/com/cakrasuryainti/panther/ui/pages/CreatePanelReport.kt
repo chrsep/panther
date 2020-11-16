@@ -1,5 +1,6 @@
 package com.cakrasuryainti.panther.ui.pages
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavHostController
 import androidx.ui.tooling.preview.Preview
 import com.cakrasuryainti.panther.JobDesc
@@ -48,18 +48,7 @@ fun MetaForm(onNavigateBack: () -> Unit, onNext: () -> Unit) {
         })
     {
         Column {
-            Text("Job Desc", modifier = Modifier.padding(start = 8.dp, top = 8.dp))
-            Row {
-                JobDesc.values().forEach {
-                    AndroidView(
-                        modifier = Modifier.padding(start = 8.dp),
-                        viewBlock = { context -> Chip(context) }
-                    ) { chip ->
-                        chip.isChecked = true
-                        chip.text = it.name
-                    }
-                }
-            }
+
             TextField(
                 value = "",
                 onValueChange = {},
@@ -90,9 +79,23 @@ fun MetaForm(onNavigateBack: () -> Unit, onNext: () -> Unit) {
                 label = { Text("Lokasi") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp)
             )
-            Dialog(onDismissRequest = {}) {
-                Text(text = "test")
+            Text("Job Desc", modifier = Modifier.padding(start = 8.dp, top = 8.dp))
+            Row {
+                JobDesc.values().forEach {
+                    AndroidView(
+                        modifier = Modifier.padding(start = 8.dp),
+                        viewBlock = { context -> Chip(context) }
+                    ) { chip ->
+                        chip.isEnabled = true
+                        chip.isCheckable = true
+                        chip.text = it.name
+                        chip.setOnClickListener {
+                            chip.isChecked = true
+                        }
+                    }
+                }
             }
+            // TODO: Create date selector
         }
     }
 }
