@@ -10,35 +10,34 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.compose.ui.viewinterop.viewModel
-import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import androidx.ui.tooling.preview.Preview
-import com.cakrasuryainti.panther.db.PanelReportDao
 import com.cakrasuryainti.panther.db.model.JobDesc
+import com.cakrasuryainti.panther.db.model.PanelReport
+import com.cakrasuryainti.panther.ui.RootViewModel
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
 import com.google.android.material.chip.Chip
 
-class PanelReportMetaFormViewModel @ViewModelInject constructor(dao: PanelReportDao) : ViewModel() {
-
-}
 
 @Composable
-fun PanelReportMetaForm(navController: NavHostController) {
+fun PanelReportMetaForm(navController: NavHostController, viewModel: RootViewModel) {
+    val report by viewModel.currentPanelReport.collectAsState(null)
     MetaForm(
         onNavigateBack = { navController.popBackStack() },
-        onNext = { navController.navigate("create/panel/checks") }
+        onNext = { navController.navigate("create/panel/checks") },
+        report = report
     )
 }
 
 @Composable
-fun MetaForm(onNavigateBack: () -> Unit, onNext: () -> Unit) {
+fun MetaForm(onNavigateBack: () -> Unit, onNext: () -> Unit, report: PanelReport?) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -133,6 +132,6 @@ fun MetaForm(onNavigateBack: () -> Unit, onNext: () -> Unit) {
 @Composable
 fun FormPreview() {
     PantherTheme {
-        MetaForm(onNavigateBack = {}, onNext = {})
+        MetaForm(onNavigateBack = {}, onNext = {}, report = PanelReport(""))
     }
 }
