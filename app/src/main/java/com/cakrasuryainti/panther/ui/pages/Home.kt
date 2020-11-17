@@ -1,26 +1,49 @@
 package com.cakrasuryainti.panther.ui.pages
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
+import androidx.navigation.compose.rememberNavController
+import androidx.ui.tooling.preview.Preview
 
 @Composable
 fun Home(navController: NavHostController) {
-    Column {
-        Button(onClick = { navController.navigate("create") }, Modifier.padding(16.dp)) {
-            Text(text = "Create Report")
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "Report Creator") },
+            )
         }
-        Button(onClick = { navController.navigate("saved") }, Modifier.padding(16.dp)) {
-            Text(text = "Saved Report")
-        }
-        Button(onClick = { navController.navigate("help") }, Modifier.padding(16.dp)) {
-            Text(text = "Saved Report")
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxWidth().fillMaxHeight()
+        ) {
+            Button(
+                onClick = { navController.navigate("create") },
+                Modifier.padding(bottom = 8.dp)
+            ) {
+                Text(text = "Create Report")
+            }
+            OutlinedButton(onClick = { navController.navigate("saved") }, Modifier.padding(8.dp)) {
+                Text(text = "Saved Report")
+            }
+            OutlinedButton(onClick = { navController.navigate("help") }, Modifier.padding(8.dp)) {
+                Text(text = "Help")
+            }
         }
     }
+}
+
+@Composable
+@Preview
+fun HomePreview() {
+    val navController = rememberNavController()
+    Home(navController)
 }
