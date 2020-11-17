@@ -1,8 +1,12 @@
 package com.cakrasuryainti.panther
 
+import com.cakrasuryainti.panther.domain.JobDesc
+import com.cakrasuryainti.panther.domain.PanelReport
+import com.cakrasuryainti.panther.domain.ReportImage
+import com.cakrasuryainti.panther.domain.Status
+import com.cakrasuryainti.panther.domain.generatePanelReport
 import org.junit.Test
 import java.time.Instant
-import java.time.ZonedDateTime
 import java.util.*
 
 /**
@@ -137,7 +141,8 @@ class MaintenancePdfUnitTest {
                 Status.Ok,
                 Status.Ok,
                 Status.Ok,
-                "It's all good."
+                "It's all good.",
+                true
             ),
             mockImages,
             "test.pdf"

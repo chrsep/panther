@@ -1,4 +1,4 @@
-package com.cakrasuryainti.panther
+package com.cakrasuryainti.panther.domain
 
 import androidx.room.Embedded
 import androidx.room.Entity
@@ -61,6 +61,8 @@ data class PanelReport(
     val fanRuangan: Status,
 
     val notesAndRecommendation: String,
+
+    val finished: Boolean
 )
 
 enum class JobDesc {

@@ -4,10 +4,10 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import com.cakrasuryainti.panther.JobDesc
-import com.cakrasuryainti.panther.PanelReport
-import com.cakrasuryainti.panther.ReportImage
-import com.cakrasuryainti.panther.Status
+import com.cakrasuryainti.panther.domain.JobDesc
+import com.cakrasuryainti.panther.domain.PanelReport
+import com.cakrasuryainti.panther.domain.ReportImage
+import com.cakrasuryainti.panther.domain.Status
 import java.time.Instant
 
 @Database(entities = [PanelReport::class, ReportImage::class], version = 1)

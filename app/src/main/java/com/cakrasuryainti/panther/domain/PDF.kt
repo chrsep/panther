@@ -1,4 +1,4 @@
-package com.cakrasuryainti.panther
+package com.cakrasuryainti.panther.domain
 
 import com.itextpdf.io.image.ImageDataFactory
 import com.itextpdf.kernel.colors.DeviceRgb

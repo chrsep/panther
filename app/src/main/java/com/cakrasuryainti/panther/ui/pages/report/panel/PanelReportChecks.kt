@@ -1,4 +1,4 @@
-package com.cakrasuryainti.panther.ui.pages
+package com.cakrasuryainti.panther.ui.pages.report.panel
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
@@ -16,21 +16,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
-import androidx.ui.tooling.preview.Preview
-import com.cakrasuryainti.panther.JobDesc
-import com.cakrasuryainti.panther.ui.theme.PantherTheme
+import com.cakrasuryainti.panther.domain.JobDesc
 import com.google.android.material.chip.Chip
 
 @Composable
-fun CreatePanelReport(navController: NavHostController) {
-    MetaForm(
-        onNavigateBack = { navController.popBackStack() },
-        onNext = { navController.navigate("create/panel/checks") }
-    )
+fun PanelReportChecklistForm(navController: NavHostController) {
+    PanelChecklistForm(
+        onNavigateBack = { navController.popBackStack() }
+    ) { navController.navigate("create/panel/checks") }
 }
 
 @Composable
-fun MetaForm(onNavigateBack: () -> Unit, onNext: () -> Unit) {
+fun PanelChecklistForm(onNavigateBack: () -> Boolean, onNext: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -119,13 +116,5 @@ fun MetaForm(onNavigateBack: () -> Unit, onNext: () -> Unit) {
                 }
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun FormPreview() {
-    PantherTheme {
-        MetaForm(onNavigateBack = {}, onNext = {})
     }
 }
