@@ -61,31 +61,31 @@ fun MetaForm(onNavigateBack: () -> Unit, onNext: () -> Unit, report: PanelReport
     {
         Column {
             TextField(
-                value = "",
+                value = report?.pekerjaan ?: "",
                 onValueChange = {},
                 label = { Text("Pekerjaan") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp)
             )
             TextField(
-                value = "",
+                value = report?.panelName ?: "",
                 onValueChange = {},
                 label = { Text("Panel") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp)
             )
             TextField(
-                value = "",
+                value = report?.model ?: "",
                 onValueChange = {},
                 label = { Text("Type / Model") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp)
             )
             TextField(
-                value = "",
+                value = report?.serialNumber ?: "",
                 onValueChange = {},
                 label = { Text("Serial Number") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp)
             )
             TextField(
-                value = "",
+                value = report?.location ?: "",
                 onValueChange = {},
                 label = { Text("Lokasi") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp)
@@ -116,7 +116,7 @@ fun MetaForm(onNavigateBack: () -> Unit, onNext: () -> Unit, report: PanelReport
                                     }
                                 }
                             ) { chip ->
-                                chip.isEnabled = true
+                                chip.isEnabled = it == report?.jobDesc ?: false
                                 chip.isCheckable = true
                                 chip.text = it.name
                             }
