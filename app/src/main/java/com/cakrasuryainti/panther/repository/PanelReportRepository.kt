@@ -19,9 +19,13 @@ class PanelReportRepository @Inject constructor(private val dao: PanelReportDao)
         }
     }
 
+    suspend fun updateReport(report: PanelReport) {
+        dao.updateReports(report)
+    }
+
 
     private suspend fun createNewEmptyReport() {
         val emptyReport = PanelReport(UUID.randomUUID().toString())
-        dao.insertPanelReport(emptyReport)
+        dao.insertPanelReports(emptyReport)
     }
 }
