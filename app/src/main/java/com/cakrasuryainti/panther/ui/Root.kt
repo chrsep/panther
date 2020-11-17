@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.cakrasuryainti.panther.ui.pages.Home
 import com.cakrasuryainti.panther.ui.pages.report.CreateReport
-import com.cakrasuryainti.panther.ui.pages.report.panel.PanelReportChecklistForm
+import com.cakrasuryainti.panther.ui.pages.report.panel.PanelMeasurementForm
 import com.cakrasuryainti.panther.ui.pages.report.panel.PanelReportMetaForm
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
 
@@ -23,7 +23,7 @@ fun Root() {
             composable("home") { Home(navController) }
             composable("create") { CreateReport(navController) }
             composable("create/panel") { PanelReportMetaForm(navController, viewModel) }
-            composable("create/panel/checks") { PanelReportChecklistForm(navController) }
+            composable("create/panel/measurements") { PanelMeasurementForm(navController) }
         }
     }
 }

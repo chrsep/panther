@@ -37,7 +37,7 @@ fun PanelReportMetaForm(
 
     MetaForm(
         onNavigateBack = { navController.popBackStack() },
-        onNext = { navController.navigate("create/panel/checks") },
+        onNext = { navController.navigate("create/panel/measurements") },
         report = report,
         updateReport = {
             viewModel.updateReport(it)

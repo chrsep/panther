@@ -20,14 +20,14 @@ import com.cakrasuryainti.panther.db.model.JobDesc
 import com.google.android.material.chip.Chip
 
 @Composable
-fun PanelReportChecklistForm(navController: NavHostController) {
-    PanelChecklistForm(
+fun PanelMeasurementForm(navController: NavHostController) {
+    MeasurementForm(
         onNavigateBack = { navController.popBackStack() }
     ) { navController.navigate("create/panel/checks") }
 }
 
 @Composable
-fun PanelChecklistForm(onNavigateBack: () -> Boolean, onNext: () -> Unit) {
+fun MeasurementForm(onNavigateBack: () -> Boolean, onNext: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
