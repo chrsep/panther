@@ -36,13 +36,13 @@ fun CreateReport(navController: NavHostController) {
                 onClick = { navController.navigate("create/panel") },
                 Modifier.padding(bottom = 8.dp)
             ) {
-                Text(text = "Panel Maintenance ")
+                Text(text = "Panel")
             }
             Button(
                 onClick = { navController.navigate("create/genset") },
                 Modifier.padding(bottom = 16.dp)
             ) {
-                Text(text = "Genset Maintenance")
+                Text(text = "Genset")
             }
         }
     }

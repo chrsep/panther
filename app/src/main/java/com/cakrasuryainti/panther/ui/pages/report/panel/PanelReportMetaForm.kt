@@ -15,6 +15,9 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.accessibilityLabel
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -140,7 +143,10 @@ fun MetaForm(
                     updateState(report?.copy(pekerjaan = it))
                 },
                 label = { Text("Pekerjaan") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+                    .semantics { accessibilityLabel = "pekerjaan" },
                 isErrorValue = isDirty && report?.pekerjaan == "",
             )
             OutlinedTextField(
