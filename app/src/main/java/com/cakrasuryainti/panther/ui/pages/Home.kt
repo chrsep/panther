@@ -16,7 +16,7 @@ fun Home(navController: NavHostController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Report Creator") },
+                title = { Text(text = "Laporan Main Tenis") },
             )
         }
     ) {
