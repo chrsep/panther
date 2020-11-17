@@ -2,6 +2,7 @@ package com.cakrasuryainti.panther.di
 
 import android.app.Application
 import androidx.room.Room
+import com.cakrasuryainti.panther.db.PanelReportDao
 import com.cakrasuryainti.panther.db.PantherDB
 import dagger.Module
 import dagger.Provides
@@ -19,4 +20,7 @@ class DatabaseModule {
         .databaseBuilder(app, PantherDB::class.java, "caniuse.db")
         .fallbackToDestructiveMigration()
         .build()
+
+    @Provides
+    fun providePanelReportDao(db: PantherDB): PanelReportDao = db.panelReportDao()
 }

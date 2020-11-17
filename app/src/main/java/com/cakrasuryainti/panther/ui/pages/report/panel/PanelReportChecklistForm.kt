@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
-import com.cakrasuryainti.panther.domain.JobDesc
+import com.cakrasuryainti.panther.db.model.JobDesc
 import com.google.android.material.chip.Chip
 
 @Composable

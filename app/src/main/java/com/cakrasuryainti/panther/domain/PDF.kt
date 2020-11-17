@@ -1,5 +1,9 @@
 package com.cakrasuryainti.panther.domain
 
+import com.cakrasuryainti.panther.db.model.JobDesc
+import com.cakrasuryainti.panther.db.model.PanelReport
+import com.cakrasuryainti.panther.db.model.ReportImage
+import com.cakrasuryainti.panther.db.model.Status
 import com.itextpdf.io.image.ImageDataFactory
 import com.itextpdf.kernel.colors.DeviceRgb
 import com.itextpdf.kernel.geom.PageSize

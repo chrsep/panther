@@ -14,12 +14,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.compose.ui.viewinterop.viewModel
+import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import androidx.ui.tooling.preview.Preview
-import com.cakrasuryainti.panther.domain.JobDesc
+import com.cakrasuryainti.panther.db.PanelReportDao
+import com.cakrasuryainti.panther.db.model.JobDesc
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
 import com.google.android.material.chip.Chip
+
+class PanelReportMetaFormViewModel @ViewModelInject constructor(dao: PanelReportDao) : ViewModel() {
+
+}
 
 @Composable
 fun PanelReportMetaForm(navController: NavHostController) {
@@ -112,7 +120,6 @@ fun MetaForm(onNavigateBack: () -> Unit, onNext: () -> Unit) {
                                 chip.isEnabled = true
                                 chip.isCheckable = true
                                 chip.text = it.name
-
                             }
                         }
                     }
