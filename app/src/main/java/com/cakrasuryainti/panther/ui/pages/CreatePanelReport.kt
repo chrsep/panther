@@ -1,10 +1,11 @@
 package com.cakrasuryainti.panther.ui.pages
 
-import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -14,11 +15,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.navigate
 import androidx.ui.tooling.preview.Preview
 import com.cakrasuryainti.panther.JobDesc
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
 import com.google.android.material.chip.Chip
-import androidx.navigation.compose.navigate
 
 @Composable
 fun CreatePanelReport(navController: NavHostController) {
@@ -41,14 +42,17 @@ fun MetaForm(onNavigateBack: () -> Unit, onNext: () -> Unit) {
                 },
                 actions = {
                     TextButton(onClick = { onNext() }) {
-                        Text("Next", color = Color.White)
+                        Text(
+                            "Next",
+                            color = Color.White,
+                            style = MaterialTheme.typography.button
+                        )
                     }
                 }
             )
         })
     {
         Column {
-
             TextField(
                 value = "",
                 onValueChange = {},
@@ -79,23 +83,41 @@ fun MetaForm(onNavigateBack: () -> Unit, onNext: () -> Unit) {
                 label = { Text("Lokasi") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp)
             )
-            Text("Job Desc", modifier = Modifier.padding(start = 8.dp, top = 8.dp))
-            Row {
-                JobDesc.values().forEach {
-                    AndroidView(
-                        modifier = Modifier.padding(start = 8.dp),
-                        viewBlock = { context -> Chip(context) }
-                    ) { chip ->
-                        chip.isEnabled = true
-                        chip.isCheckable = true
-                        chip.text = it.name
-                        chip.setOnClickListener {
-                            chip.isChecked = true
+
+            Surface(
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                border = BorderStroke(1.dp, Color.LightGray),
+                shape = RoundedCornerShape(8.dp)
+            ) {
+                Column(
+                    modifier = Modifier.padding(8.dp)
+                ) {
+                    Text(
+                        "Job Description",
+                        modifier = Modifier.padding(start = 8.dp, top = 8.dp),
+                        style = MaterialTheme.typography.body2
+                    )
+                    Row {
+                        JobDesc.values().forEach {
+                            AndroidView(
+                                modifier = Modifier.padding(start = 8.dp),
+                                viewBlock = { context ->
+                                    Chip(context).apply {
+                                        setOnClickListener {
+
+                                        }
+                                    }
+                                }
+                            ) { chip ->
+                                chip.isEnabled = true
+                                chip.isCheckable = true
+                                chip.text = it.name
+
+                            }
                         }
                     }
                 }
             }
-            // TODO: Create date selector
         }
     }
 }
