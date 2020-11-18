@@ -1,5 +1,6 @@
 package com.cakrasuryainti.panther.ui
 
+import androidx.compose.foundation.layout.ExperimentalLayout
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.viewinterop.viewModel
 import androidx.navigation.compose.NavHost
@@ -14,6 +15,7 @@ import com.cakrasuryainti.panther.ui.pages.report.panel.PanelReportMetaForm
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
 
 
+@ExperimentalLayout
 @Composable
 fun Root() {
     val navController = rememberNavController()
@@ -24,9 +26,9 @@ fun Root() {
             composable("home") { Home(navController) }
             composable("create") { CreateReport(navController) }
             composable("create/panel") { PanelReportMetaForm(navController, viewModel) }
-            composable("create/panel/measurements") { PanelMeasurementForm(navController) }
-            composable("create/panel/checks") { VisualCheckForm(navController) }
-            composable("create/panel/cleanliness") { CleanlinessForm(navController) }
+            composable("create/panel/measurements") { PanelMeasurementForm(navController, viewModel) }
+            composable("create/panel/checks") { VisualCheckForm(navController, viewModel) }
+            composable("create/panel/cleanliness") { CleanlinessForm(navController, viewModel) }
         }
     }
 }

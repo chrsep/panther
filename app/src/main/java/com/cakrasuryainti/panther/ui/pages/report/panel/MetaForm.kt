@@ -1,7 +1,7 @@
 package com.cakrasuryainti.panther.ui.pages.report.panel
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -26,6 +26,7 @@ import com.cakrasuryainti.panther.ui.components.ChoiceChip
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
 
 
+@ExperimentalLayout
 @Composable
 fun PanelReportMetaForm(
     navController: NavHostController,
@@ -44,6 +45,7 @@ fun PanelReportMetaForm(
     )
 }
 
+@ExperimentalLayout
 @Composable
 fun MetaForm(
     onNavigateBack: () -> Unit,
@@ -54,7 +56,6 @@ fun MetaForm(
     var isDirty by remember { mutableStateOf(false) }
 
     fun handleNext(report: PanelReport?) {
-        Log.d("test", report?.model.toString())
         if (
             report?.pekerjaan != "" &&
             report?.panelName != "" &&
@@ -92,35 +93,7 @@ fun MetaForm(
             )
         })
     {
-        Column(modifier = Modifier.padding(8.dp)) {
-            Surface(
-                modifier = Modifier.fillMaxWidth()
-                    .padding(start = 8.dp, end = 8.dp, top = 16.dp, bottom = 8.dp),
-                border = BorderStroke(1.dp, MaterialTheme.colors.onBackground.copy(alpha = 0.4f)),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Row(
-                    modifier = Modifier.padding(8.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-
-                ) {
-                    Text(
-                        "Job Desc",
-                        modifier = Modifier.padding(start = 8.dp, top = 8.dp),
-                        style = MaterialTheme.typography.body2
-                    )
-                    Row {
-                        JobDesc.values().forEach { jobDesc ->
-                            ChoiceChip(
-                                modifier = Modifier.padding(start = 8.dp),
-                                onClick = { updateState(report?.copy(jobDesc = jobDesc)) },
-                                label = jobDesc.name,
-                                isActive = jobDesc == report?.jobDesc ?: JobDesc.Maintenance
-                            )
-                        }
-                    }
-                }
-            }
+        ScrollableColumn(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
             OutlinedTextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.pekerjaan ?: "",
@@ -177,10 +150,35 @@ fun MetaForm(
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 isErrorValue = isDirty && report?.location == ""
             )
+            Surface(
+                modifier = Modifier.fillMaxWidth()
+                    .padding(start = 8.dp, end = 8.dp, top = 16.dp, bottom = 32.dp),
+                border = BorderStroke(1.dp, MaterialTheme.colors.onBackground.copy(alpha = 0.4f)),
+                shape = RoundedCornerShape(8.dp)
+            ) {
+                Column(modifier = Modifier.padding(8.dp)) {
+                    Text(
+                        "Job Desc",
+                        modifier = Modifier.padding(start = 8.dp, top = 8.dp, bottom = 8.dp),
+                        style = MaterialTheme.typography.body2
+                    )
+                    FlowRow {
+                        JobDesc.values().forEach { jobDesc ->
+                            ChoiceChip(
+                                modifier = Modifier.padding(start = 8.dp, bottom = 8.dp),
+                                onClick = { updateState(report?.copy(jobDesc = jobDesc)) },
+                                label = jobDesc.name,
+                                isActive = jobDesc == report?.jobDesc ?: JobDesc.Maintenance
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 }
 
+@ExperimentalLayout
 @Preview
 @Composable
 fun FormPreview() {

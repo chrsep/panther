@@ -19,5 +19,5 @@ interface PanelReportDao {
     fun findReportById(id: String): Flow<PanelReport>
 
     @Update
-    suspend fun updateReports(vararg reports: PanelReport)
+    suspend fun updateReports(vararg reports: PanelReport): Int
 }

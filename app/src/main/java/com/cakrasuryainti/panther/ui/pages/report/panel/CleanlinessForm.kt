@@ -13,10 +13,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import com.cakrasuryainti.panther.db.model.Status
+import com.cakrasuryainti.panther.ui.RootViewModel
 import com.cakrasuryainti.panther.ui.components.StatusCheckField
 
 @Composable
-fun CleanlinessForm(navController: NavHostController) {
+fun CleanlinessForm(navController: NavHostController, viewModel: RootViewModel) {
     Form(
         onNavigateBack = { navController.popBackStack() },
         onNext = { navController.navigate("create/panel/photos") })

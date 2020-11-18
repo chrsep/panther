@@ -84,9 +84,10 @@ data class ReportImage(
 )
 
 enum class JobDesc {
+    Cleaning,
     Maintenance,
-    Survey,
     Repair,
+    Modification
 }
 
 enum class Status {

@@ -39,7 +39,10 @@ class RootViewModel @ViewModelInject constructor(
     fun updateReport(report: PanelReport) {
         _currentPanelReport.value = report
         viewModelScope.launch(Dispatchers.IO) {
-            repo.updateReport(report)
+            val updatedRow = repo.updateReport(report)
+            if (updatedRow == 0) {
+                repo.insertNewReport(report)
+            }
         }
     }
 }
