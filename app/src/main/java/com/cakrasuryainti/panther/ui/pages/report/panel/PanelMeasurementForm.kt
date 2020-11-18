@@ -1,11 +1,6 @@
 package com.cakrasuryainti.panther.ui.pages.report.panel
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -13,11 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
-import com.cakrasuryainti.panther.db.model.JobDesc
-import com.google.android.material.chip.Chip
+import androidx.ui.tooling.preview.Preview
 
 @Composable
 fun PanelMeasurementForm(navController: NavHostController) {
@@ -27,7 +20,7 @@ fun PanelMeasurementForm(navController: NavHostController) {
 }
 
 @Composable
-fun MeasurementForm(onNavigateBack: () -> Boolean, onNext: () -> Unit) {
+fun MeasurementForm(onNavigateBack: () -> Unit, onNext: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -49,72 +42,116 @@ fun MeasurementForm(onNavigateBack: () -> Boolean, onNext: () -> Unit) {
             )
         })
     {
-        Column {
-            TextField(
-                value = "",
-                onValueChange = {},
-                label = { Text("Pekerjaan") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp)
+        Column(modifier = Modifier.padding(16.dp)) {
+            // Tegangan P2P
+            Text(
+                "Tegangan Phase to Phase",
+                modifier = Modifier.padding(top = 8.dp),
+                style = MaterialTheme.typography.body2
             )
-            TextField(
-                value = "",
-                onValueChange = {},
-                label = { Text("Panel") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp)
-            )
-            TextField(
-                value = "",
-                onValueChange = {},
-                label = { Text("Type / Model") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp)
-            )
-            TextField(
-                value = "",
-                onValueChange = {},
-                label = { Text("Serial Number") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp)
-            )
-            TextField(
-                value = "",
-                onValueChange = {},
-                label = { Text("Lokasi") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp)
-            )
-
-            Surface(
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
-                border = BorderStroke(1.dp, Color.LightGray),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Column(
-                    modifier = Modifier.padding(8.dp)
-                ) {
-                    Text(
-                        "Job Description",
-                        modifier = Modifier.padding(start = 8.dp, top = 8.dp),
-                        style = MaterialTheme.typography.body2
-                    )
-                    Row {
-                        JobDesc.values().forEach {
-                            AndroidView(
-                                modifier = Modifier.padding(start = 8.dp),
-                                viewBlock = { context ->
-                                    Chip(context).apply {
-                                        setOnClickListener {
-
-                                        }
-                                    }
-                                }
-                            ) { chip ->
-                                chip.isEnabled = true
-                                chip.isCheckable = true
-                                chip.text = it.name
-
-                            }
-                        }
-                    }
-                }
+            Row(horizontalArrangement = Arrangement.SpaceEvenly) {
+                OutlinedTextField(
+                    label = { Text(text = "R - S") },
+                    value = "",
+                    onValueChange = {},
+                    modifier = Modifier.weight(1f).padding(end = 8.dp)
+                )
+                OutlinedTextField(
+                    label = { Text(text = "S - T") },
+                    value = "",
+                    onValueChange = {},
+                    modifier = Modifier.weight(1f).padding(end = 8.dp)
+                )
+                OutlinedTextField(
+                    label = { Text(text = "T - R") },
+                    value = "",
+                    onValueChange = {},
+                    modifier = Modifier.weight(1f).padding(bottom = 16.dp)
+                )
             }
+
+            // Tegangan P2N
+            Text(
+                "Tegangan Phase to Neutral",
+                modifier = Modifier.padding(top = 8.dp),
+                style = MaterialTheme.typography.body2
+            )
+            Row(horizontalArrangement = Arrangement.SpaceEvenly) {
+                OutlinedTextField(
+                    label = { Text(text = "R - S") },
+                    value = "",
+                    onValueChange = {},
+                    modifier = Modifier.weight(1f).padding(end = 8.dp)
+                )
+                OutlinedTextField(
+                    label = { Text(text = "S - T") },
+                    value = "",
+                    onValueChange = {},
+                    modifier = Modifier.weight(1f).padding(end = 8.dp),
+                )
+                OutlinedTextField(
+                    label = { Text(text = "T - R") },
+                    value = "",
+                    onValueChange = {},
+                    modifier = Modifier.weight(1f)
+                )
+            }
+            OutlinedTextField(
+                label = { Text(text = "G - N") },
+                value = "",
+                onValueChange = {},
+                modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
+            )
+
+            // Ampere
+            Text(
+                "Arus / Current",
+                modifier = Modifier.padding(top = 8.dp),
+                style = MaterialTheme.typography.body2
+            )
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier.padding(bottom = 16.dp)
+            ) {
+                OutlinedTextField(
+                    label = { Text(text = "R") },
+                    value = "",
+                    onValueChange = {},
+                    modifier = Modifier.weight(1f).padding(end = 8.dp)
+                )
+                OutlinedTextField(
+                    label = { Text(text = "S") },
+                    value = "",
+                    onValueChange = {},
+                    modifier = Modifier.weight(1f).padding(end = 8.dp)
+                )
+                OutlinedTextField(
+                    label = { Text(text = "T") },
+                    value = "",
+                    onValueChange = {},
+                    modifier = Modifier.weight(1f).padding()
+                )
+            }
+
+            OutlinedTextField(
+                label = { Text(text = "Frekuensi") },
+                value = "",
+                onValueChange = {},
+                modifier = Modifier.padding(end = 8.dp).fillMaxWidth()
+            )
+            OutlinedTextField(
+                label = { Text(text = "Power Factor") },
+                value = "",
+                onValueChange = {},
+                modifier = Modifier.padding(end = 8.dp).fillMaxWidth()
+            )
         }
     }
+}
+
+
+@Preview
+@Composable
+fun MeasurementFormPreview() {
+    MeasurementForm(onNavigateBack = { }, onNext = {})
 }

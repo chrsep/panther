@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.accessibilityLabel
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -125,10 +124,6 @@ fun MetaForm(
                                     }
                                 }
                             ) { chip ->
-                                Log.d(
-                                    "test",
-                                    (jobDesc == report?.jobDesc ?: JobDesc.Maintenance).toString()
-                                )
                                 chip.text = jobDesc.name
                                 chip.isChecked = jobDesc == report?.jobDesc ?: JobDesc.Maintenance
                             }
