@@ -55,85 +55,85 @@ private fun Form(onNavigateBack: () -> Unit, onNext: () -> Unit) {
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
-                    label = "2. Relay / time control",
+                    label = "2. Kabel instalasi",
                     value = Status.NotAvailable,
                     onChange = {},
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
-                    label = "3. Relay / time control",
+                    label = "3. ACB/MCCB/MCB (input)",
                     value = Status.NotAvailable,
                     onChange = {},
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
-                    label = "4. Relay / time control",
+                    label = "4. ACB/MCCB/MCB (output)",
                     value = Status.NotAvailable,
                     onChange = {},
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
-                    label = "5. Relay / time control",
+                    label = "5. Lampu indikator panel",
                     value = Status.NotAvailable,
                     onChange = {},
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
-                    label = "6. Relay / time control",
+                    label = "6. Fuse",
                     value = Status.NotAvailable,
                     onChange = {},
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
-                    label = "7. Relay / time control",
+                    label = "7. Terminal power",
                     value = Status.NotAvailable,
                     onChange = {},
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
-                    label = "8. Relay / time control",
+                    label = "8. Amper meter",
                     value = Status.NotAvailable,
                     onChange = {},
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
-                    label = "9. Relay / time control",
+                    label = "9. Volt meter",
                     value = Status.NotAvailable,
                     onChange = {},
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
-                    label = "10. Relay / time control",
+                    label = "10. Modul control status",
                     value = Status.NotAvailable,
                     onChange = {},
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
-                    label = "11. Relay / time control",
+                    label = "11. Timer (hour counter)",
                     value = Status.NotAvailable,
                     onChange = {},
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
-                    label = "12. Relay / time control",
+                    label = "12. Push button ON",
                     value = Status.NotAvailable,
                     onChange = {},
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
-                    label = "13. Relay / time control",
+                    label = "13. Push button OFF",
                     value = Status.NotAvailable,
                     onChange = {},
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
-                    label = "14. Relay / time control",
+                    label = "14. Selector MOA",
                     value = Status.NotAvailable,
                     onChange = {},
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
-                    label = "15. Relay / time control",
+                    label = "15. Status Indikator",
                     value = Status.NotAvailable,
                     onChange = {},
                     modifier = Modifier.padding(bottom = 16.dp)
