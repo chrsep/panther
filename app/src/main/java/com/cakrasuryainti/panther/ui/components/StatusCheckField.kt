@@ -1,6 +1,7 @@
 package com.cakrasuryainti.panther.ui.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ScrollableRow
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -26,16 +27,25 @@ fun StatusCheckField(
         border = BorderStroke(1.dp, MaterialTheme.colors.onSurface.copy(alpha = 0.4f)),
         shape = RoundedCornerShape(8.dp)
     ) {
-        Row(
-            modifier = Modifier.padding(8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+        ConstraintLayout {
+            val (text, row) = createRefs()
+
             Text(
                 label,
-                modifier = Modifier.padding(start = 8.dp, top = 8.dp, bottom = 8.dp),
+                modifier = Modifier.constrainAs(text) {
+                    start.linkTo(parent.start)
+                    end.linkTo(row.start)
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
+                    width = Dimension.fillToConstraints
+                }.padding(start = 16.dp),
+                style = MaterialTheme.typography.body2
             )
-            Row {
+
+            Row(
+                modifier = Modifier.constrainAs(row) {
+                end.linkTo(parent.end)
+            }.padding(top = 8.dp, bottom = 8.dp)) {
                 Status.values().forEach { status ->
                     ChoiceChip(
                         when (status) {
@@ -44,7 +54,7 @@ fun StatusCheckField(
                             Status.NotOk -> "NOK"
                         },
                         onClick = { onChange(status) },
-                        modifier = Modifier.padding(start = 8.dp),
+                        modifier = Modifier.padding(end = 8.dp),
                         isActive = status == value
                     )
                 }
@@ -58,7 +68,7 @@ fun StatusCheckField(
 fun NotAvailableStatusFieldPreview() {
     Surface {
         var status by remember { mutableStateOf(Status.NotAvailable) }
-        StatusCheckField("1. Relay/timer control", status, {
+        StatusCheckField("1. Relay/timer control control control", status, {
             status = it
         }, modifier = Modifier.padding(16.dp))
     }

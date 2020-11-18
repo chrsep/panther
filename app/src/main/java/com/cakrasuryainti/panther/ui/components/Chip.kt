@@ -59,7 +59,7 @@ fun ChoiceChip(
 @Composable
 fun InactiveChipPreview() {
     Surface {
-            ChoiceChip("Not Available", onClick = {})
+        ChoiceChip("Not Available", onClick = {})
     }
 }
 
@@ -67,6 +67,6 @@ fun InactiveChipPreview() {
 @Composable
 fun ActiveChipPreview() {
     Surface {
-            ChoiceChip("Not Available", isActive = true, onClick = {})
+        ChoiceChip("Not Available", isActive = true, onClick = {})
     }
 }
