@@ -29,7 +29,7 @@ private fun Form(onNavigateBack: () -> Unit, onNext: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Create Panel Report") },
+                title = { Text("Pengecekan Visual") },
                 navigationIcon = {
                     IconButton(onClick = { onNavigateBack() }) {
                         Icon(Icons.Rounded.ArrowBack)

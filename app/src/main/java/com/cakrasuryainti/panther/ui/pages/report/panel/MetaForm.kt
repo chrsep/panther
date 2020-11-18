@@ -76,7 +76,7 @@ fun MetaForm(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Create Panel Report") },
+                title = { Text("Data Pekerjaan") },
                 navigationIcon = {
                     IconButton(onClick = { onNavigateBack() }) {
                         Icon(Icons.Rounded.ArrowBack)
@@ -97,10 +97,8 @@ fun MetaForm(
             OutlinedTextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.pekerjaan ?: "",
-                onValueChange = {
-                    updateState(report?.copy(pekerjaan = it))
-                },
-                label = { Text("Pekerjaan") },
+                onValueChange = { updateState(report?.copy(pekerjaan = it)) },
+                label = { Text("Customer") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
@@ -110,9 +108,7 @@ fun MetaForm(
             OutlinedTextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.panelName ?: "",
-                onValueChange = {
-                    updateState(report?.copy(panelName = it))
-                },
+                onValueChange = { updateState(report?.copy(panelName = it)) },
                 label = { Text("Panel") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 isErrorValue = isDirty && report?.panelName == ""
@@ -120,9 +116,7 @@ fun MetaForm(
             OutlinedTextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.model ?: "",
-                onValueChange = {
-                    updateState(report?.copy(model = it))
-                },
+                onValueChange = { updateState(report?.copy(model = it)) },
                 label = { Text("Type / Model") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 isErrorValue = isDirty && report?.model == ""
@@ -130,9 +124,7 @@ fun MetaForm(
             OutlinedTextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.serialNumber ?: "",
-                onValueChange = {
-                    updateState(report?.copy(serialNumber = it))
-                },
+                onValueChange = { updateState(report?.copy(serialNumber = it)) },
                 label = { Text("Serial Number") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 isErrorValue = isDirty && report?.serialNumber == ""
@@ -143,9 +135,7 @@ fun MetaForm(
                     if (imeAction == ImeAction.Done) handleNext(report)
                 },
                 value = report?.location ?: "",
-                onValueChange = {
-                    updateState(report?.copy(location = it))
-                },
+                onValueChange = { updateState(report?.copy(location = it)) },
                 label = { Text("Lokasi") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 isErrorValue = isDirty && report?.location == ""

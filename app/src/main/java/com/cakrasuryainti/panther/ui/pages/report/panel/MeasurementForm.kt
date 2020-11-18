@@ -45,7 +45,7 @@ fun MeasurementForm(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Create Panel Report") },
+                title = { Text("Pengukuran") },
                 navigationIcon = {
                     IconButton(onClick = { onNavigateBack() }) {
                         Icon(Icons.Rounded.ArrowBack)
@@ -159,9 +159,10 @@ fun MeasurementForm(
                 )
             }
 
+            Divider()
             FloatField(
                 label = "Frekuensi",
-                modifier = Modifier.padding(end = 8.dp, bottom = 8.dp).fillMaxWidth(),
+                modifier = Modifier.padding(top = 8.dp, end = 8.dp, bottom = 8.dp).fillMaxWidth(),
                 value = report?.frekuensi ?: 0f,
                 onValueChange = { handleUpdate(report?.copy(frekuensi = it)) },
             )
