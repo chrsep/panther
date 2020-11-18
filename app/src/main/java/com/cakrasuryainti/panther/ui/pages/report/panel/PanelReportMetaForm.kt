@@ -2,10 +2,7 @@ package com.cakrasuryainti.panther.ui.pages.report.panel
 
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -19,15 +16,14 @@ import androidx.compose.ui.semantics.accessibilityLabel
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import androidx.ui.tooling.preview.Preview
 import com.cakrasuryainti.panther.db.model.JobDesc
 import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.ui.RootViewModel
+import com.cakrasuryainti.panther.ui.components.ChoiceChip
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
-import com.google.android.material.chip.Chip
 
 
 @Composable
@@ -103,30 +99,24 @@ fun MetaForm(
                 border = BorderStroke(1.dp, MaterialTheme.colors.onBackground.copy(alpha = 0.4f)),
                 shape = RoundedCornerShape(8.dp)
             ) {
-                Column(
-                    modifier = Modifier.padding(8.dp)
+                Row(
+                    modifier = Modifier.padding(8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+
                 ) {
                     Text(
                         "Job Desc",
                         modifier = Modifier.padding(start = 8.dp, top = 8.dp),
+                        style = MaterialTheme.typography.body2
                     )
                     Row {
                         JobDesc.values().forEach { jobDesc ->
-                            AndroidView(
+                            ChoiceChip(
                                 modifier = Modifier.padding(start = 8.dp),
-                                viewBlock = { context ->
-                                    Chip(context).apply {
-                                        isCheckable = true
-                                        setOnClickListener {
-                                            updateState(report?.copy(jobDesc = jobDesc))
-                                            isChecked = true
-                                        }
-                                    }
-                                }
-                            ) { chip ->
-                                chip.text = jobDesc.name
-                                chip.isChecked = jobDesc == report?.jobDesc ?: JobDesc.Maintenance
-                            }
+                                onClick = { updateState(report?.copy(jobDesc = jobDesc)) },
+                                label = jobDesc.name,
+                                isActive = jobDesc == report?.jobDesc ?: JobDesc.Maintenance
+                            )
                         }
                     }
                 }

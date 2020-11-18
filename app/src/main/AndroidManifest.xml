@@ -10,6 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Panther">
+        <meta-data
+            android:name="io.sentry.dsn"
+            android:value="https://93f37b2e17184c7f8d778082aa6155ab@o478553.ingest.sentry.io/5521225" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -23,5 +27,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
