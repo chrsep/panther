@@ -20,7 +20,7 @@ import com.cakrasuryainti.panther.ui.components.StatusCheckField
 fun CleanlinessForm(navController: NavHostController, viewModel: RootViewModel) {
     Form(
         onNavigateBack = { navController.popBackStack() },
-        onNext = { navController.navigate("create/panel/photos") })
+        onNext = { navController.navigate("create/panel/final") })
 }
 
 @Composable

@@ -171,7 +171,7 @@ fun MetaForm(
 @ExperimentalLayout
 @Preview
 @Composable
-fun FormPreview() {
+private fun FormPreview() {
     var report by remember { mutableStateOf(PanelReport("")) }
     PantherTheme {
         MetaForm(onNavigateBack = {}, onNext = {}, report = report, updateReport = { report = it })

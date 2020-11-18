@@ -25,8 +25,9 @@ fun PanelMeasurementForm(navController: NavHostController, viewModel: RootViewMo
     MeasurementForm(
         onNavigateBack = { navController.popBackStack() },
         onNext = { navController.navigate("create/panel/checks") },
-        report = report
-    ) { viewModel.updateReport(it) }
+        report = report,
+        updateReport = { viewModel.updateReport(it) }
+    )
 }
 
 @Composable
@@ -179,7 +180,7 @@ fun MeasurementForm(
 
 @Preview
 @Composable
-fun MeasurementFormPreview() {
+private fun MeasurementFormPreview() {
     var report by remember { mutableStateOf(PanelReport("")) }
     MeasurementForm(
         onNavigateBack = { },

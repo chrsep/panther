@@ -57,7 +57,7 @@ fun ChoiceChip(
 
 @Preview
 @Composable
-fun InactiveChipPreview() {
+private fun InactiveChipPreview() {
     Surface {
         ChoiceChip("Not Available", onClick = {})
     }
@@ -65,7 +65,7 @@ fun InactiveChipPreview() {
 
 @Preview
 @Composable
-fun ActiveChipPreview() {
+private fun ActiveChipPreview() {
     Surface {
         ChoiceChip("Not Available", isActive = true, onClick = {})
     }
