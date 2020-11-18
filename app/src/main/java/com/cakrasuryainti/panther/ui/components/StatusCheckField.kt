@@ -24,7 +24,7 @@ fun StatusCheckField(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        border = BorderStroke(1.dp, MaterialTheme.colors.onSurface.copy(alpha = 0.4f)),
+        border = BorderStroke(1.dp, MaterialTheme.colors.onSurface.copy(alpha = 0.2f)),
         shape = RoundedCornerShape(8.dp)
     ) {
         ConstraintLayout {

@@ -29,8 +29,8 @@ fun ChoiceChip(
     val backgroundColor = if (isActive) activeColor.copy(alpha = 0.1f)
     else MaterialTheme.colors.surface
 
-    val borderColor = if (isActive) activeColor.copy(alpha = 0.7f)
-    else MaterialTheme.colors.onSurface.copy(alpha = 0.4f)
+    val borderColor = if (isActive) activeColor.copy(alpha = 0.4f)
+    else MaterialTheme.colors.onSurface.copy(alpha = 0.2f)
 
     val textColor = if (isActive) activeColor
     else MaterialTheme.colors.onSurface
