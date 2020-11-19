@@ -7,24 +7,41 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
+import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.db.model.Status
 import com.cakrasuryainti.panther.ui.RootViewModel
 import com.cakrasuryainti.panther.ui.components.StatusCheckField
 
 @Composable
 fun CleanlinessForm(navController: NavHostController, viewModel: RootViewModel) {
+    val reportWithImages by viewModel.currentPanelReport.observeAsState()
+
     Form(
         onNavigateBack = { navController.popBackStack() },
-        onNext = { navController.navigate("create/panel/final") })
+        onNext = { navController.navigate("create/panel/final") },
+        report = reportWithImages?.report,
+        updateReport = { viewModel.updateReport(it) }
+    )
 }
 
 @Composable
-private fun Form(onNavigateBack: () -> Unit, onNext: () -> Unit) {
+private fun Form(
+    onNavigateBack: () -> Unit,
+    onNext: () -> Unit,
+    report: PanelReport?,
+    updateReport: (PanelReport) -> Unit
+) {
+    fun handleUpdate(report: PanelReport?) {
+        if (report != null) updateReport(report)
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -50,44 +67,44 @@ private fun Form(onNavigateBack: () -> Unit, onNext: () -> Unit) {
             Column(modifier = Modifier.padding(16.dp)) {
                 StatusCheckField(
                     label = "1. Luar panel",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.luarPanel ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(luarPanel = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "2. Dalam panel",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.dalamPanel ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(dalamPanel = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "3. Jalur kabel power",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.jalurKabelPower ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(jalurKabelPower = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "4. Kondisi ruangan",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.kondisiRuangan ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(kondisiRuangan = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "5. Ruangan / Lingkungan",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.lingkungan ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(lingkungan = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "6. Penerangan",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.penerangan ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(penerangan = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "7. Fan Ruangan",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.fanRuangan ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(fanRuangan = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
             }

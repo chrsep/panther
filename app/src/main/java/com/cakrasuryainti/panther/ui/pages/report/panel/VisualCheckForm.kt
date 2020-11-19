@@ -6,26 +6,43 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import androidx.ui.tooling.preview.Preview
+import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.db.model.Status
 import com.cakrasuryainti.panther.ui.RootViewModel
 import com.cakrasuryainti.panther.ui.components.StatusCheckField
 
 @Composable
 fun VisualCheckForm(navController: NavHostController, viewModel: RootViewModel) {
+    val reportWithImages by viewModel.currentPanelReport.observeAsState()
+
     Form(
         onNavigateBack = { navController.popBackStack() },
-        onNext = { navController.navigate("create/panel/cleanliness") })
+        onNext = { navController.navigate("create/panel/cleanliness") },
+        report = reportWithImages?.report,
+        updateReport = { viewModel.updateReport(it) }
+    )
 }
 
+
 @Composable
-private fun Form(onNavigateBack: () -> Unit, onNext: () -> Unit) {
+private fun Form(
+    onNavigateBack: () -> Unit,
+    onNext: () -> Unit,
+    report: PanelReport?,
+    updateReport: (PanelReport) -> Unit
+) {
+    fun handleUpdate(report: PanelReport?) {
+        if (report != null) updateReport(report)
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -51,92 +68,92 @@ private fun Form(onNavigateBack: () -> Unit, onNext: () -> Unit) {
             Column(modifier = Modifier.padding(16.dp)) {
                 StatusCheckField(
                     label = "1. Relay / time control",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.relay ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(relay = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "2. Kabel instalasi",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.kabel ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(kabel = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "3. ACB/MCCB/MCB (input)",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.MCBInput ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(MCBInput = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "4. ACB/MCCB/MCB (output)",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.MCBOutput ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(MCBOutput = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "5. Lampu indikator panel",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.lampuIndikatorPanel ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(lampuIndikatorPanel = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "6. Fuse",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.fuse ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(fuse = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "7. Terminal power",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.terminalPower ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(terminalPower = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "8. Amper meter",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.ampereMeter ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(ampereMeter = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "9. Volt meter",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.voltMeter ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(voltMeter = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "10. Modul control status",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.modulControlStatus ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(modulControlStatus = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "11. Timer (hour counter)",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.timer ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(timer = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "12. Push button ON",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.pushButtonOn ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(pushButtonOn = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "13. Push button OFF",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.pushButtonOff ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(pushButtonOff = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "14. Selector MOA",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.selectorMOA ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(selectorMOA = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "15. Status Indikator",
-                    value = Status.NotAvailable,
-                    onChange = {},
+                    value = report?.statusIndikator ?: Status.NotAvailable,
+                    onChange = { handleUpdate(report?.copy(statusIndikator = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
             }
@@ -148,5 +165,6 @@ private fun Form(onNavigateBack: () -> Unit, onNext: () -> Unit) {
 @Preview
 @Composable
 fun CheckFormPreview() {
-    Form(onNavigateBack = {}, onNext = {})
+    var report by remember { mutableStateOf(PanelReport("")) }
+    Form(onNavigateBack = {}, onNext = {}, updateReport = { report = it }, report = report)
 }
