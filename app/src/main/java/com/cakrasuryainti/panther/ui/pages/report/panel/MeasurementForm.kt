@@ -2,7 +2,6 @@ package com.cakrasuryainti.panther.ui.pages.report.panel
 
 import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -10,7 +9,6 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
@@ -21,11 +19,11 @@ import com.cakrasuryainti.panther.ui.components.FloatField
 
 @Composable
 fun PanelMeasurementForm(navController: NavHostController, viewModel: RootViewModel) {
-    val report by viewModel.currentPanelReport.observeAsState()
+    val reportWithImages by viewModel.currentPanelReport.observeAsState()
     MeasurementForm(
         onNavigateBack = { navController.popBackStack() },
         onNext = { navController.navigate("create/panel/checks") },
-        report = report,
+        report = reportWithImages?.report,
         updateReport = { viewModel.updateReport(it) }
     )
 }

@@ -71,16 +71,17 @@ data class PanelReportWithImages(
         parentColumn = "id",
         entityColumn = "reportId"
     )
-    val playlists: List<ReportImage>
+    val images: List<ReportImage>
 )
 
 @Entity
 data class ReportImage(
     @PrimaryKey
     val id: String,
-    val file: String,
+    val filePath: String,
     val reportId: String,
-    val note: String = "",
+    val description: String = "",
+    val createdAt: Instant = Instant.now()
 )
 
 enum class JobDesc {

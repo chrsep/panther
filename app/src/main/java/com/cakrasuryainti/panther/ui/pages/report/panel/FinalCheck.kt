@@ -3,10 +3,7 @@ package com.cakrasuryainti.panther.ui.pages.report.panel
 import android.content.Context
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.layout.ConstraintLayout
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AddAPhoto
@@ -23,20 +20,22 @@ import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.db.model.ReportImage
 import com.cakrasuryainti.panther.registerForActivityResult
 import com.cakrasuryainti.panther.ui.RootViewModel
+import com.cakrasuryainti.panther.ui.components.ReportImageListItem
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
+import timber.log.Timber
 import java.util.*
 
 @Composable
 fun FinalCheck(navController: NavHostController, viewModel: RootViewModel) {
-    val report by viewModel.currentPanelReport.observeAsState()
+    val reportWithImages by viewModel.currentPanelReport.observeAsState()
 
     Form(
         onNavigateBack = { navController.popBackStack() },
         onDone = {},
-        report = report,
+        report = reportWithImages?.report,
         updateReport = { viewModel.updateReport(it) },
         saveImages = { viewModel.saveImages(it) },
-        images = listOf(),
+        images = reportWithImages?.images ?: listOf(),
     )
 }
 
@@ -49,7 +48,35 @@ private fun Form(
     saveImages: (List<ReportImage>) -> Unit,
     images: List<ReportImage>,
 ) {
-    fun handleDone(report: PanelReport?) {
+    val context = ContextAmbient.current
+    val getContentsLauncher = registerForActivityResult(
+        ActivityResultContracts.GetMultipleContents()
+    ) { uris ->
+        Timber.d("callback called")
+        val newImages = uris.map { uri ->
+            if (uri.path != null) {
+                // Open internal file to save to
+                val id = UUID.randomUUID().toString()
+                context.openFileOutput(id, Context.MODE_PRIVATE).use { outputStream ->
+                    // Open selected image
+                    context.contentResolver.openInputStream(uri).use { stream ->
+                        // Save it to internal file.
+                        outputStream.write(stream?.readBytes())
+                    }
+                }
+                return@map ReportImage(
+                    id = id,
+                    reportId = report?.id ?: "",
+                    filePath = context.filesDir.absolutePath + "/" + id,
+                )
+            } else {
+                return@map null
+            }
+        }.filterNotNull()
+        saveImages(newImages)
+    }
+
+    fun handleDone() {
         onDone()
     }
 
@@ -69,7 +96,7 @@ private fun Form(
                     }
                 },
                 actions = {
-                    TextButton(onClick = { handleDone(report) }) {
+                    TextButton(onClick = { handleDone() }) {
                         Text(
                             "Done",
                             color = Color.White,
@@ -90,53 +117,24 @@ private fun Form(
                     maxLines = 30,
                     modifier = Modifier.fillMaxWidth().padding(8.dp)
                 )
+                Text(
+                    "Gambar",
+                    modifier = Modifier.padding(8.dp),
+                    style = MaterialTheme.typography.body2
+                )
+                images.sortedByDescending { it.createdAt }.forEach {
+                    ReportImageListItem(image = it, modifier = Modifier.padding(8.dp))
+                }
             }
-            PickImageFAB(
-                reportId = report?.id ?: "",
+            FloatingActionButton(
+                onClick = { getContentsLauncher.launch("image/*") },
                 modifier = Modifier.constrainAs(fab) {
                     bottom.linkTo(parent.bottom, 16.dp)
                     end.linkTo(parent.end, 16.dp)
                 },
-                saveImages = {
-                    saveImages(it)
-                }
-            )
+            ) { Icon(Icons.Rounded.AddAPhoto) }
         }
     }
-}
-
-@Composable
-fun PickImageFAB(modifier: Modifier, saveImages: (List<ReportImage>) -> Unit, reportId: String) {
-    val context = ContextAmbient.current
-    val getContentsLauncher =
-        registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris ->
-            val images = uris.map { uri ->
-                if (uri.path != null) {
-                    // Open internal file to save to
-                    val id = UUID.randomUUID().toString()
-                    context.openFileOutput(id, Context.MODE_PRIVATE).use { outputStream ->
-                        // Open selected image
-                        context.contentResolver.openInputStream(uri).use { stream ->
-                            // Save it to internal file.
-                            outputStream.write(stream?.readBytes())
-                        }
-                    }
-                    return@map ReportImage(
-                        id = id,
-                        reportId = reportId,
-                        file = id,
-                    )
-                } else {
-                    return@map null
-                }
-            }.filterNotNull()
-            saveImages(images)
-        }
-
-    FloatingActionButton(
-        onClick = { getContentsLauncher.launch("image/*") },
-        modifier = modifier,
-    ) { Icon(Icons.Rounded.AddAPhoto) }
 }
 
 @Preview

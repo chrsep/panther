@@ -32,12 +32,12 @@ fun PanelReportMetaForm(
     navController: NavHostController,
     viewModel: RootViewModel,
 ) {
-    val report by viewModel.currentPanelReport.observeAsState()
+    val reportWithImages by viewModel.currentPanelReport.observeAsState()
 
     MetaForm(
         onNavigateBack = { navController.popBackStack() },
         onNext = { navController.navigate("create/panel/measurements") },
-        report = report,
+        report = reportWithImages?.report,
         updateReport = {
             viewModel.updateReport(it)
 

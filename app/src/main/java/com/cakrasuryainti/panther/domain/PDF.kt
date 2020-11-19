@@ -82,9 +82,9 @@ fun generatePanelReport(report: PanelReport, reportImages: List<ReportImage>, ou
 fun createImageTable(document: Document, images: List<ReportImage>): Table {
     val table = Table(floatArrayOf(300f, 300f))
     images.forEach { image ->
-        val imageData = ImageDataFactory.create(image.file)
+        val imageData = ImageDataFactory.create(image.filePath)
         table.addCell(
-            Cell().add(Image(imageData).setAutoScaleWidth(true)).add(Paragraph(image.note))
+            Cell().add(Image(imageData).setAutoScaleWidth(true)).add(Paragraph(image.description))
         )
     }
     return table

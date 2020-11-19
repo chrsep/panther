@@ -117,5 +117,14 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    implementation "dev.chrisbanes.accompanist:accompanist-coil:0.3.3.1"
+
+    // crash reporting
     implementation "io.sentry:sentry-android:3.1.0"
+
+    // for logging
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    // for debugging and detecting memory leak
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
 }

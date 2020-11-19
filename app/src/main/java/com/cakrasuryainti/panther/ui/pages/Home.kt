@@ -5,7 +5,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
@@ -14,7 +13,6 @@ import androidx.ui.tooling.preview.Preview
 
 @Composable
 fun Home(navController: NavHostController) {
-    val context = ContextAmbient.current
     Scaffold(
         topBar = {
             TopAppBar(
