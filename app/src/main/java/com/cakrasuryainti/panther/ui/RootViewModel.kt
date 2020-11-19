@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cakrasuryainti.panther.db.model.PanelReport
+import com.cakrasuryainti.panther.db.model.ReportImage
 import com.cakrasuryainti.panther.repository.PanelReportRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -19,14 +20,11 @@ import kotlinx.coroutines.launch
 class RootViewModel @ViewModelInject constructor(
     private val repo: PanelReportRepository
 ) : ViewModel() {
-    private val _currentPanelReport = MutableLiveData<PanelReport>()
-    val currentPanelReport: LiveData<PanelReport> = _currentPanelReport
-
-    init {
+    private val _currentPanelReport = MutableLiveData<PanelReport>().also {
         viewModelScope.launch {
-            repo.getCurrentReport().first {
-                if (it != null) {
-                    _currentPanelReport.value = it
+            repo.getCurrentReport().first { report ->
+                if (report != null) {
+                    it.value = report
                     return@first true
                 } else {
                     return@first false
@@ -34,7 +32,7 @@ class RootViewModel @ViewModelInject constructor(
             }
         }
     }
-
+    val currentPanelReport: LiveData<PanelReport> = _currentPanelReport
 
     fun updateReport(report: PanelReport) {
         _currentPanelReport.value = report
@@ -44,5 +42,9 @@ class RootViewModel @ViewModelInject constructor(
                 repo.insertNewReport(report)
             }
         }
+    }
+
+    fun saveImages(images: List<ReportImage>) = viewModelScope.launch(Dispatchers.IO) {
+        repo.saveImages(images)
     }
 }

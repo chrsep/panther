@@ -79,8 +79,8 @@ data class ReportImage(
     @PrimaryKey
     val id: String,
     val file: String,
-    val note: String,
-    val reportId: String
+    val reportId: String,
+    val note: String = "",
 )
 
 enum class JobDesc {

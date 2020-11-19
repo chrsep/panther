@@ -86,6 +86,9 @@ dependencies {
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
     androidTestImplementation "androidx.ui:ui-test:$compose_version"
 
+    // to get the new request permission API
+    implementation "androidx.activity:activity-ktx:1.2.0-beta01"
+
     // for wrangling pdfs
     implementation 'com.itextpdf:itext7-core:7.1.13'
 

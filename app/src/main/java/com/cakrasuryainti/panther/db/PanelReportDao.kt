@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.cakrasuryainti.panther.db.model.PanelReport
+import com.cakrasuryainti.panther.db.model.ReportImage
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -20,4 +21,7 @@ interface PanelReportDao {
 
     @Update
     suspend fun updateReports(vararg reports: PanelReport): Int
+
+    @Insert
+    suspend fun saveImages(images: List<ReportImage>)
 }

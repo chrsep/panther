@@ -2,6 +2,7 @@ package com.cakrasuryainti.panther.repository
 
 import com.cakrasuryainti.panther.db.PanelReportDao
 import com.cakrasuryainti.panther.db.model.PanelReport
+import com.cakrasuryainti.panther.db.model.ReportImage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
 import java.util.*
@@ -30,5 +31,9 @@ class PanelReportRepository @Inject constructor(private val dao: PanelReportDao)
     private suspend fun createNewEmptyReport() {
         val emptyReport = PanelReport(UUID.randomUUID().toString())
         dao.insertPanelReports(emptyReport)
+    }
+
+    suspend fun saveImages(images: List<ReportImage>) {
+        dao.saveImages(images)
     }
 }

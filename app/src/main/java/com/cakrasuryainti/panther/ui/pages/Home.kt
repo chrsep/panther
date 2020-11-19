@@ -5,6 +5,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
@@ -13,6 +14,7 @@ import androidx.ui.tooling.preview.Preview
 
 @Composable
 fun Home(navController: NavHostController) {
+    val context = ContextAmbient.current
     Scaffold(
         topBar = {
             TopAppBar(
@@ -34,9 +36,10 @@ fun Home(navController: NavHostController) {
             OutlinedButton(onClick = { navController.navigate("saved") }, Modifier.padding(8.dp)) {
                 Text(text = "Saved Report")
             }
-            OutlinedButton(onClick = { navController.navigate("help") }, Modifier.padding(8.dp)) {
-                Text(text = "Help")
-            }
+            OutlinedButton(
+                onClick = { },
+                modifier = Modifier.padding(8.dp)
+            ) { Text(text = "Help") }
         }
     }
 }
