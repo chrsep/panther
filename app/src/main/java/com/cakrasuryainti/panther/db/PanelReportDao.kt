@@ -25,4 +25,7 @@ interface PanelReportDao {
 
     @Insert
     suspend fun saveImages(images: List<ReportImage>)
+
+    @Update
+    suspend fun updateImage(image: ReportImage)
 }

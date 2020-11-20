@@ -18,7 +18,12 @@ import com.cakrasuryainti.panther.ui.theme.PantherTheme
 import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
-fun ReportImageListItem(image: ReportImage, modifier: Modifier = Modifier) {
+fun ReportImageListItem(
+    image: ReportImage,
+    modifier: Modifier = Modifier,
+    removeImage: (ReportImage) -> Unit,
+    updateDescription: (ReportImage) -> Unit,
+) {
     var isEditing by remember { mutableStateOf(false) }
 
     Row(
@@ -80,22 +85,37 @@ fun ReportImageListItem(image: ReportImage, modifier: Modifier = Modifier) {
                     IconButton(onClick = { isEditing = true }) {
                         Icon(Icons.Rounded.Edit, modifier = Modifier.drawOpacity(0.7f))
                     }
-                    IconButton(onClick = { isEditing = false }) {
+                    IconButton(onClick = {
+                        removeImage(image)
+                    }) {
                         Icon(Icons.Rounded.Remove, modifier = Modifier.drawOpacity(0.7f))
                     }
                 }
             }
         } else {
-            OutlinedTextField(
-                value = image.description,
-                onValueChange = {},
-                label = { Text("Deskripsi") },
-                modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 8.dp)
+            EditDescription(
+                description = image.description,
+                onSave = {
+                    isEditing = false
+                    updateDescription(image.copy(description = it))
+                }
             )
-            IconButton(onClick = { isEditing = false }) {
-                Icon(Icons.Rounded.Check, modifier = Modifier.drawOpacity(0.7f))
-            }
         }
+    }
+}
+
+@Composable
+fun EditDescription(description: String, onSave: (String) -> Unit) {
+    var newDescription by remember { mutableStateOf(description) }
+
+    OutlinedTextField(
+        value = newDescription,
+        onValueChange = { newDescription = it },
+        label = { Text("Deskripsi") },
+        modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 8.dp)
+    )
+    IconButton(onClick = { onSave(newDescription) }) {
+        Icon(Icons.Rounded.Check, modifier = Modifier.drawOpacity(0.7f))
     }
 }
 
@@ -111,7 +131,9 @@ private fun ReportImagePreview() {
                     filePath = "test-image.jpg",
                     id = ""
                 ),
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp),
+                removeImage = {},
+                updateDescription = {}
             )
         }
     }
@@ -128,7 +150,9 @@ private fun ReportImageWithoutDescriptionPreview() {
                     filePath = "test-image.jpg",
                     id = ""
                 ),
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp),
+                removeImage = {},
+                updateDescription = {}
             )
         }
     }

@@ -53,4 +53,16 @@ class RootViewModel @ViewModelInject constructor(
             repo.saveImages(images)
         }
     }
+
+    fun updateImage(image: ReportImage) {
+        _currentPanelReport.value = _currentPanelReport.value?.copy(
+            images = _currentPanelReport.value?.images?.map {
+                if (it.id == image.id) image else it
+            } ?: listOf()
+        )
+
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.updateImage(image)
+        }
+    }
 }

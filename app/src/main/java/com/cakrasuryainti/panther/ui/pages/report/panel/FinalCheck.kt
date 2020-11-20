@@ -36,6 +36,7 @@ fun FinalCheck(navController: NavHostController, viewModel: RootViewModel) {
         updateReport = { viewModel.updateReport(it) },
         saveImages = { viewModel.saveImages(it) },
         images = reportWithImages?.images ?: listOf(),
+        updateImage = { viewModel.updateImage(it) }
     )
 }
 
@@ -47,6 +48,7 @@ private fun Form(
     updateReport: (PanelReport) -> Unit,
     saveImages: (List<ReportImage>) -> Unit,
     images: List<ReportImage>,
+    updateImage: (ReportImage) -> Unit
 ) {
     val context = ContextAmbient.current
     val getContentsLauncher = registerForActivityResult(
@@ -122,13 +124,19 @@ private fun Form(
                     modifier = Modifier.padding(top = 16.dp, start = 8.dp),
                     style = MaterialTheme.typography.body2
                 )
-                images.sortedByDescending { it.createdAt }.forEach {
+                images.sortedByDescending { it.createdAt }.forEachIndexed { idx, it ->
                     ReportImageListItem(
                         image = it,
                         modifier = Modifier.padding(
                             start = 12.dp,
                             end = 12.dp
-                        )
+                        ),
+                        updateDescription = {
+                            updateImage(it)
+                        },
+                        removeImage = {
+
+                        },
                     )
                 }
             }
@@ -157,6 +165,7 @@ private fun FormPreview() {
             updateReport = { report = it },
             saveImages = { images = images.plus(it) },
             images = images,
+            updateImage = {}
         )
     }
 }
