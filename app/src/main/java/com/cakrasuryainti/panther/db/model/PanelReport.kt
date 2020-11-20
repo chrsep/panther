@@ -62,7 +62,8 @@ data class PanelReport(
 
     val notesAndRecommendation: String = "",
 
-    val finished: Boolean = false
+    val finished: Boolean = false,
+    val pdfFilePath: String = ""
 )
 
 data class PanelReportWithImages(
