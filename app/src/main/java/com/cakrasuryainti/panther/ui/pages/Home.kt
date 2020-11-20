@@ -1,5 +1,6 @@
 package com.cakrasuryainti.panther.ui.pages
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.material.*
@@ -7,14 +8,19 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Share
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawOpacity
+import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import androidx.ui.tooling.preview.Preview
+import com.cakrasuryainti.panther.R
 import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.ui.pages.report.HomeViewModel
 import java.time.ZoneId
@@ -63,6 +69,26 @@ fun Home(navController: NavHostController, allReports: List<PanelReport>) {
                     Divider()
                 }
             }
+
+            if (allReports.isEmpty()) {
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Image(
+                        asset = vectorResource(id = R.drawable.undraw_list),
+                        modifier = Modifier.width(240.dp).padding(top = 72.dp, bottom = 16.dp)
+                    )
+                    Text(
+                        "Belum Ada Laporan Tersimpan",
+                        style = MaterialTheme.typography.h5,
+                        modifier = Modifier.width(240.dp),
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+
             LazyColumnFor(items = allReports, Modifier.fillMaxWidth()) {
                 Row(
                     Modifier.padding(16.dp).fillMaxWidth(),

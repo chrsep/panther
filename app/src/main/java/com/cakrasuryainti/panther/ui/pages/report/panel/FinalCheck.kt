@@ -1,6 +1,7 @@
 package com.cakrasuryainti.panther.ui.pages.report.panel
 
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -9,9 +10,12 @@ import androidx.compose.material.icons.rounded.AddAPhoto
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ContextAmbient
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.ui.tooling.preview.Preview
@@ -21,6 +25,7 @@ import com.cakrasuryainti.panther.registerForActivityResult
 import com.cakrasuryainti.panther.ui.components.ReportImageListItem
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
 import androidx.navigation.compose.navigate
+import com.cakrasuryainti.panther.R
 import com.cakrasuryainti.panther.domain.saveImagesIntoReport
 
 @Composable
@@ -95,18 +100,38 @@ private fun Form(
             val (fab) = createRefs()
 
             ScrollableColumn(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
-                OutlinedTextField(
+                TextField(
                     label = { Text("Catatan / Saran") },
                     value = report?.notesAndRecommendation ?: "",
                     onValueChange = { handleUpdate(report?.copy(notesAndRecommendation = it)) },
                     maxLines = 30,
-                    modifier = Modifier.fillMaxWidth().padding(8.dp)
+                    modifier = Modifier.fillMaxWidth().padding(8.dp, top = 16.dp)
                 )
                 Text(
                     "Gambar",
-                    modifier = Modifier.padding(top = 16.dp, start = 8.dp),
-                    style = MaterialTheme.typography.body2
+                    modifier = Modifier.padding(top = 32.dp, start = 8.dp).fillMaxWidth(),
+                    style = MaterialTheme.typography.h6
                 )
+
+                if (images.isEmpty()) {
+                    Column(
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Image(
+                            asset = vectorResource(id = R.drawable.undraw_camera),
+                            modifier = Modifier.width(180.dp).padding(top = 72.dp, bottom = 16.dp)
+                        )
+                        Text(
+                            "Belum Ada Gambar Terpasang",
+                            style = MaterialTheme.typography.h5,
+                            modifier = Modifier.width(240.dp),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
+
                 images.sortedByDescending { it.createdAt }.forEach { image ->
                     ReportImageListItem(
                         image = image,
