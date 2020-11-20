@@ -4,8 +4,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material.icons.rounded.Save
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawOpacity
@@ -14,11 +17,12 @@ import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 import com.cakrasuryainti.panther.db.model.ReportImage
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
-import com.itextpdf.layout.property.VerticalAlignment
 import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
 fun ReportImageListItem(image: ReportImage, modifier: Modifier = Modifier) {
+    var isEditing by remember { mutableStateOf(true) }
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
@@ -33,30 +37,30 @@ fun ReportImageListItem(image: ReportImage, modifier: Modifier = Modifier) {
                 contentScale = ContentScale.Crop,
             )
         }
-        ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
-            val (text, edit) = createRefs()
-            if (image.description != "") {
+        ConstraintLayout(modifier = Modifier.fillMaxWidth().height(56.dp)) {
+            val (text, button) = createRefs()
+            if (!isEditing && image.description != "") {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.constrainAs(text) {
                         start.linkTo(parent.start, 16.dp)
                         top.linkTo(parent.top)
                         bottom.linkTo(parent.bottom)
-                        end.linkTo(edit.start)
+                        end.linkTo(button.start)
                         height = Dimension.fillToConstraints
                         width = Dimension.fillToConstraints
                     }
                 ) {
                     Text(image.description)
                 }
-            } else {
+            } else if (!isEditing) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.constrainAs(text) {
                         start.linkTo(parent.start, 16.dp)
                         top.linkTo(parent.top)
                         bottom.linkTo(parent.bottom)
-                        end.linkTo(edit.start)
+                        end.linkTo(button.start)
                         height = Dimension.fillToConstraints
                         width = Dimension.fillToConstraints
                     },
@@ -66,14 +70,46 @@ fun ReportImageListItem(image: ReportImage, modifier: Modifier = Modifier) {
                         color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
                     )
                 }
+            } else {
+                OutlinedTextField(
+                    value = "",
+                    onValueChange = {},
+                    label = { Text("Deskripsi") },
+                    modifier = Modifier.constrainAs(text) {
+                        start.linkTo(parent.start, 16.dp)
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                        end.linkTo(button.start)
+                        width = Dimension.fillToConstraints
+                    },
+                )
             }
-            IconButton(
-                onClick = {},
-                modifier = Modifier.constrainAs(edit) {
+
+            if (isEditing) {
+                BottomDrawerLayout(drawerContent = { Text(text = "Drawer") }) {
+                    Text(text = "body")
+                }
+            }
+
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.constrainAs(button) {
+                    bottom.linkTo(parent.bottom)
+                    top.linkTo(parent.top)
                     end.linkTo(parent.end)
                 }
             ) {
-                Icon(Icons.Rounded.Edit, modifier = Modifier.drawOpacity(0.7f))
+
+                if (!isEditing) {
+                    IconButton(onClick = { isEditing = true }) {
+                        Icon(Icons.Rounded.Edit, modifier = Modifier.drawOpacity(0.7f))
+                    }
+                } else {
+                    IconButton(onClick = { isEditing = false }) {
+                        Icon(Icons.Rounded.Save, modifier = Modifier.drawOpacity(0.7f))
+                    }
+                }
             }
         }
     }
