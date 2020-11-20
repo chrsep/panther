@@ -22,6 +22,7 @@ import com.cakrasuryainti.panther.registerForActivityResult
 import com.cakrasuryainti.panther.ui.RootViewModel
 import com.cakrasuryainti.panther.ui.components.ReportImageListItem
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
+import androidx.navigation.compose.navigate
 import timber.log.Timber
 import java.util.*
 
@@ -34,6 +35,7 @@ fun FinalCheck(navController: NavHostController, viewModel: RootViewModel) {
         onNavigateBack = { navController.popBackStack() },
         onDone = {
             viewModel.finalizeReport(reportWithImages, context)
+            navController.navigate("create/panel/done")
         },
         report = reportWithImages?.report,
         updateReport = { viewModel.updateReport(it) },

@@ -27,6 +27,7 @@ fun Root() {
             composable("create/panel/checks") { VisualCheckForm(navController, viewModel) }
             composable("create/panel/cleanliness") { CleanlinessForm(navController, viewModel) }
             composable("create/panel/final") { FinalCheck(navController, viewModel) }
+            composable("create/panel/done") { ReportDone(navController, viewModel) }
         }
     }
 }
