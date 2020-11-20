@@ -25,6 +25,7 @@ fun ReportImageListItem(
     updateDescription: (ReportImage) -> Unit,
 ) {
     var isEditing by remember { mutableStateOf(false) }
+    var isDeleting by remember { mutableStateOf(false) }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -86,7 +87,7 @@ fun ReportImageListItem(
                         Icon(Icons.Rounded.Edit, modifier = Modifier.drawOpacity(0.7f))
                     }
                     IconButton(onClick = {
-                        removeImage(image)
+                        isDeleting = true
                     }) {
                         Icon(Icons.Rounded.Remove, modifier = Modifier.drawOpacity(0.7f))
                     }
@@ -99,6 +100,14 @@ fun ReportImageListItem(
                     isEditing = false
                     updateDescription(image.copy(description = it))
                 }
+            )
+        }
+
+        if (isDeleting) {
+            ConfirmDeleteDialog(
+                onDismissRequest = { isDeleting = false },
+                description = image.description,
+                onDelete = { removeImage(image) },
             )
         }
     }
@@ -119,22 +128,61 @@ fun EditDescription(description: String, onSave: (String) -> Unit) {
     }
 }
 
+@Composable
+fun ConfirmDeleteDialog(onDismissRequest: () -> Unit, onDelete: () -> Unit, description: String) {
+    AlertDialog(
+        onDismissRequest = onDismissRequest,
+        title = { Text("Hapus Gambear?") },
+        text = { Text("""Gambar dengan deskripsi "$description" akan dihapus.""") },
+        confirmButton = {
+            Button(
+                onClick = {
+                    onDelete()
+                },
+            ) {
+                Text("Hapus")
+            }
+        },
+        dismissButton = {
+            TextButton(
+                onClick = {
+                    onDismissRequest()
+                },
+            ) {
+                Text("Jangan")
+            }
+        }
+    )
+}
+
+@Preview
+@Composable
+fun ConfirmDeleteDialogPreview() {
+    PantherTheme {
+        Scaffold {
+            ConfirmDeleteDialog(onDismissRequest = {}, onDelete = {}, "Ini adalah gambar")
+        }
+    }
+}
+
 @Preview
 @Composable
 private fun ReportImagePreview() {
     PantherTheme {
-        Surface(modifier = Modifier.padding(8.dp)) {
-            ReportImageListItem(
-                ReportImage(
-                    description = "some description is a very long text really imprevies ass",
-                    reportId = "test-image.jpg",
-                    filePath = "test-image.jpg",
-                    id = ""
-                ),
-                modifier = Modifier.padding(8.dp),
-                removeImage = {},
-                updateDescription = {}
-            )
+        Scaffold {
+            Surface(modifier = Modifier.padding(8.dp)) {
+                ReportImageListItem(
+                    ReportImage(
+                        description = "some description is a very long text really imprevies ass",
+                        reportId = "test-image.jpg",
+                        filePath = "test-image.jpg",
+                        id = ""
+                    ),
+                    modifier = Modifier.padding(8.dp),
+                    removeImage = {},
+                    updateDescription = {}
+                )
+            }
         }
     }
 }
@@ -143,17 +191,19 @@ private fun ReportImagePreview() {
 @Composable
 private fun ReportImageWithoutDescriptionPreview() {
     PantherTheme {
-        Surface(modifier = Modifier.padding(8.dp)) {
-            ReportImageListItem(
-                ReportImage(
-                    reportId = "test-image.jpg",
-                    filePath = "test-image.jpg",
-                    id = ""
-                ),
-                modifier = Modifier.padding(8.dp),
-                removeImage = {},
-                updateDescription = {}
-            )
+        Scaffold {
+            Surface(modifier = Modifier.padding(8.dp)) {
+                ReportImageListItem(
+                    ReportImage(
+                        reportId = "test-image.jpg",
+                        filePath = "test-image.jpg",
+                        id = ""
+                    ),
+                    modifier = Modifier.padding(8.dp),
+                    removeImage = {},
+                    updateDescription = {}
+                )
+            }
         }
     }
 }
