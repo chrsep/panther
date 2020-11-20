@@ -22,7 +22,7 @@ class PanelReportTest {
             Root()
         }
 
-        composeTestRule.onNodeWithText("Create Report").performClick()
+        composeTestRule.onNodeWithText("Laporan Baru").performClick()
         composeTestRule.onNodeWithText("LV Panel").performClick()
         composeTestRule.onNodeWithLabel("pekerjaan").performTextInput("Testing")
 
