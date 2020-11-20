@@ -119,11 +119,17 @@ private fun Form(
                 )
                 Text(
                     "Gambar",
-                    modifier = Modifier.padding(8.dp),
+                    modifier = Modifier.padding(top = 16.dp, start = 8.dp),
                     style = MaterialTheme.typography.body2
                 )
                 images.sortedByDescending { it.createdAt }.forEach {
-                    ReportImageListItem(image = it, modifier = Modifier.padding(8.dp))
+                    ReportImageListItem(
+                        image = it,
+                        modifier = Modifier.padding(
+                            start = 12.dp,
+                            end = 12.dp
+                        )
+                    )
                 }
             }
             FloatingActionButton(
