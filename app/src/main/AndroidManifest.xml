@@ -10,6 +10,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Panther">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.cakrasuryainti.panther.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <meta-data
             android:name="io.sentry.dsn"
             android:value="https://93f37b2e17184c7f8d778082aa6155ab@o478553.ingest.sentry.io/5521225" />

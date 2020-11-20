@@ -1,6 +1,5 @@
 package com.cakrasuryainti.panther.ui.pages.report.panel
 
-import android.content.Context
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.*
@@ -23,8 +22,7 @@ import com.cakrasuryainti.panther.ui.RootViewModel
 import com.cakrasuryainti.panther.ui.components.ReportImageListItem
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
 import androidx.navigation.compose.navigate
-import timber.log.Timber
-import java.util.*
+import com.cakrasuryainti.panther.domain.saveImagesIntoReport
 
 @Composable
 fun FinalCheck(navController: NavHostController, viewModel: RootViewModel) {
@@ -34,8 +32,9 @@ fun FinalCheck(navController: NavHostController, viewModel: RootViewModel) {
     Form(
         onNavigateBack = { navController.popBackStack() },
         onDone = {
-            viewModel.finalizeReport(reportWithImages, context)
-            navController.navigate("create/panel/done")
+            viewModel.finalizeReport(reportWithImages, context) {
+                navController.navigate("create/panel/done")
+            }
         },
         report = reportWithImages?.report,
         updateReport = { viewModel.updateReport(it) },
@@ -57,48 +56,20 @@ private fun Form(
     removeImage: (ReportImage) -> Unit,
 ) {
     val context = ContextAmbient.current
-    val getContentsLauncher = registerForActivityResult(
+    val getImages = registerForActivityResult(
         ActivityResultContracts.GetMultipleContents()
     ) { uris ->
-        Timber.d("callback called")
-        val newImages = uris.map { uri ->
-            if (uri.path != null) {
-                // Open internal file to save to
-                val id = UUID.randomUUID().toString()
-                context.openFileOutput(id, Context.MODE_PRIVATE).use { outputStream ->
-                    // Open selected image
-                    context.contentResolver.openInputStream(uri).use { stream ->
-                        // Save it to internal file.
-                        outputStream.write(stream?.readBytes())
-                    }
-                }
-                return@map ReportImage(
-                    id = id,
-                    reportId = report?.id ?: "",
-                    filePath = context.filesDir.absolutePath + "/" + id,
-                )
-            } else {
-                return@map null
-            }
-        }.filterNotNull()
-        saveImages(newImages)
+        if (report != null) {
+            saveImagesIntoReport(context, uris, report.id, saveImages)
+        }
     }
 
     fun handleRemoveImage(image: ReportImage) {
-        val success = context.deleteFile(image.id)
-        if (success) {
-            removeImage(image)
-        }
-    }
-
-    fun handleDone() {
-        onDone()
+        if (context.deleteFile(image.id)) removeImage(image)
     }
 
     fun handleUpdate(report: PanelReport?) {
-        if (report != null) {
-            updateReport(report)
-        }
+        if (report != null) updateReport(report)
     }
 
     Scaffold(
@@ -111,7 +82,7 @@ private fun Form(
                     }
                 },
                 actions = {
-                    TextButton(onClick = { handleDone() }) {
+                    TextButton(onClick = { onDone() }) {
                         Text(
                             "Done",
                             color = Color.White,
@@ -149,7 +120,7 @@ private fun Form(
                 }
             }
             FloatingActionButton(
-                onClick = { getContentsLauncher.launch("image/*") },
+                onClick = { getImages.launch("image/*") },
                 modifier = Modifier.constrainAs(fab) {
                     bottom.linkTo(parent.bottom, 16.dp)
                     end.linkTo(parent.end, 16.dp)

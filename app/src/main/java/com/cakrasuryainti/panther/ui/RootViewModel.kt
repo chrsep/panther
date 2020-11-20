@@ -10,13 +10,13 @@ import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.db.model.PanelReportWithImages
 import com.cakrasuryainti.panther.db.model.ReportImage
 import com.cakrasuryainti.panther.domain.generatePanelReport
+import com.cakrasuryainti.panther.domain.generatePdfFileName
 import com.cakrasuryainti.panther.repository.PanelReportRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
 
 // We currently only use a single viewModel due to the simplicity of the app and the lack of support
 // of attaching dagger hilt's viewModelFactory to components under navHost, which provides its own
@@ -81,28 +81,35 @@ class RootViewModel @ViewModelInject constructor(
         }
     }
 
-    fun finalizeReport(reportWithImages: PanelReportWithImages?, context: Context) {
+    fun finalizeReport(
+        reportWithImages: PanelReportWithImages?,
+        context: Context,
+        onSuccess: () -> Unit
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-
                 if (reportWithImages != null) {
-                    val pdfFileName =
-                        "${
-                            reportWithImages.report.pekerjaan.replace(" ", "_")
-                        }-${
-                            reportWithImages.report.dateTime.atZone(ZoneId.systemDefault()).format(
-                                DateTimeFormatter.ISO_LOCAL_DATE
-                            )
-                        }-${reportWithImages.report.id}"
+                    // generate filename
+                    val pdfFileName = generatePdfFileName(reportWithImages.report)
+
+                    // Save file
                     context.openFileOutput(pdfFileName, Context.MODE_PRIVATE).use {
                         generatePanelReport(reportWithImages.report, reportWithImages.images, it)
                     }
-                    repo.updateReport(
-                        reportWithImages.report.copy(
-                            finished = true,
-                            pdfFilePath = context.filesDir.absolutePath + "/" + pdfFileName,
-                        )
+
+                    // Update DB
+                    val newReport = reportWithImages.report.copy(
+                        finished = true,
+                        pdfFilePath = context.filesDir.absolutePath + "/" + pdfFileName,
                     )
+                    repo.updateReport(newReport)
+
+                    // Update viewModel
+                    withContext(Dispatchers.Main) {
+                        _currentPanelReport.value =
+                            _currentPanelReport.value?.copy(report = newReport)
+                        onSuccess()
+                    }
                 }
             } catch (e: Exception) {
                 Timber.e(e)
