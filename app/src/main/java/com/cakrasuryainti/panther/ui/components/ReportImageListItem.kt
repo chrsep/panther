@@ -117,14 +117,30 @@ fun ReportImageListItem(
 fun EditDescription(description: String, onSave: (String) -> Unit) {
     var newDescription by remember { mutableStateOf(description) }
 
-    OutlinedTextField(
-        value = newDescription,
-        onValueChange = { newDescription = it },
-        label = { Text("Deskripsi") },
-        modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 8.dp)
-    )
-    IconButton(onClick = { onSave(newDescription) }) {
-        Icon(Icons.Rounded.Check, modifier = Modifier.drawOpacity(0.7f))
+    ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
+        val (textField, button) = createRefs()
+
+        OutlinedTextField(
+            value = newDescription,
+            onValueChange = { newDescription = it },
+            label = { Text("Deskripsi") },
+            modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
+                .constrainAs(textField) {
+                    end.linkTo(button.start)
+                    start.linkTo(parent.start)
+                    width = Dimension.fillToConstraints
+                }
+        )
+        IconButton(
+            onClick = { onSave(newDescription) },
+            modifier = Modifier.width(60.dp).constrainAs(button) {
+                end.linkTo(parent.end)
+                top.linkTo(parent.top)
+                bottom.linkTo(parent.bottom)
+            }
+        ) {
+            Icon(Icons.Rounded.Check, modifier = Modifier.drawOpacity(0.7f))
+        }
     }
 }
 
@@ -132,12 +148,15 @@ fun EditDescription(description: String, onSave: (String) -> Unit) {
 fun ConfirmDeleteDialog(onDismissRequest: () -> Unit, onDelete: () -> Unit, description: String) {
     AlertDialog(
         onDismissRequest = onDismissRequest,
-        title = { Text("Hapus Gambear?") },
-        text = { Text("""Gambar dengan deskripsi "$description" akan dihapus.""") },
+        title = { Text("Hapus Gambar?") },
+        text = {
+            if (description != "") Text("""Gambar dengan deskripsi "$description" akan dihapus.""")
+        },
         confirmButton = {
             Button(
                 onClick = {
                     onDelete()
+                    onDismissRequest()
                 },
             ) {
                 Text("Hapus")

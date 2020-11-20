@@ -65,4 +65,16 @@ class RootViewModel @ViewModelInject constructor(
             repo.updateImage(image)
         }
     }
+
+    fun removeImage(image: ReportImage) {
+        _currentPanelReport.value = _currentPanelReport.value?.copy(
+            images = _currentPanelReport.value?.images?.filter {
+                it.id != image.id
+            } ?: listOf()
+        )
+
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.deleteImage(image)
+        }
+    }
 }

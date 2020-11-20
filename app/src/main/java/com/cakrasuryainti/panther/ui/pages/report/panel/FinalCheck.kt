@@ -37,7 +37,7 @@ fun FinalCheck(navController: NavHostController, viewModel: RootViewModel) {
         saveImages = { viewModel.saveImages(it) },
         images = reportWithImages?.images ?: listOf(),
         updateImage = { viewModel.updateImage(it) }
-    )
+    ) { viewModel.removeImage(it) }
 }
 
 @Composable
@@ -48,7 +48,8 @@ private fun Form(
     updateReport: (PanelReport) -> Unit,
     saveImages: (List<ReportImage>) -> Unit,
     images: List<ReportImage>,
-    updateImage: (ReportImage) -> Unit
+    updateImage: (ReportImage) -> Unit,
+    removeImage: (ReportImage) -> Unit
 ) {
     val context = ContextAmbient.current
     val getContentsLauncher = registerForActivityResult(
@@ -124,19 +125,14 @@ private fun Form(
                     modifier = Modifier.padding(top = 16.dp, start = 8.dp),
                     style = MaterialTheme.typography.body2
                 )
-                images.sortedByDescending { it.createdAt }.forEachIndexed { idx, it ->
+                images.sortedByDescending { it.createdAt }.forEach { image ->
                     ReportImageListItem(
-                        image = it,
+                        image = image,
                         modifier = Modifier.padding(
-                            start = 12.dp,
-                            end = 12.dp
+                            start = 12.dp
                         ),
-                        updateDescription = {
-                            updateImage(it)
-                        },
-                        removeImage = {
-
-                        },
+                        updateDescription = { updateImage(it) },
+                        removeImage = { removeImage(it) },
                     )
                 }
             }
@@ -165,7 +161,7 @@ private fun FormPreview() {
             updateReport = { report = it },
             saveImages = { images = images.plus(it) },
             images = images,
-            updateImage = {}
-        )
+            updateImage = {},
+        ) {}
     }
 }

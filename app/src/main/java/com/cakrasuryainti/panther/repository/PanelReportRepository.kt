@@ -41,4 +41,8 @@ class PanelReportRepository @Inject constructor(private val dao: PanelReportDao)
     suspend fun updateImage(image: ReportImage) {
         dao.updateImage(image)
     }
+
+    suspend fun deleteImage(image: ReportImage) {
+        dao.deleteImage(image)
+    }
 }

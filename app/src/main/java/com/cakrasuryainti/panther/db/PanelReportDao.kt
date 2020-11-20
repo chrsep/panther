@@ -1,9 +1,6 @@
 package com.cakrasuryainti.panther.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.db.model.PanelReportWithImages
 import com.cakrasuryainti.panther.db.model.ReportImage
@@ -28,4 +25,7 @@ interface PanelReportDao {
 
     @Update
     suspend fun updateImage(image: ReportImage)
+
+    @Delete
+    suspend fun deleteImage(image: ReportImage)
 }
