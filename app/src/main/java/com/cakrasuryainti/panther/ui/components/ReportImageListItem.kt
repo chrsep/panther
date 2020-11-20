@@ -37,9 +37,12 @@ fun ReportImageListItem(image: ReportImage, modifier: Modifier = Modifier) {
                 contentScale = ContentScale.Crop,
             )
         }
+        if (!isEditing) {
+
+        }
         ConstraintLayout(modifier = Modifier.fillMaxWidth().height(56.dp)) {
             val (text, button) = createRefs()
-            if (!isEditing && image.description != "") {
+            if (image.description != "") {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.constrainAs(text) {
@@ -53,7 +56,7 @@ fun ReportImageListItem(image: ReportImage, modifier: Modifier = Modifier) {
                 ) {
                     Text(image.description)
                 }
-            } else if (!isEditing) {
+            } else {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.constrainAs(text) {
@@ -70,27 +73,7 @@ fun ReportImageListItem(image: ReportImage, modifier: Modifier = Modifier) {
                         color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
                     )
                 }
-            } else {
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = {},
-                    label = { Text("Deskripsi") },
-                    modifier = Modifier.constrainAs(text) {
-                        start.linkTo(parent.start, 16.dp)
-                        top.linkTo(parent.top)
-                        bottom.linkTo(parent.bottom)
-                        end.linkTo(button.start)
-                        width = Dimension.fillToConstraints
-                    },
-                )
             }
-
-            if (isEditing) {
-                BottomDrawerLayout(drawerContent = { Text(text = "Drawer") }) {
-                    Text(text = "body")
-                }
-            }
-
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -101,17 +84,28 @@ fun ReportImageListItem(image: ReportImage, modifier: Modifier = Modifier) {
                 }
             ) {
 
-                if (!isEditing) {
-                    IconButton(onClick = { isEditing = true }) {
-                        Icon(Icons.Rounded.Edit, modifier = Modifier.drawOpacity(0.7f))
-                    }
-                } else {
-                    IconButton(onClick = { isEditing = false }) {
-                        Icon(Icons.Rounded.Save, modifier = Modifier.drawOpacity(0.7f))
-                    }
+                IconButton(onClick = { isEditing = true }) {
+                    Icon(Icons.Rounded.Edit, modifier = Modifier.drawOpacity(0.7f))
+
                 }
+
             }
         }
+//            OutlinedTextField(
+//                value = "",
+//                onValueChange = {},
+//                label = { Text("Deskripsi") },
+//                modifier = Modifier.constrainAs(text) {
+//                    start.linkTo(parent.start, 16.dp)
+//                    top.linkTo(parent.top)
+//                    bottom.linkTo(parent.bottom)
+//                    end.linkTo(button.start)
+//                    width = Dimension.fillToConstraints
+//                },
+//            )
+//            IconButton(onClick = { isEditing = false }) {
+//                Icon(Icons.Rounded.Save, modifier = Modifier.drawOpacity(0.7f))
+//            }
     }
 }
 
