@@ -6,6 +6,7 @@ import com.cakrasuryainti.panther.db.model.ReportImage
 import com.cakrasuryainti.panther.db.model.Status
 import com.cakrasuryainti.panther.domain.generatePanelReport
 import org.junit.Test
+import java.io.FileOutputStream
 import java.time.Instant
 import java.util.*
 
@@ -17,6 +18,7 @@ import java.util.*
 class MaintenancePdfUnitTest {
     @Test
     fun can_generate_panel_pdf() {
+        val outputStream = FileOutputStream("test.pdf")
         val mockImages = listOf(
             ReportImage(
                 UUID.randomUUID().toString(),
@@ -145,7 +147,7 @@ class MaintenancePdfUnitTest {
                 true
             ),
             mockImages,
-            "test.pdf"
+            outputStream
         )
     }
 }

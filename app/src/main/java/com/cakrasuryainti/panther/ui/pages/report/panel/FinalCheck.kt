@@ -28,10 +28,13 @@ import java.util.*
 @Composable
 fun FinalCheck(navController: NavHostController, viewModel: RootViewModel) {
     val reportWithImages by viewModel.currentPanelReport.observeAsState()
+    val context = ContextAmbient.current
 
     Form(
         onNavigateBack = { navController.popBackStack() },
-        onDone = {},
+        onDone = {
+            viewModel.finalizeReport(reportWithImages, context)
+        },
         report = reportWithImages?.report,
         updateReport = { viewModel.updateReport(it) },
         saveImages = { viewModel.saveImages(it) },
@@ -49,7 +52,7 @@ private fun Form(
     saveImages: (List<ReportImage>) -> Unit,
     images: List<ReportImage>,
     updateImage: (ReportImage) -> Unit,
-    removeImage: (ReportImage) -> Unit
+    removeImage: (ReportImage) -> Unit,
 ) {
     val context = ContextAmbient.current
     val getContentsLauncher = registerForActivityResult(

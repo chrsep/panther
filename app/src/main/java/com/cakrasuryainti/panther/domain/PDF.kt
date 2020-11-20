@@ -15,6 +15,7 @@ import com.itextpdf.layout.property.TextAlignment
 import com.itextpdf.layout.property.VerticalAlignment
 import java.io.FileOutputStream
 import java.io.IOException
+import java.io.OutputStream
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -23,8 +24,12 @@ val RED = DeviceRgb(255, 26, 26)
 val GREEN = DeviceRgb(17, 255, 0)
 val BLUE = DeviceRgb(57, 210, 255)
 
-fun generatePanelReport(report: PanelReport, reportImages: List<ReportImage>, outputPath: String) {
-    val writer = PdfWriter(FileOutputStream(outputPath))
+fun generatePanelReport(
+    report: PanelReport,
+    reportImages: List<ReportImage>,
+    outputStream: OutputStream
+) {
+    val writer = PdfWriter(outputStream)
     val pdf = PdfDocument(writer)
     val document = Document(pdf)
     pdf.addNewPage(PageSize.A4)
@@ -67,11 +72,12 @@ fun generatePanelReport(report: PanelReport, reportImages: List<ReportImage>, ou
         val signatureTable = createSignatureTable()
         document.add(signatureTable)
 
-        document.add(AreaBreak())
+        if (reportImages.isNotEmpty()) {
+            document.add(AreaBreak())
 
-        val imageTable = createImageTable(document, reportImages)
-        document.add(imageTable)
-
+            val imageTable = createImageTable(document, reportImages)
+            document.add(imageTable)
+        }
     } catch (ioe: IOException) {
         System.err.println(ioe)
     } finally {
