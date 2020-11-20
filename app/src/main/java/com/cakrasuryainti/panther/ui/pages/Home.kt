@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawOpacity
+import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -21,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.ui.tooling.preview.Preview
 import com.cakrasuryainti.panther.R
 import com.cakrasuryainti.panther.db.model.PanelReport
+import com.cakrasuryainti.panther.domain.shareReportPdf
 import com.cakrasuryainti.panther.ui.pages.report.HomeViewModel
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -37,6 +39,8 @@ fun HomeContainer(navController: NavHostController, viewModel: HomeViewModel) {
 @ExperimentalMaterialApi
 @Composable
 fun Home(navController: NavHostController, allReports: List<PanelReport>) {
+    val context = ContextAmbient.current
+
     BackdropScaffold(
         gesturesEnabled = false,
         appBar = { TopAppBar(title = { Text(text = "Cakra Surya Inti") }, elevation = 0.dp) },
@@ -110,10 +114,12 @@ fun Home(navController: NavHostController, allReports: List<PanelReport>) {
                                 .format(DateTimeFormatter.ofPattern("dd MMMM yyyy")),
                             style = MaterialTheme.typography.subtitle2,
                             color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
-                                    lineHeight = 20.sp
+                            lineHeight = 20.sp
                         )
                     }
-                    IconButton(onClick = {}, modifier = Modifier.drawOpacity(0.7f)) {
+                    IconButton(onClick = {
+                        shareReportPdf(context, it)
+                    }, modifier = Modifier.drawOpacity(0.7f)) {
                         Icon(Icons.Rounded.Share)
                     }
                 }

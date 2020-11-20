@@ -20,6 +20,7 @@ import androidx.navigation.compose.navigate
 import androidx.ui.tooling.preview.Preview
 import com.cakrasuryainti.panther.R
 import com.cakrasuryainti.panther.db.model.PanelReport
+import com.cakrasuryainti.panther.domain.shareReportPdf
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
 import java.io.File
 
@@ -71,19 +72,7 @@ private fun ReportDaoView(report: PanelReport?, navigateToHome: () -> Unit) {
                 Text("Kembali")
             }
             Button(onClick = {
-                if (report != null) {
-                    val file = File(report.pdfFilePath)
-                    val uri = getUriForFile(context, "com.cakrasuryainti.panther.provider", file)
-                    val sendIntent: Intent = Intent().apply {
-                        action = Intent.ACTION_SEND
-                        putExtra(Intent.EXTRA_STREAM, uri)
-                        flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-                        type = "application/pdf"
-                    }
-
-                    val shareIntent = Intent.createChooser(sendIntent, "Share Report")
-                    startActivity(context, shareIntent, null)
-                }
+                if (report != null) shareReportPdf(context, report)
             }) {
                 Text("Share PDF")
             }

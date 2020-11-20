@@ -1,9 +1,13 @@
 package com.cakrasuryainti.panther.domain
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.db.model.ReportImage
+import java.io.File
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -45,4 +49,18 @@ fun saveImagesIntoReport(
     }.filterNotNull()
 
     persistImageData(newImages)
+}
+
+fun shareReportPdf(context: Context, report: PanelReport) {
+    val file = File(report.pdfFilePath)
+    val uri = FileProvider.getUriForFile(context, "com.cakrasuryainti.panther.provider", file)
+    val sendIntent: Intent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_STREAM, uri)
+        flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        type = "application/pdf"
+    }
+
+    val shareIntent = Intent.createChooser(sendIntent, "Share Report")
+    ContextCompat.startActivity(context, shareIntent, null)
 }
