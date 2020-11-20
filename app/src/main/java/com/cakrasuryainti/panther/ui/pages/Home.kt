@@ -11,7 +11,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawOpacity
-import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -110,7 +109,8 @@ fun Home(navController: NavHostController, allReports: List<PanelReport>) {
                             it.dateTime.atZone(ZoneId.systemDefault())
                                 .format(DateTimeFormatter.ofPattern("dd MMMM yyyy")),
                             style = MaterialTheme.typography.subtitle2,
-                            color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f)
+                            color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
+                                    lineHeight = 20.sp
                         )
                     }
                     IconButton(onClick = {}, modifier = Modifier.drawOpacity(0.7f)) {
