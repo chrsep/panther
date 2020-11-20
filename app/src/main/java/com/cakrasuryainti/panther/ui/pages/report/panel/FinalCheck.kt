@@ -79,6 +79,13 @@ private fun Form(
         saveImages(newImages)
     }
 
+    fun handleRemoveImage(image: ReportImage) {
+        val success = context.deleteFile(image.id)
+        if (success) {
+            removeImage(image)
+        }
+    }
+
     fun handleDone() {
         onDone()
     }
@@ -132,7 +139,7 @@ private fun Form(
                             start = 12.dp
                         ),
                         updateDescription = { updateImage(it) },
-                        removeImage = { removeImage(it) },
+                        removeImage = { handleRemoveImage(it) },
                     )
                 }
             }
