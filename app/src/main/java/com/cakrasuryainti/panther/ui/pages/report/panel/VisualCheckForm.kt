@@ -16,11 +16,10 @@ import androidx.navigation.compose.navigate
 import androidx.ui.tooling.preview.Preview
 import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.db.model.Status
-import com.cakrasuryainti.panther.ui.RootViewModel
 import com.cakrasuryainti.panther.ui.components.StatusCheckField
 
 @Composable
-fun VisualCheckForm(navController: NavHostController, viewModel: RootViewModel) {
+fun VisualCheckForm(navController: NavHostController, viewModel: PanelViewModel) {
     val reportWithImages by viewModel.currentPanelReport.observeAsState()
 
     Form(

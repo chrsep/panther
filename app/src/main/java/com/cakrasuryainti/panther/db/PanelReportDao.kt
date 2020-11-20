@@ -28,4 +28,7 @@ interface PanelReportDao {
 
     @Delete
     suspend fun deleteImage(image: ReportImage)
+
+    @Query("select * from PanelReport where finished order by dateTime ")
+    fun findAllPanelReport(): Flow<List<PanelReport>>
 }

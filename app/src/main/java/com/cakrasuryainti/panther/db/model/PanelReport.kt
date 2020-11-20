@@ -10,7 +10,7 @@ import java.time.Instant
 data class PanelReport(
     @PrimaryKey
     val id: String,
-    val pekerjaan: String = "",
+    val customer: String = "",
     val panelName: String = "",
     val model: String = "",
     val serialNumber: String = "",

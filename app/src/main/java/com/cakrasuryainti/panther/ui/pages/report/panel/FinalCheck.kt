@@ -18,14 +18,13 @@ import androidx.ui.tooling.preview.Preview
 import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.db.model.ReportImage
 import com.cakrasuryainti.panther.registerForActivityResult
-import com.cakrasuryainti.panther.ui.RootViewModel
 import com.cakrasuryainti.panther.ui.components.ReportImageListItem
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
 import androidx.navigation.compose.navigate
 import com.cakrasuryainti.panther.domain.saveImagesIntoReport
 
 @Composable
-fun FinalCheck(navController: NavHostController, viewModel: RootViewModel) {
+fun FinalCheck(navController: NavHostController, viewModel: PanelViewModel) {
     val reportWithImages by viewModel.currentPanelReport.observeAsState()
     val context = ContextAmbient.current
 

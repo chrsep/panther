@@ -16,11 +16,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.db.model.Status
-import com.cakrasuryainti.panther.ui.RootViewModel
 import com.cakrasuryainti.panther.ui.components.StatusCheckField
 
 @Composable
-fun CleanlinessForm(navController: NavHostController, viewModel: RootViewModel) {
+fun CleanlinessForm(navController: NavHostController, viewModel: PanelViewModel) {
     val reportWithImages by viewModel.currentPanelReport.observeAsState()
 
     Form(

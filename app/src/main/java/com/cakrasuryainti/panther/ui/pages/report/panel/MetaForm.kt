@@ -21,7 +21,6 @@ import androidx.navigation.compose.navigate
 import androidx.ui.tooling.preview.Preview
 import com.cakrasuryainti.panther.db.model.JobDesc
 import com.cakrasuryainti.panther.db.model.PanelReport
-import com.cakrasuryainti.panther.ui.RootViewModel
 import com.cakrasuryainti.panther.ui.components.ChoiceChip
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
 
@@ -30,7 +29,7 @@ import com.cakrasuryainti.panther.ui.theme.PantherTheme
 @Composable
 fun PanelReportMetaForm(
     navController: NavHostController,
-    viewModel: RootViewModel,
+    viewModel: PanelViewModel,
 ) {
     val reportWithImages by viewModel.currentPanelReport.observeAsState()
 
@@ -57,7 +56,7 @@ fun MetaForm(
 
     fun handleNext(report: PanelReport?) {
         if (
-            report?.pekerjaan != "" &&
+            report?.customer != "" &&
             report?.panelName != "" &&
             report?.model != "" &&
             report?.serialNumber != "" &&
@@ -96,14 +95,14 @@ fun MetaForm(
         ScrollableColumn(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
             OutlinedTextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                value = report?.pekerjaan ?: "",
-                onValueChange = { updateState(report?.copy(pekerjaan = it)) },
+                value = report?.customer ?: "",
+                onValueChange = { updateState(report?.copy(customer = it)) },
                 label = { Text("Customer") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
                     .semantics { accessibilityLabel = "pekerjaan" },
-                isErrorValue = isDirty && report?.pekerjaan == "",
+                isErrorValue = isDirty && report?.customer == "",
             )
             OutlinedTextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),

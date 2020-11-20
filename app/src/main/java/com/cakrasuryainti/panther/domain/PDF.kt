@@ -13,7 +13,6 @@ import com.itextpdf.layout.Document
 import com.itextpdf.layout.element.*
 import com.itextpdf.layout.property.TextAlignment
 import com.itextpdf.layout.property.VerticalAlignment
-import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 import java.time.Instant
@@ -45,7 +44,7 @@ fun generatePanelReport(
 
         val metaTable =
             createMetaTable(
-                report.pekerjaan,
+                report.customer,
                 report.location,
                 report.panelName,
                 report.dateTime,

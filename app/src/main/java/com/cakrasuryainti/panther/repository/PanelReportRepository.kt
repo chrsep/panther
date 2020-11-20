@@ -45,4 +45,8 @@ class PanelReportRepository @Inject constructor(private val dao: PanelReportDao)
     suspend fun deleteImage(image: ReportImage) {
         dao.deleteImage(image)
     }
+
+    fun findAllReport(): Flow<List<PanelReport>> {
+        return dao.findAllPanelReport()
+    }
 }

@@ -12,11 +12,10 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.FileProvider.getUriForFile
 import androidx.navigation.NavHostController
 import com.cakrasuryainti.panther.db.model.PanelReport
-import com.cakrasuryainti.panther.ui.RootViewModel
 import java.io.File
 
 @Composable
-fun ReportDone(navController: NavHostController, viewModel: RootViewModel) {
+fun ReportDone(navController: NavHostController, viewModel: PanelViewModel) {
     val reportWithImages by viewModel.currentPanelReport.observeAsState()
 
     ReportDaoView(reportWithImages?.report)

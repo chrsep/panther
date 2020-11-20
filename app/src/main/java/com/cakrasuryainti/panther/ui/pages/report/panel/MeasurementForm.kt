@@ -14,11 +14,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import androidx.ui.tooling.preview.Preview
 import com.cakrasuryainti.panther.db.model.PanelReport
-import com.cakrasuryainti.panther.ui.RootViewModel
 import com.cakrasuryainti.panther.ui.components.FloatField
 
 @Composable
-fun PanelMeasurementForm(navController: NavHostController, viewModel: RootViewModel) {
+fun PanelMeasurementForm(navController: NavHostController, viewModel: PanelViewModel) {
     val reportWithImages by viewModel.currentPanelReport.observeAsState()
     MeasurementForm(
         onNavigateBack = { navController.popBackStack() },

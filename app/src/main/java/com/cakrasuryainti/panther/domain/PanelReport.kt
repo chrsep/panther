@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 fun generatePdfFileName(report: PanelReport): String {
-    val customerName = report.pekerjaan.replace(" ", "_")
+    val customerName = report.customer.replace(" ", "_")
     val date = report.dateTime.atZone(ZoneId.systemDefault()).format(
         DateTimeFormatter.ISO_LOCAL_DATE
     )

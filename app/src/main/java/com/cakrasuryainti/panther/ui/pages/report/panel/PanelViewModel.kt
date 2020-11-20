@@ -1,4 +1,4 @@
-package com.cakrasuryainti.panther.ui
+package com.cakrasuryainti.panther.ui.pages.report.panel
 
 import android.content.Context
 import androidx.hilt.lifecycle.ViewModelInject
@@ -21,7 +21,7 @@ import timber.log.Timber
 // We currently only use a single viewModel due to the simplicity of the app and the lack of support
 // of attaching dagger hilt's viewModelFactory to components under navHost, which provides its own
 // viewModel scope and factory with no hilt's di capabilities.
-class RootViewModel @ViewModelInject constructor(
+class PanelViewModel @ViewModelInject constructor(
     private val repo: PanelReportRepository
 ) : ViewModel() {
     private val _currentPanelReport = MutableLiveData<PanelReportWithImages>().also {
