@@ -18,11 +18,12 @@ class GeneratorPDFUnitTest {
         generateGeneratorReport(
             GeneratorReport(
                 UUID.randomUUID().toString(),
-                "Test",
+                "PT STP Group",
                 "test",
                 "",
-               2300,
-                "Yes"
+                2300,
+                "Yes",
+                ""
             ),
             outputStream
         )

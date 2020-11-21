@@ -34,8 +34,16 @@ fun generateGeneratorReport(
         document.add(metaTable)
 
         val mainTable = createMainReportTable(report)
+        mainTable.setMarginBottom(16f)
         document.add(mainTable)
 
+        val notesTable = createNotesTable(report)
+        notesTable.setMarginBottom(32f)
+        document.add(notesTable)
+
+        val signatureTable = createSignatureTable(report)
+        notesTable.setMarginBottom(32f)
+        document.add(signatureTable)
 
     } catch (ioe: IOException) {
         System.err.println(ioe)
@@ -46,17 +54,11 @@ fun generateGeneratorReport(
 
 private fun createMainReportTable(report: GeneratorReport): Table {
     val table = Table(
-        floatArrayOf(200f, 20f, 250f, 100f)
+        floatArrayOf(200f, 250f, 100f)
     )
     table.addCell(
         Cell()
             .add(smallParagraph("Checklist").center())
-            .setBackgroundColor(BLUE)
-            .alignMiddle()
-    )
-    table.addCell(
-        Cell()
-            .add(smallParagraph("V").center())
             .setBackgroundColor(BLUE)
             .alignMiddle()
     )
@@ -144,7 +146,6 @@ private fun sectionHeading(
     )
     table.addCell(Cell())
     table.addCell(Cell())
-    table.addCell(Cell())
 }
 
 private fun addChecklistRow(
@@ -154,11 +155,6 @@ private fun addChecklistRow(
     description: String
 ) {
     table.addCell(smallParagraph(question))
-    table.addCell(
-        Cell()
-            .add(smallParagraph(if (isTrue) "V" else "").center())
-            .alignMiddle()
-    )
     table.addCell(smallParagraph(description))
     table.addCell(Cell())
 }
@@ -183,6 +179,31 @@ private fun createMetaTable(generatorId: String, period: String): Table {
     )
     table.addCell(smallParagraph(period))
 
+    return table
+}
+
+private fun createNotesTable(report: GeneratorReport): Table {
+    val table = Table(floatArrayOf(150f, 150f, 150f, 150f))
+    table.addCell(
+        Cell(1, 4)
+            .add(smallParagraph("CATATAN DAN REKOMENDASI:").setMarginBottom(8f))
+            .add(smallParagraph(report.notesAndRecommendation))
+    ).setMinHeight(128f)
+    return table
+}
+
+private fun createSignatureTable(report: GeneratorReport): Table {
+    val table = Table(floatArrayOf(200f, 150f, 150f, 150f))
+    table.addCell(Cell(1, 1).add(smallParagraph("PT. CSI / INTICELL").center()))
+    table.addCell(Cell(1, 3).add(smallParagraph(report.customer).center()))
+    table.addCell(Cell(1, 1).setHeight(86f))
+    table.addCell(Cell(1, 1).setHeight(86f))
+    table.addCell(Cell(1, 1).setHeight(86f))
+    table.addCell(Cell(1, 1).setHeight(86f))
+    table.addCell(Cell(1, 1).add(smallParagraph("Project Engineer").center()))
+    table.addCell(Cell(1, 1).add(smallParagraph("Site Engineer").center()))
+    table.addCell(Cell(1, 1).add(smallParagraph("Project Manager").center()))
+    table.addCell(Cell(1, 1).add(smallParagraph("Security Site").center()))
     return table
 }
 

@@ -7,5 +7,7 @@ data class GeneratorReport(
     // TODO: Verify what this is.
     val period: String,
     val runningHours: Int,
-    val generatorClean: String
-)
+    val generatorClean: String,
+    val notesAndRecommendation: String
+) {
+}
