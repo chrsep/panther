@@ -31,4 +31,8 @@ interface PanelReportDao {
 
     @Query("select * from PanelReport where finished order by dateTime ")
     fun findAllPanelReport(): Flow<List<PanelReport>>
+
+
+    @Query("select * from ReportImage where id = :imageId")
+    fun findImageById(imageId: String?): Flow<ReportImage>
 }

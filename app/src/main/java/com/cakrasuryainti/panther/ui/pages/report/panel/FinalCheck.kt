@@ -44,8 +44,10 @@ fun FinalCheck(navController: NavHostController, viewModel: PanelViewModel) {
         updateReport = { viewModel.updateReport(it) },
         saveImages = { viewModel.saveImages(it) },
         images = reportWithImages?.images ?: listOf(),
-        updateImage = { viewModel.updateImage(it) }
-    ) { viewModel.removeImage(it) }
+        updateImage = { viewModel.updateImage(it) },
+        navigateToImageEdit = { navController.navigate("create/panel/image/${it.id}") },
+        removeImage = { viewModel.removeImage(it) }
+    )
 }
 
 @Composable
@@ -58,6 +60,7 @@ private fun Form(
     images: List<ReportImage>,
     updateImage: (ReportImage) -> Unit,
     removeImage: (ReportImage) -> Unit,
+    navigateToImageEdit: (ReportImage) -> Unit,
 ) {
     val context = ContextAmbient.current
     val getImages = registerForActivityResult(
@@ -140,6 +143,7 @@ private fun Form(
                         ),
                         updateDescription = { updateImage(it) },
                         removeImage = { handleRemoveImage(it) },
+                        onEditClick = { navigateToImageEdit(it) }
                     )
                 }
             }
@@ -169,6 +173,8 @@ private fun FormPreview() {
             saveImages = { images = images.plus(it) },
             images = images,
             updateImage = {},
-        ) {}
+            removeImage = {},
+            navigateToImageEdit = {}
+        )
     }
 }

@@ -49,4 +49,8 @@ class PanelReportRepository @Inject constructor(private val dao: PanelReportDao)
     fun findAllReport(): Flow<List<PanelReport>> {
         return dao.findAllPanelReport()
     }
+
+    fun findImageById(imageId: String?): Flow<ReportImage> {
+        return dao.findImageById(imageId)
+    }
 }

@@ -13,6 +13,7 @@ import com.cakrasuryainti.panther.domain.generatePanelReport
 import com.cakrasuryainti.panther.domain.generatePdfFileName
 import com.cakrasuryainti.panther.repository.PanelReportRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -124,5 +125,9 @@ class PanelViewModel @ViewModelInject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             repo.insertNewReport(report)
         }
+    }
+
+    fun getImage(imageId: String?): Flow<ReportImage> {
+        return repo.findImageById(imageId)
     }
 }

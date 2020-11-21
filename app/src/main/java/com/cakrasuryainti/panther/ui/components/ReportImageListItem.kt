@@ -4,9 +4,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.*
+import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material.icons.rounded.Remove
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawOpacity
@@ -23,10 +23,8 @@ fun ReportImageListItem(
     modifier: Modifier = Modifier,
     removeImage: (ReportImage) -> Unit,
     updateDescription: (ReportImage) -> Unit,
+    onEditClick: (ReportImage) -> Unit,
 ) {
-    var isEditing by remember { mutableStateOf(false) }
-    var isDeleting by remember { mutableStateOf(false) }
-
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier.height(72.dp)
@@ -39,150 +37,59 @@ fun ReportImageListItem(
                 modifier = Modifier.height(48.dp).width(48.dp),
             )
         }
-        if (!isEditing) {
-            ConstraintLayout(modifier = Modifier.fillMaxWidth().height(56.dp)) {
-                val (text, button) = createRefs()
-                if (image.description != "") {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.constrainAs(text) {
-                            start.linkTo(parent.start, 16.dp)
-                            top.linkTo(parent.top)
-                            bottom.linkTo(parent.bottom)
-                            end.linkTo(button.start)
-                            height = Dimension.fillToConstraints
-                            width = Dimension.fillToConstraints
-                        }
-                    ) {
-                        Text(image.description)
-                    }
-                } else {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.constrainAs(text) {
-                            start.linkTo(parent.start, 16.dp)
-                            top.linkTo(parent.top)
-                            bottom.linkTo(parent.bottom)
-                            end.linkTo(button.start)
-                            height = Dimension.fillToConstraints
-                            width = Dimension.fillToConstraints
-                        },
-                    ) {
-                        Text(
-                            "Belum ada deskripsi",
-                            color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
-                        )
-                    }
-                }
-
+        ConstraintLayout(modifier = Modifier.fillMaxWidth().height(56.dp)) {
+            val (text, button) = createRefs()
+            if (image.description != "") {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.constrainAs(button) {
-                        bottom.linkTo(parent.bottom)
+                    modifier = Modifier.constrainAs(text) {
+                        start.linkTo(parent.start, 16.dp)
                         top.linkTo(parent.top)
-                        end.linkTo(parent.end)
+                        bottom.linkTo(parent.bottom)
+                        end.linkTo(button.start)
+                        height = Dimension.fillToConstraints
+                        width = Dimension.fillToConstraints
                     }
                 ) {
-                    IconButton(onClick = { isEditing = true }) {
-                        Icon(Icons.Rounded.Edit, modifier = Modifier.drawOpacity(0.7f))
-                    }
-                    IconButton(onClick = {
-                        isDeleting = true
-                    }) {
-                        Icon(Icons.Rounded.Remove, modifier = Modifier.drawOpacity(0.7f))
-                    }
+                    Text(image.description)
+                }
+            } else {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.constrainAs(text) {
+                        start.linkTo(parent.start, 16.dp)
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                        end.linkTo(button.start)
+                        height = Dimension.fillToConstraints
+                        width = Dimension.fillToConstraints
+                    },
+                ) {
+                    Text(
+                        "Belum ada deskripsi",
+                        color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
+                    )
                 }
             }
-        } else {
-            EditDescription(
-                description = image.description,
-                onSave = {
-                    isEditing = false
-                    updateDescription(image.copy(description = it))
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.constrainAs(button) {
+                    bottom.linkTo(parent.bottom)
+                    top.linkTo(parent.top)
+                    end.linkTo(parent.end)
                 }
-            )
-        }
-
-        if (isDeleting) {
-            ConfirmDeleteDialog(
-                onDismissRequest = { isDeleting = false },
-                description = image.description,
-                onDelete = { removeImage(image) },
-            )
-        }
-    }
-}
-
-@Composable
-fun EditDescription(description: String, onSave: (String) -> Unit) {
-    var newDescription by remember { mutableStateOf(description) }
-
-    ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
-        val (textField, button) = createRefs()
-
-        OutlinedTextField(
-            value = newDescription,
-            onValueChange = { newDescription = it },
-            label = { Text("Deskripsi") },
-            modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
-                .constrainAs(textField) {
-                    end.linkTo(button.start)
-                    start.linkTo(parent.start)
-                    width = Dimension.fillToConstraints
-                }
-        )
-        IconButton(
-            onClick = { onSave(newDescription) },
-            modifier = Modifier.width(60.dp).constrainAs(button) {
-                end.linkTo(parent.end)
-                top.linkTo(parent.top)
-                bottom.linkTo(parent.bottom)
-            }
-        ) {
-            Icon(Icons.Rounded.Check, modifier = Modifier.drawOpacity(0.7f))
-        }
-    }
-}
-
-@Composable
-fun ConfirmDeleteDialog(onDismissRequest: () -> Unit, onDelete: () -> Unit, description: String) {
-    AlertDialog(
-        onDismissRequest = onDismissRequest,
-        title = { Text("Hapus Gambar?") },
-        text = {
-            if (description != "") Text("""Gambar dengan deskripsi "$description" akan dihapus.""")
-        },
-        confirmButton = {
-            Button(
-                onClick = {
-                    onDelete()
-                    onDismissRequest()
-                },
             ) {
-                Text("Hapus")
+                IconButton(
+                    onClick = { onEditClick(image) }
+                ) {
+                    Icon(Icons.Rounded.Edit, modifier = Modifier.drawOpacity(0.7f))
+                }
             }
-        },
-        dismissButton = {
-            TextButton(
-                onClick = {
-                    onDismissRequest()
-                },
-            ) {
-                Text("Jangan")
-            }
-        }
-    )
-}
-
-@Preview
-@Composable
-fun ConfirmDeleteDialogPreview() {
-    PantherTheme {
-        Scaffold {
-            ConfirmDeleteDialog(onDismissRequest = {}, onDelete = {}, "Ini adalah gambar")
         }
     }
 }
+
 
 @Preview
 @Composable
@@ -199,7 +106,8 @@ private fun ReportImagePreview() {
                     ),
                     modifier = Modifier.padding(8.dp),
                     removeImage = {},
-                    updateDescription = {}
+                    updateDescription = {},
+                    onEditClick = {}
                 )
             }
         }
@@ -220,7 +128,8 @@ private fun ReportImageWithoutDescriptionPreview() {
                     ),
                     modifier = Modifier.padding(8.dp),
                     removeImage = {},
-                    updateDescription = {}
+                    updateDescription = {},
+                    onEditClick = {}
                 )
             }
         }
