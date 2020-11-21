@@ -1,10 +1,9 @@
 package com.cakrasuryainti.panther.ui.pages.report.generator
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.layout.ExperimentalLayout
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -12,16 +11,11 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.accessibilityLabel
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import androidx.ui.tooling.preview.Preview
-import com.cakrasuryainti.panther.db.model.JobDesc
 import com.cakrasuryainti.panther.db.model.PanelReport
-import com.cakrasuryainti.panther.ui.components.ChoiceChip
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
 
 
@@ -55,17 +49,17 @@ private fun GeneratorEngine(
     var isDirty by remember { mutableStateOf(false) }
 
     fun handleNext(report: PanelReport?) {
-        if (
-            report?.customer != "" &&
-            report?.panelName != "" &&
-            report?.model != "" &&
-            report?.serialNumber != "" &&
-            report?.location != ""
-        ) {
-            onNext()
-        } else {
-            isDirty = true
-        }
+//        if (
+//            report?.customer != "" &&
+//            report?.panelName != "" &&
+//            report?.model != "" &&
+//            report?.serialNumber != "" &&
+//            report?.location != ""
+//        ) {
+        onNext()
+//        } else {
+//        isDirty = true
+//        }
     }
 
     fun updateState(report: PanelReport?) {
@@ -94,75 +88,101 @@ private fun GeneratorEngine(
     {
         ScrollableColumn(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
             OutlinedTextField(
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                value = report?.customer ?: "",
-                onValueChange = { updateState(report?.copy(customer = it)) },
-                label = { Text("Customer") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
-                    .semantics { accessibilityLabel = "pekerjaan" },
-                isErrorValue = isDirty && report?.customer == "",
+                value = "",
+                label = { Text("Pre-heating works?") },
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                onValueChange = {}
             )
             OutlinedTextField(
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                value = report?.panelName ?: "",
-                onValueChange = { updateState(report?.copy(panelName = it)) },
-                label = { Text("Panel") },
+                value = "",
+                label = { Text("Motor starts esaily?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
-                isErrorValue = isDirty && report?.panelName == ""
+                onValueChange = {}
             )
             OutlinedTextField(
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                value = report?.model ?: "",
-                onValueChange = { updateState(report?.copy(model = it)) },
-                label = { Text("Type / Model") },
+                value = "",
+                label = { Text("Oil pressure OK") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
-                isErrorValue = isDirty && report?.model == ""
+                onValueChange = {}
             )
             OutlinedTextField(
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                value = report?.serialNumber ?: "",
-                onValueChange = { updateState(report?.copy(serialNumber = it)) },
-                label = { Text("Serial Number") },
+                value = "",
+                label = { Text("Battery charging?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
-                isErrorValue = isDirty && report?.serialNumber == ""
+                onValueChange = {}
             )
-            OutlinedTextField(
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                onImeActionPerformed = { imeAction, _ ->
-                    if (imeAction == ImeAction.Done) handleNext(report)
-                },
-                value = report?.location ?: "",
-                onValueChange = { updateState(report?.copy(location = it)) },
-                label = { Text("Lokasi") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
-                isErrorValue = isDirty && report?.location == ""
-            )
-            Surface(
+
+            Text(
+                "Breaker OFF condition",
                 modifier = Modifier.fillMaxWidth()
-                    .padding(start = 8.dp, end = 8.dp, top = 16.dp, bottom = 32.dp),
-                border = BorderStroke(1.dp, MaterialTheme.colors.onBackground.copy(alpha = 0.4f)),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Column(modifier = Modifier.padding(8.dp)) {
-                    Text(
-                        "Job Desc",
-                        modifier = Modifier.padding(start = 8.dp, top = 8.dp, bottom = 8.dp),
-                        style = MaterialTheme.typography.body2
-                    )
-                    FlowRow {
-                        JobDesc.values().forEach { jobDesc ->
-                            ChoiceChip(
-                                modifier = Modifier.padding(start = 8.dp, bottom = 8.dp),
-                                onClick = { updateState(report?.copy(jobDesc = jobDesc)) },
-                                label = jobDesc.name,
-                                isActive = jobDesc == report?.jobDesc ?: JobDesc.Maintenance
-                            )
-                        }
-                    }
-                }
-            }
+                    .padding(start = 8.dp, end = 8.dp, top = 32.dp, bottom = 8.dp)
+            )
+            OutlinedTextField(
+                value = "",
+                label = { Text("Measurement Metering (Volt)") },
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                onValueChange = {}
+            )
+            OutlinedTextField(
+                value = "",
+                label = { Text("Measurement Metering (Ampere)") },
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                onValueChange = {}
+            )
+            OutlinedTextField(
+                value = "",
+                label = { Text("Measurement Metering (HZ)") },
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                onValueChange = {}
+            )
+
+            Text(
+                "Breaker ON condition",
+                modifier = Modifier.fillMaxWidth()
+                    .padding(start = 8.dp, end = 8.dp, top = 32.dp, bottom = 8.dp)
+            )
+            OutlinedTextField(
+                value = "",
+                label = { Text("Measurement Metering (Volt)") },
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                onValueChange = {}
+            )
+            OutlinedTextField(
+                value = "",
+                label = { Text("Measurement Metering (Ampere)") },
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                onValueChange = {}
+            )
+            OutlinedTextField(
+                value = "",
+                label = { Text("Measurement Metering (HZ)") },
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                onValueChange = {}
+            )
+
+            Text(
+                "Auto start test",
+                modifier = Modifier.fillMaxWidth()
+                    .padding(start = 8.dp, end = 8.dp, top = 32.dp, bottom = 8.dp)
+            )
+            OutlinedTextField(
+                value = "",
+                label = { Text("Measurement Metering (Volt)") },
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                onValueChange = {}
+            )
+            OutlinedTextField(
+                value = "",
+                label = { Text("Measurement Metering (Ampere)") },
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                onValueChange = {}
+            )
+            OutlinedTextField(
+                value = "",
+                label = { Text("Measurement Metering (HZ)") },
+                modifier = Modifier.fillMaxWidth().padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 32.dp),
+                onValueChange = {}
+            )
         }
     }
 }

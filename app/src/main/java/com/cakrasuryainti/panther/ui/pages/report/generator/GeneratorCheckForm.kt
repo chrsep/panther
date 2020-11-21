@@ -55,17 +55,17 @@ private fun GeneratorCheckForm(
     var isDirty by remember { mutableStateOf(false) }
 
     fun handleNext(report: PanelReport?) {
-        if (
-            report?.customer != "" &&
-            report?.panelName != "" &&
-            report?.model != "" &&
-            report?.serialNumber != "" &&
-            report?.location != ""
-        ) {
-            onNext()
-        } else {
-            isDirty = true
-        }
+//        if (
+//            report?.customer != "" &&
+//            report?.panelName != "" &&
+//            report?.model != "" &&
+//            report?.serialNumber != "" &&
+//            report?.location != ""
+//        ) {
+        onNext()
+//        } else {
+//        isDirty = true
+//        }
     }
 
     fun updateState(report: PanelReport?) {

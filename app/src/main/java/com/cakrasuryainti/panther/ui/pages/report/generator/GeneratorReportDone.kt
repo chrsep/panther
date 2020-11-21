@@ -25,7 +25,7 @@ fun GeneratorReportDoneContainer(navController: NavHostController, viewModel: Ge
     val reportWithImages by viewModel.currentPanelReport.observeAsState()
 
     GeneratorReportDone(reportWithImages?.report) {
-        viewModel.newReport()
+//        viewModel.newReport()
         // pop all backstack
         while (navController.popBackStack()) {
         }

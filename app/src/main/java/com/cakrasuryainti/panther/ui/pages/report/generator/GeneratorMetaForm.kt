@@ -11,6 +11,7 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawOpacity
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.accessibilityLabel
 import androidx.compose.ui.semantics.semantics
@@ -62,7 +63,7 @@ fun MetaForm(
 //            report?.serialNumber != "" &&
 //            report?.location != ""
 //        ) {
-            onNext()
+        onNext()
 //        } else {
 //            isDirty = true
 //        }
@@ -119,6 +120,11 @@ fun MetaForm(
                 label = { Text("Period") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 isErrorValue = isDirty && report?.model == ""
+            )
+            Text(
+                "Form generator masih tahap Mockup dan belum berfungsi. Mohon feedback/review tentang flow/ui.",
+                style = MaterialTheme.typography.h6,
+                modifier = Modifier.padding(8.dp).drawOpacity(0.6f)
             )
         }
     }
