@@ -80,13 +80,13 @@ fun Home(navController: NavHostController, panelReports: List<PanelReport>) {
                     modifier = Modifier.clickable(onClick = { navController.navigate("create/panel") }),
                     icon = { Icon(Icons.Rounded.AddCircleOutline) }
                 ) {
-                    Text(text = "Buat Laporan LV Panel")
+                    Text(text = "LV Panel Preventive Maintenance")
                 }
                 ListItem(
                     modifier = Modifier.clickable(onClick = { navController.navigate("create/genset") }),
                     icon = { Icon(Icons.Rounded.AddCircleOutline) }
                 ) {
-                    Text(text = "Buat Laporan Genset")
+                    Text(text = "Generator Monthly Inspection")
                 }
             }
         }
@@ -110,7 +110,7 @@ fun Home(navController: NavHostController, panelReports: List<PanelReport>) {
                         onClick = { tabIndex = 1 },
                     ) {
                         Text(
-                            "Genset",
+                            "Generator",
                             modifier = Modifier.padding(16.dp)
                         )
                     }
@@ -118,7 +118,7 @@ fun Home(navController: NavHostController, panelReports: List<PanelReport>) {
             )
             when (tabIndex) {
                 0 -> ListLVPanel(panelReports)
-                1 -> GensetReport(listOf())
+                1 -> GeneratorReport(listOf())
             }
         }
     }
@@ -153,7 +153,7 @@ fun ListLVPanel(allReports: List<PanelReport>) {
                 modifier = Modifier.width(240.dp).padding(top = 72.dp, bottom = 16.dp)
             )
             Text(
-                "Belum Ada Laporan LV Panel Tersimpan",
+                "Belum Ada Laporan LV Panel Maintenance Tersimpan",
                 style = MaterialTheme.typography.h5,
                 modifier = Modifier.width(240.dp),
                 textAlign = TextAlign.Center
@@ -199,7 +199,7 @@ fun ListLVPanel(allReports: List<PanelReport>) {
 }
 
 @Composable
-fun GensetReport(allReports: List<PanelReport>) {
+fun GeneratorReport(allReports: List<PanelReport>) {
     val context = ContextAmbient.current
 
     if (allReports.isEmpty()) {
@@ -213,7 +213,7 @@ fun GensetReport(allReports: List<PanelReport>) {
                 modifier = Modifier.width(240.dp).padding(top = 72.dp, bottom = 16.dp)
             )
             Text(
-                "Belum Ada Laporan Genset Tersimpan",
+                "Belum Ada Laporan Generator Inspection Tersimpan",
                 style = MaterialTheme.typography.h5,
                 modifier = Modifier.width(240.dp),
                 textAlign = TextAlign.Center
