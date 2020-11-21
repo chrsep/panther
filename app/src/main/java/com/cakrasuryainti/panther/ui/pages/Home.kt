@@ -23,7 +23,9 @@ import androidx.ui.tooling.preview.Preview
 import com.cakrasuryainti.panther.R
 import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.domain.shareReportPdf
+import com.cakrasuryainti.panther.ui.components.WorkaroundLazyColumnFor
 import com.cakrasuryainti.panther.ui.pages.report.HomeViewModel
+import com.itextpdf.kernel.pdf.PdfName.Padding
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -92,7 +94,10 @@ fun Home(navController: NavHostController, allReports: List<PanelReport>) {
                 }
             }
 
-            LazyColumnFor(items = allReports, Modifier.fillMaxWidth()) {
+            WorkaroundLazyColumnFor(
+                items = allReports, Modifier.fillMaxWidth(),
+                contentPadding = PaddingValues(bottom = 88.dp)
+            ) {
                 Row(
                     Modifier.padding(16.dp).fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
