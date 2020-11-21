@@ -17,4 +17,5 @@ local.properties
 *.jks
 app/release
 app/test.pdf
+test-generator.pdf
 sentry.properties

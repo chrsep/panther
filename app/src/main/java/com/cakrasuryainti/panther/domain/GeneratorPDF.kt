@@ -1,13 +1,14 @@
 package com.cakrasuryainti.panther.domain
 
 import com.cakrasuryainti.panther.db.model.GeneratorReport
+import com.cakrasuryainti.panther.db.model.GeneratorReportImages
+import com.cakrasuryainti.panther.db.model.ReportImage
+import com.itextpdf.io.image.ImageDataFactory
 import com.itextpdf.kernel.geom.PageSize
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.layout.Document
-import com.itextpdf.layout.element.Cell
-import com.itextpdf.layout.element.Paragraph
-import com.itextpdf.layout.element.Table
+import com.itextpdf.layout.element.*
 import com.itextpdf.layout.property.TextAlignment
 import com.itextpdf.layout.property.VerticalAlignment
 import java.io.IOException
@@ -15,7 +16,8 @@ import java.io.OutputStream
 
 fun generateGeneratorReport(
     report: GeneratorReport,
-    outputStream: OutputStream
+    images: List<GeneratorReportImages>,
+    outputStream: OutputStream,
 ) {
     val writer = PdfWriter(outputStream)
     val pdf = PdfDocument(writer)
@@ -45,6 +47,13 @@ fun generateGeneratorReport(
         notesTable.setMarginBottom(32f)
         document.add(signatureTable)
 
+        if (images.isNotEmpty()) {
+            document.add(AreaBreak())
+
+            val imageTable = createImageTable(images)
+            document.add(imageTable)
+        }
+
     } catch (ioe: IOException) {
         System.err.println(ioe)
     } finally {
@@ -52,13 +61,30 @@ fun generateGeneratorReport(
     }
 }
 
+private fun createImageTable(images: List<GeneratorReportImages>): Table {
+    val table = Table(floatArrayOf(300f, 300f))
+    images.forEach { image ->
+        val imageData = ImageDataFactory.create(image.filePath)
+        table.addCell(
+            Cell().add(Image(imageData).setAutoScaleWidth(true)).add(Paragraph(image.description))
+        )
+    }
+    return table
+}
+
 private fun createMainReportTable(report: GeneratorReport): Table {
     val table = Table(
-        floatArrayOf(200f, 250f, 100f)
+        floatArrayOf(200f, 25f, 250f, 100f)
     )
     table.addCell(
         Cell()
             .add(smallParagraph("Checklist").center())
+            .setBackgroundColor(BLUE)
+            .alignMiddle()
+    )
+    table.addCell(
+        Cell()
+            .add(smallParagraph("V").center())
             .setBackgroundColor(BLUE)
             .alignMiddle()
     )
@@ -93,7 +119,7 @@ private fun createMainReportTable(report: GeneratorReport): Table {
     addChecklistRow(table, "Auto-start is working?", true, "")
 
     // Equipments
-    sectionHeading(table, "Equipments")
+    sectionHeading(table, "All Tools and equipment are present and in good condition?", false, "")
     addChecklistRow(table, "Whrenches", true, "")
     addChecklistRow(table, "Fire extinguisher present", true, "")
     addChecklistRow(table, "Fire extinguisher working", true, "")
@@ -107,29 +133,29 @@ private fun createMainReportTable(report: GeneratorReport): Table {
     addChecklistRow(table, "Water decanter, does it need to be drained?", true, "")
 
     // Documents
-    sectionHeading(table, "Documents")
+    sectionHeading(table, "Documents", false, "")
     addChecklistRow(table, "Generator log present?", true, "")
     addChecklistRow(table, "Daily check forms present?", true, "")
     addChecklistRow(table, "Manuals presents?", true, "")
 
     // Start engine
-    sectionHeading(table, "Start engine")
+    sectionHeading(table, "Start engine", false, "")
     addChecklistRow(table, "Pre heating works?", true, "")
     addChecklistRow(table, "Motor starts easily?", true, "")
     addChecklistRow(table, "Oil pressure ok?", true, "")
     addChecklistRow(table, "Battery charging?", true, "")
 
-    sectionHeading(table, "Breaker OFF condition (manual test)")
+    sectionHeading(table, "Breaker OFF condition (manual test)", false, "")
     addChecklistRow(table, "Measurement metering (Volt)", true, "")
     addChecklistRow(table, "Measurement metering (Ampere)", true, "")
     addChecklistRow(table, "Measurement metering (Hz)", true, "")
 
-    sectionHeading(table, "Breaker ON condition (manual test)")
+    sectionHeading(table, "Breaker ON condition (manual test)", false, "")
     addChecklistRow(table, "Measurement metering (Volt)", true, "")
     addChecklistRow(table, "Measurement metering (Ampere)", true, "")
     addChecklistRow(table, "Measurement metering (Hz)", true, "")
 
-    sectionHeading(table, "Auto start test (Simulation)")
+    sectionHeading(table, "Auto start test (Simulation)", false, "")
     addChecklistRow(table, "Measurement metering (Volt)", true, "")
     addChecklistRow(table, "Measurement metering (Ampere)", true, "")
     addChecklistRow(table, "Measurement metering (Hz)", true, "")
@@ -140,11 +166,18 @@ private fun createMainReportTable(report: GeneratorReport): Table {
 private fun sectionHeading(
     table: Table,
     title: String,
+    isTrue: Boolean,
+    description: String
 ) {
     table.addCell(
         Cell().add(smallParagraph(title)).setBackgroundColor(GREEN)
     )
-    table.addCell(Cell())
+    table.addCell(
+        Cell()
+            .add(smallParagraph(if (isTrue) "v" else "").center())
+            .alignMiddle()
+    )
+    table.addCell(smallParagraph(description))
     table.addCell(Cell())
 }
 
@@ -155,6 +188,11 @@ private fun addChecklistRow(
     description: String
 ) {
     table.addCell(smallParagraph(question))
+    table.addCell(
+        Cell()
+            .add(smallParagraph(if (isTrue) "v" else "").center())
+            .alignMiddle()
+    )
     table.addCell(smallParagraph(description))
     table.addCell(Cell())
 }

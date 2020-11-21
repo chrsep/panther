@@ -21,9 +21,35 @@ class GeneratorPDFUnitTest {
                 "PT STP Group",
                 "test",
                 "",
-                2300,
+                "",
                 "Yes",
                 ""
+            ),
+            listOf(
+                GeneratorReportImages(
+                    UUID.randomUUID().toString(),
+                    "test-image-2.jpg",
+                    "Deskripsi tentang gambar 1",
+                    ""
+                ),
+                GeneratorReportImages(
+                    UUID.randomUUID().toString(),
+                    "test-image-3.jpg",
+                    "Deskripsi tentang gambar 2",
+                    ""
+                ),
+                GeneratorReportImages(
+                    UUID.randomUUID().toString(),
+                    "test-image.jpg",
+                    "Deskripsi tentang gambar 3",
+                    ""
+                ),
+                GeneratorReportImages(
+                    UUID.randomUUID().toString(),
+                    "test-image-2.jpg",
+                    "Deskripsi tentang gambar 4",
+                    ""
+                )
             ),
             outputStream
         )
