@@ -2,7 +2,6 @@ package com.cakrasuryainti.panther.ui.pages
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
@@ -11,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawOpacity
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
@@ -25,7 +25,6 @@ import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.domain.shareReportPdf
 import com.cakrasuryainti.panther.ui.components.WorkaroundLazyColumnFor
 import com.cakrasuryainti.panther.ui.pages.report.HomeViewModel
-import com.itextpdf.kernel.pdf.PdfName.Padding
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -40,8 +39,8 @@ fun HomeContainer(navController: NavHostController, viewModel: HomeViewModel) {
 
 @ExperimentalMaterialApi
 @Composable
-fun Home(navController: NavHostController, allReports: List<PanelReport>) {
-    val context = ContextAmbient.current
+fun Home(navController: NavHostController, panelReports: List<PanelReport>) {
+    var tabIndex by remember { mutableStateOf(0) }
 
     BackdropScaffold(
         gesturesEnabled = false,
@@ -64,73 +63,35 @@ fun Home(navController: NavHostController, allReports: List<PanelReport>) {
         }
     ) {
         Column {
-            Surface {
-                Column {
-                    Text(
-                        "Semua Laporan",
-                        modifier = Modifier.padding(16.dp),
-                        style = MaterialTheme.typography.subtitle1
-                    )
-                    Divider()
-                }
-            }
-
-            if (allReports.isEmpty()) {
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Image(
-                        asset = vectorResource(id = R.drawable.undraw_list),
-                        modifier = Modifier.width(240.dp).padding(top = 72.dp, bottom = 16.dp)
-                    )
-                    Text(
-                        "Belum Ada Laporan Tersimpan",
-                        style = MaterialTheme.typography.h5,
-                        modifier = Modifier.width(240.dp),
-                        textAlign = TextAlign.Center
-                    )
-                }
-            }
-
-            WorkaroundLazyColumnFor(
-                items = allReports, Modifier.fillMaxWidth(),
-                contentPadding = PaddingValues(bottom = 88.dp)
-            ) {
-                Row(
-                    Modifier.padding(16.dp).fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Column {
+            TabRow(
+                selectedTabIndex = tabIndex,
+                backgroundColor = Color.White,
+                tabs = {
+                    Tab(
+                        selected = tabIndex == 0,
+                        onClick = { tabIndex = 0 },
+                    ) {
                         Text(
-                            it.jobDesc.name.toUpperCase(Locale.ROOT),
-                            style = MaterialTheme.typography.overline,
-                            lineHeight = 20.sp
-                        )
-                        Text(
-                            it.customer,
-                            style = MaterialTheme.typography.body1,
-                            color = MaterialTheme.colors.onSurface,
-                            lineHeight = 20.sp
-                        )
-                        Text(
-                            it.dateTime.atZone(ZoneId.systemDefault())
-                                .format(DateTimeFormatter.ofPattern("dd MMMM yyyy")),
-                            style = MaterialTheme.typography.subtitle2,
-                            color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
-                            lineHeight = 20.sp
+                            "LV Panel",
+                            modifier = Modifier.padding(16.dp)
                         )
                     }
-                    IconButton(onClick = {
-                        shareReportPdf(context, it)
-                    }, modifier = Modifier.drawOpacity(0.7f)) {
-                        Icon(Icons.Rounded.Share)
+                    Tab(
+                        selected = tabIndex == 1,
+                        onClick = { tabIndex = 1 },
+                    ) {
+                        Text(
+                            "Genset",
+                            modifier = Modifier.padding(16.dp)
+                        )
                     }
                 }
+            )
+            when (tabIndex) {
+                0 -> ListLVPanel(panelReports)
+                1 -> GensetReport(listOf())
             }
         }
-
     }
 
     ConstraintLayout(Modifier.fillMaxWidth().fillMaxHeight()) {
@@ -145,6 +106,126 @@ fun Home(navController: NavHostController, allReports: List<PanelReport>) {
                 end.linkTo(parent.end, 16.dp)
             }
         )
+    }
+}
+
+@Composable
+fun ListLVPanel(allReports: List<PanelReport>) {
+    val context = ContextAmbient.current
+
+    if (allReports.isEmpty()) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Image(
+                asset = vectorResource(id = R.drawable.undraw_list),
+                modifier = Modifier.width(240.dp).padding(top = 72.dp, bottom = 16.dp)
+            )
+            Text(
+                "Belum Ada Laporan LV Panel Tersimpan",
+                style = MaterialTheme.typography.h5,
+                modifier = Modifier.width(240.dp),
+                textAlign = TextAlign.Center
+            )
+        }
+    }
+
+    WorkaroundLazyColumnFor(
+        items = allReports, Modifier.fillMaxWidth(),
+        contentPadding = PaddingValues(bottom = 88.dp)
+    ) {
+        Row(
+            Modifier.padding(16.dp).fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column {
+                Text(
+                    it.jobDesc.name.toUpperCase(Locale.ROOT),
+                    style = MaterialTheme.typography.overline,
+                    lineHeight = 20.sp
+                )
+                Text(
+                    it.customer,
+                    style = MaterialTheme.typography.body1,
+                    color = MaterialTheme.colors.onSurface,
+                    lineHeight = 20.sp
+                )
+                Text(
+                    it.dateTime.atZone(ZoneId.systemDefault())
+                        .format(DateTimeFormatter.ofPattern("dd MMMM yyyy")),
+                    style = MaterialTheme.typography.subtitle2,
+                    color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
+                    lineHeight = 20.sp
+                )
+            }
+            IconButton(onClick = {
+                shareReportPdf(context, it)
+            }, modifier = Modifier.drawOpacity(0.7f)) {
+                Icon(Icons.Rounded.Share)
+            }
+        }
+    }
+}
+
+@Composable
+fun GensetReport(allReports: List<PanelReport>) {
+    val context = ContextAmbient.current
+
+    if (allReports.isEmpty()) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Image(
+                asset = vectorResource(id = R.drawable.undraw_list),
+                modifier = Modifier.width(240.dp).padding(top = 72.dp, bottom = 16.dp)
+            )
+            Text(
+                "Belum Ada Laporan Genset Tersimpan",
+                style = MaterialTheme.typography.h5,
+                modifier = Modifier.width(240.dp),
+                textAlign = TextAlign.Center
+            )
+        }
+    }
+
+    WorkaroundLazyColumnFor(
+        items = allReports, Modifier.fillMaxWidth(),
+        contentPadding = PaddingValues(bottom = 88.dp)
+    ) {
+        Row(
+            Modifier.padding(16.dp).fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column {
+                Text(
+                    it.jobDesc.name.toUpperCase(Locale.ROOT),
+                    style = MaterialTheme.typography.overline,
+                    lineHeight = 20.sp
+                )
+                Text(
+                    it.customer,
+                    style = MaterialTheme.typography.body1,
+                    color = MaterialTheme.colors.onSurface,
+                    lineHeight = 20.sp
+                )
+                Text(
+                    it.dateTime.atZone(ZoneId.systemDefault())
+                        .format(DateTimeFormatter.ofPattern("dd MMMM yyyy")),
+                    style = MaterialTheme.typography.subtitle2,
+                    color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
+                    lineHeight = 20.sp
+                )
+            }
+            IconButton(onClick = {
+                shareReportPdf(context, it)
+            }, modifier = Modifier.drawOpacity(0.7f)) {
+                Icon(Icons.Rounded.Share)
+            }
+        }
     }
 }
 
