@@ -162,10 +162,7 @@ fun ListLVPanel(allReports: List<PanelReport>) {
         }
     }
 
-    LazyColumnFor(
-        items = allReports, Modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(bottom = 88.dp)
-    ) {
+    LazyColumnFor(items = allReports, Modifier.fillMaxWidth()) {
         Row(
             Modifier.padding(16.dp).fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
@@ -190,9 +187,10 @@ fun ListLVPanel(allReports: List<PanelReport>) {
                     lineHeight = 20.sp
                 )
             }
-            IconButton(onClick = {
-                shareReportPdf(context, it)
-            }, modifier = Modifier.drawOpacity(0.7f)) {
+            IconButton(
+                onClick = { shareReportPdf(context, it) },
+                modifier = Modifier.drawOpacity(0.7f)
+            ) {
                 Icon(Icons.Rounded.Share)
             }
         }
