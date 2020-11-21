@@ -86,7 +86,8 @@ class PanelViewModel @ViewModelInject constructor(
     fun finalizeReport(
         reportWithImages: PanelReportWithImages?,
         context: Context,
-        onSuccess: () -> Unit
+        onSuccess: () -> Unit,
+        onCatch: () -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -115,6 +116,7 @@ class PanelViewModel @ViewModelInject constructor(
                 }
             } catch (e: Exception) {
                 Timber.e(e)
+                onCatch()
             }
         }
     }

@@ -33,12 +33,18 @@ fun FinalCheck(navController: NavHostController, viewModel: PanelViewModel) {
     val reportWithImages by viewModel.currentPanelReport.observeAsState()
     val context = ContextAmbient.current
 
+    var isLoading by remember { mutableStateOf(false) }
+
     Form(
         onNavigateBack = { navController.popBackStack() },
         onDone = {
-            viewModel.finalizeReport(reportWithImages, context) {
-                navController.navigate("create/panel/done")
-            }
+            isLoading = true
+            viewModel.finalizeReport(
+                reportWithImages,
+                context,
+                onSuccess = { navController.navigate("create/panel/done") },
+                onCatch = { isLoading = false }
+            )
         },
         report = reportWithImages?.report,
         updateReport = { viewModel.updateReport(it) },
@@ -46,7 +52,8 @@ fun FinalCheck(navController: NavHostController, viewModel: PanelViewModel) {
         images = reportWithImages?.images ?: listOf(),
         updateImage = { viewModel.updateImage(it) },
         navigateToImageEdit = { navController.navigate("create/panel/image/${it.id}") },
-        removeImage = { viewModel.removeImage(it) }
+        removeImage = { viewModel.removeImage(it) },
+        isLoading = isLoading
     )
 }
 
@@ -61,6 +68,7 @@ private fun Form(
     updateImage: (ReportImage) -> Unit,
     removeImage: (ReportImage) -> Unit,
     navigateToImageEdit: (ReportImage) -> Unit,
+    isLoading: Boolean,
 ) {
     val context = ContextAmbient.current
     val getImages = registerForActivityResult(
@@ -99,6 +107,9 @@ private fun Form(
             )
         })
     {
+        if (isLoading) {
+            LinearProgressIndicator()
+        }
         ConstraintLayout(modifier = Modifier.fillMaxHeight()) {
             val (fab) = createRefs()
 
@@ -174,7 +185,8 @@ private fun FormPreview() {
             images = images,
             updateImage = {},
             removeImage = {},
-            navigateToImageEdit = {}
+            navigateToImageEdit = {},
+            isLoading = false
         )
     }
 }
