@@ -23,7 +23,7 @@ class PanelReportTest {
         }
 
         composeTestRule.onNodeWithLabel("toogle_scaffold").performClick()
-        composeTestRule.onNodeWithText("Buat Laporan LV Panel").performClick()
+        composeTestRule.onNodeWithText("LV Panel Preventive Maintenance").performClick()
         composeTestRule.onNodeWithLabel("pekerjaan").performTextInput("Testing")
 
         // make sure next failed when only on field is filled
