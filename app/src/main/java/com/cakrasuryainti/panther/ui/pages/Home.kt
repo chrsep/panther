@@ -28,7 +28,6 @@ import androidx.ui.tooling.preview.Preview
 import com.cakrasuryainti.panther.R
 import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.domain.shareReportPdf
-import com.cakrasuryainti.panther.ui.pages.report.HomeViewModel
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -177,14 +176,16 @@ fun ListLVPanel(allReports: List<PanelReport>) {
                     it.customer,
                     style = MaterialTheme.typography.body1,
                     color = MaterialTheme.colors.onSurface,
-                    lineHeight = 20.sp
+                    lineHeight = 20.sp,
+                    modifier = Modifier.padding(top = 4.dp)
                 )
                 Text(
                     it.dateTime.atZone(ZoneId.systemDefault())
                         .format(DateTimeFormatter.ofPattern("dd MMMM yyyy")),
                     style = MaterialTheme.typography.subtitle2,
                     color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
-                    lineHeight = 20.sp
+                    lineHeight = 20.sp,
+                    modifier = Modifier.padding(top = 4.dp)
                 )
             }
             IconButton(

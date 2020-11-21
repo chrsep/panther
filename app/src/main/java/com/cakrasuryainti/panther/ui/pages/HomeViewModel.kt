@@ -1,4 +1,4 @@
-package com.cakrasuryainti.panther.ui.pages.report
+package com.cakrasuryainti.panther.ui.pages
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel

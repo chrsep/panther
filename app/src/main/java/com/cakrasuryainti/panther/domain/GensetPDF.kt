@@ -19,11 +19,7 @@ import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-val RED = DeviceRgb(255, 26, 26)
-val GREEN = DeviceRgb(17, 255, 0)
-val BLUE = DeviceRgb(57, 210, 255)
-
-fun generatePanelReport(
+fun generateGensetReport(
     report: PanelReport,
     reportImages: List<ReportImage>,
     outputStream: OutputStream
@@ -84,7 +80,7 @@ fun generatePanelReport(
     }
 }
 
-fun createImageTable(document: Document, images: List<ReportImage>): Table {
+private fun createImageTable(document: Document, images: List<ReportImage>): Table {
     val table = Table(floatArrayOf(300f, 300f))
     images.forEach { image ->
         val imageData = ImageDataFactory.create(image.filePath)
@@ -95,7 +91,7 @@ fun createImageTable(document: Document, images: List<ReportImage>): Table {
     return table
 }
 
-fun createSignatureTable(): Table {
+private fun createSignatureTable(): Table {
     val table = Table(floatArrayOf(150f, 150f, 150f, 150f))
     table.addCell(Cell(1, 2).add(smallParagraph("PT. CAKRA SURYA INTI").center()))
     table.addCell(Cell(1, 2))
@@ -106,7 +102,7 @@ fun createSignatureTable(): Table {
     return table
 }
 
-fun createNotesTable(report: PanelReport): Table {
+private fun createNotesTable(report: PanelReport): Table {
     val table = Table(floatArrayOf(150f, 150f, 150f, 150f))
     table.addCell(
         Cell(1, 4)
@@ -116,7 +112,7 @@ fun createNotesTable(report: PanelReport): Table {
     return table
 }
 
-fun createCleanlinessTable(report: PanelReport): Table {
+private fun createCleanlinessTable(report: PanelReport): Table {
     val table = Table(
         floatArrayOf(
             27.5f,
@@ -154,7 +150,7 @@ fun createCleanlinessTable(report: PanelReport): Table {
     return table
 }
 
-fun createMainReportTable(report: PanelReport): Table {
+private fun createMainReportTable(report: PanelReport): Table {
     val table = Table(
         floatArrayOf(
             27.5f,
@@ -342,7 +338,7 @@ fun createMainReportTable(report: PanelReport): Table {
     return table
 }
 
-fun addChecklistRow(table: Table, rowNumber: Int, name: String, status: Status) {
+private fun addChecklistRow(table: Table, rowNumber: Int, name: String, status: Status) {
     table.addCell(
         Cell()
             .add(smallParagraph(rowNumber.toString()).center())
@@ -355,7 +351,7 @@ fun addChecklistRow(table: Table, rowNumber: Int, name: String, status: Status) 
 }
 
 
-fun createMetaTable(
+private fun createMetaTable(
     pekerjaan: String,
     location: String,
     panelName: String,
@@ -429,14 +425,14 @@ fun createMetaTable(
     return table
 }
 
-fun smallParagraph(text: String): Paragraph {
+private fun smallParagraph(text: String): Paragraph {
     return Paragraph(text).setFontSize(9f)
 }
 
-fun Paragraph.center(): Paragraph {
+private fun Paragraph.center(): Paragraph {
     return setTextAlignment(TextAlignment.CENTER)
 }
 
-fun Cell.alignMiddle(): Cell {
+private fun Cell.alignMiddle(): Cell {
     return setVerticalAlignment(VerticalAlignment.MIDDLE)
 }

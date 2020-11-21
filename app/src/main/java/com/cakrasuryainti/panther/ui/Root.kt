@@ -10,7 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import com.cakrasuryainti.panther.ui.pages.HomeContainer
-import com.cakrasuryainti.panther.ui.pages.report.HomeViewModel
+import com.cakrasuryainti.panther.ui.pages.HomeViewModel
 import com.cakrasuryainti.panther.ui.pages.report.panel.*
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
 
