@@ -15,7 +15,7 @@ import java.util.*
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class MaintenancePdfUnitTest {
+class PanelPDFUnitTest {
     @Test
     fun can_generate_panel_pdf() {
         val outputStream = FileOutputStream("test.pdf")
