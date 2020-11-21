@@ -16,6 +16,8 @@ import androidx.compose.ui.draw.drawOpacity
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.semantics.accessibilityLabel
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,7 +45,7 @@ fun HomeContainer(navController: NavHostController, viewModel: HomeViewModel) {
 @Composable
 fun Home(navController: NavHostController, panelReports: List<PanelReport>) {
     var tabIndex by remember { mutableStateOf(0) }
-    val scaffoldState = rememberBackdropScaffoldState(initialValue = BackdropValue.Revealed)
+    val scaffoldState = rememberBackdropScaffoldState(initialValue = BackdropValue.Concealed)
 
     BackdropScaffold(
         gesturesEnabled = false,
@@ -59,7 +61,7 @@ fun Home(navController: NavHostController, panelReports: List<PanelReport>) {
                         } else {
                             scaffoldState.conceal()
                         }
-                    })
+                    }, modifier = Modifier.semantics { accessibilityLabel = "toogle_scaffold" })
                     {
                         Icon(
                             Icons.Rounded.AddCircleOutline,
