@@ -1,10 +1,13 @@
 package com.cakrasuryainti.panther.ui.pages
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.AddCircleOutline
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Share
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -23,7 +26,6 @@ import androidx.ui.tooling.preview.Preview
 import com.cakrasuryainti.panther.R
 import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.domain.shareReportPdf
-import com.cakrasuryainti.panther.ui.components.WorkaroundLazyColumnFor
 import com.cakrasuryainti.panther.ui.pages.report.HomeViewModel
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -41,21 +43,47 @@ fun HomeContainer(navController: NavHostController, viewModel: HomeViewModel) {
 @Composable
 fun Home(navController: NavHostController, panelReports: List<PanelReport>) {
     var tabIndex by remember { mutableStateOf(0) }
+    val scaffoldState = rememberBackdropScaffoldState(initialValue = BackdropValue.Revealed)
 
     BackdropScaffold(
         gesturesEnabled = false,
-        appBar = { TopAppBar(title = { Text(text = "Cakra Surya Inti") }, elevation = 0.dp) },
+        scaffoldState = scaffoldState,
+        appBar = {
+            TopAppBar(
+                title = { Text(text = "Cakra Surya Inti") },
+                elevation = 0.dp,
+                actions = {
+                    IconButton(onClick = {
+                        if (scaffoldState.isConcealed) {
+                            scaffoldState.reveal()
+                        } else {
+                            scaffoldState.conceal()
+                        }
+                    })
+                    {
+                        Icon(
+                            Icons.Rounded.AddCircleOutline,
+                            modifier = Modifier.drawOpacity(if (scaffoldState.isRevealed) 0f else 1f)
+                        )
+                        Icon(
+                            Icons.Rounded.Close,
+                            modifier = Modifier.drawOpacity(if (scaffoldState.isConcealed) 0f else 1f)
+                        )
+                    }
+                }
+            )
+        },
         backLayerContent = {
-            Column {
-                Button(
-                    onClick = { navController.navigate("create/panel") },
-                    Modifier.fillMaxWidth()
+            Column(modifier = Modifier.padding(bottom = 16.dp)) {
+                ListItem(
+                    modifier = Modifier.clickable(onClick = { navController.navigate("create/panel") }),
+                    icon = { Icon(Icons.Rounded.AddCircleOutline) }
                 ) {
                     Text(text = "Buat Laporan LV Panel")
                 }
-                Button(
-                    onClick = { navController.navigate("create/genset") },
-                    Modifier.fillMaxWidth()
+                ListItem(
+                    modifier = Modifier.clickable(onClick = { navController.navigate("create/genset") }),
+                    icon = { Icon(Icons.Rounded.AddCircleOutline) }
                 ) {
                     Text(text = "Buat Laporan Genset")
                 }
@@ -94,19 +122,19 @@ fun Home(navController: NavHostController, panelReports: List<PanelReport>) {
         }
     }
 
-    ConstraintLayout(Modifier.fillMaxWidth().fillMaxHeight()) {
-        val (fab) = createRefs()
-
-        ExtendedFloatingActionButton(
-            onClick = { navController.navigate("create") },
-            text = { Text("Laporan Baru") },
-            icon = { Icon(Icons.Rounded.Add) },
-            modifier = Modifier.constrainAs(fab) {
-                bottom.linkTo(parent.bottom, 16.dp)
-                end.linkTo(parent.end, 16.dp)
-            }
-        )
-    }
+//    ConstraintLayout(Modifier.fillMaxWidth().fillMaxHeight()) {
+//        val (fab) = createRefs()
+//
+//        ExtendedFloatingActionButton(
+//            onClick = { navController.navigate("create") },
+//            text = { Text("Laporan Baru") },
+//            icon = { Icon(Icons.Rounded.Add) },
+//            modifier = Modifier.constrainAs(fab) {
+//                bottom.linkTo(parent.bottom, 16.dp)
+//                end.linkTo(parent.end, 16.dp)
+//            }
+//        )
+//    }
 }
 
 @Composable
@@ -132,7 +160,7 @@ fun ListLVPanel(allReports: List<PanelReport>) {
         }
     }
 
-    WorkaroundLazyColumnFor(
+    LazyColumnFor(
         items = allReports, Modifier.fillMaxWidth(),
         contentPadding = PaddingValues(bottom = 88.dp)
     ) {
@@ -192,7 +220,7 @@ fun GensetReport(allReports: List<PanelReport>) {
         }
     }
 
-    WorkaroundLazyColumnFor(
+    LazyColumnFor(
         items = allReports, Modifier.fillMaxWidth(),
         contentPadding = PaddingValues(bottom = 88.dp)
     ) {
