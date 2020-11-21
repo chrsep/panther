@@ -74,7 +74,7 @@ fun generatePanelReport(
         if (reportImages.isNotEmpty()) {
             document.add(AreaBreak())
 
-            val imageTable = createImageTable(document, reportImages)
+            val imageTable = createImageTable(reportImages)
             document.add(imageTable)
         }
     } catch (ioe: IOException) {
@@ -84,7 +84,7 @@ fun generatePanelReport(
     }
 }
 
-private fun createImageTable(document: Document, images: List<ReportImage>): Table {
+private fun createImageTable(images: List<ReportImage>): Table {
     val table = Table(floatArrayOf(300f, 300f))
     images.forEach { image ->
         val imageData = ImageDataFactory.create(image.filePath)
@@ -349,7 +349,18 @@ private fun addChecklistRow(table: Table, rowNumber: Int, name: String, status: 
             .alignMiddle()
     )
     table.addCell(Cell(1, 4).add(smallParagraph(name)))
-    table.addCell(Cell(1, 3).add(smallParagraph(status.name).center()).alignMiddle())
+    table.addCell(
+        Cell(1, 3).add(
+            smallParagraph(
+                when (status) {
+                    Status.Ok -> "OK"
+                    Status.NotOk -> "NOK"
+                    Status.NotAvailable -> "N/A"
+
+                }
+            ).center()
+        ).alignMiddle()
+    )
     table.addCell(Cell(1, 3))
     table.addCell(Cell(1, 3))
 }
