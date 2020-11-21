@@ -10,7 +10,7 @@ import com.cakrasuryainti.panther.db.model.ReportImage
 import com.cakrasuryainti.panther.db.model.Status
 import java.time.Instant
 
-@Database(entities = [PanelReport::class, ReportImage::class], version = 5)
+@Database(entities = [PanelReport::class, ReportImage::class], version = 6)
 @TypeConverters(JobDescConverter::class)
 abstract class PantherDB : RoomDatabase() {
     abstract fun panelReportDao(): PanelReportDao

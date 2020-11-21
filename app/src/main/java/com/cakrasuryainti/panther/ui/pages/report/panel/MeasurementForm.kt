@@ -166,9 +166,15 @@ fun MeasurementForm(
             )
             FloatField(
                 label = "Power Factor",
-                modifier = Modifier.padding(end = 8.dp, bottom = 32.dp).fillMaxWidth(),
+                modifier = Modifier.padding(end = 8.dp, bottom = 8.dp).fillMaxWidth(),
                 value = report?.powerFactor ?: 0f,
                 onValueChange = { handleUpdate(report?.copy(powerFactor = it)) },
+            )
+            OutlinedTextField(
+                label = { Text("Kondisi Perangkat") },
+                modifier = Modifier.padding(end = 8.dp, bottom = 32.dp).fillMaxWidth(),
+                value = report?.kondisiPerangkat ?: "",
+                onValueChange = { handleUpdate(report?.copy(kondisiPerangkat = it)) },
             )
         }
     }

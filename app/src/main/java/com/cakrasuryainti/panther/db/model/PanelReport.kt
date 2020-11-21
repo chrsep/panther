@@ -33,6 +33,7 @@ data class PanelReport(
 
     val frekuensi: Float = 0f,
     val powerFactor: Float = 0f,
+    val kondisiPerangkat: String = "",
 
     // visual checks
     val relay: Status = Status.NotAvailable,

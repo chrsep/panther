@@ -121,6 +121,7 @@ class MaintenancePdfUnitTest {
                 65.5f,
                 49.93f,
                 0.95f,
+                "Status baik baik saja",
                 Status.Ok,
                 Status.Ok,
                 Status.Ok,

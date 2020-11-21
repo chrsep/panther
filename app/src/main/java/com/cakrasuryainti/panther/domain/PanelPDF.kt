@@ -311,7 +311,10 @@ private fun createMainReportTable(report: PanelReport): Table {
             .setBackgroundColor(GREEN)
             .add(smallParagraph("KONDISI PERANGKAT"))
     )
-    table.addCell(Cell(1, 3))
+    table.addCell(
+        Cell(1, 3)
+            .add(smallParagraph(report.kondisiPerangkat))
+    )
     table.addCell(Cell(1, 3))
     table.addCell(Cell(1, 3))
 
