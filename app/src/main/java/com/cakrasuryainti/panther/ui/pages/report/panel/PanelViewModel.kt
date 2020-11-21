@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import java.util.*
 
 // We currently only use a single viewModel due to the simplicity of the app and the lack of support
 // of attaching dagger hilt's viewModelFactory to components under navHost, which provides its own
@@ -114,6 +115,14 @@ class PanelViewModel @ViewModelInject constructor(
             } catch (e: Exception) {
                 Timber.e(e)
             }
+        }
+    }
+
+    fun newReport() {
+        val report = PanelReport(UUID.randomUUID().toString())
+        _currentPanelReport.value = PanelReportWithImages(report, listOf())
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.insertNewReport(report)
         }
     }
 }
