@@ -83,7 +83,7 @@ fun Home(navController: NavHostController, panelReports: List<PanelReport>) {
                     Text(text = "LV Panel Preventive Maintenance")
                 }
                 ListItem(
-                    modifier = Modifier.clickable(onClick = { navController.navigate("create/genset") }),
+                    modifier = Modifier.clickable(onClick = { navController.navigate("create/generator") }),
                     icon = { Icon(Icons.Rounded.AddCircleOutline) }
                 ) {
                     Text(text = "Generator Monthly Inspection")

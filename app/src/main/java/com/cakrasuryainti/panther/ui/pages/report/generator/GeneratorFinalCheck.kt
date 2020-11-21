@@ -1,4 +1,4 @@
-package com.cakrasuryainti.panther.ui.pages.report.panel
+package com.cakrasuryainti.panther.ui.pages.report.generator
 
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -29,20 +29,20 @@ import com.cakrasuryainti.panther.R
 import com.cakrasuryainti.panther.domain.saveImagesIntoReport
 
 @Composable
-fun FinalCheck(navController: NavHostController, viewModel: PanelViewModel) {
+fun GeneratorFinalCheckContainer(navController: NavHostController, viewModel: GeneratorViewModel) {
     val reportWithImages by viewModel.currentPanelReport.observeAsState()
     val context = ContextAmbient.current
 
     var isLoading by remember { mutableStateOf(false) }
 
-    Form(
+    GeneratorFinalCheck(
         onNavigateBack = { navController.popBackStack() },
         onDone = {
             isLoading = true
             viewModel.finalizeReport(
                 reportWithImages,
                 context,
-                onSuccess = { navController.navigate("create/panel/done") },
+                onSuccess = { navController.navigate("create/generator/done") },
                 onCatch = { isLoading = false }
             )
         },
@@ -51,14 +51,14 @@ fun FinalCheck(navController: NavHostController, viewModel: PanelViewModel) {
         saveImages = { viewModel.saveImages(it) },
         images = reportWithImages?.images ?: listOf(),
         updateImage = { viewModel.updateImage(it) },
-        navigateToImageEdit = { navController.navigate("create/panel/image/${it.id}") },
+        navigateToImageEdit = { navController.navigate("create/generator/image/${it.id}") },
         removeImage = { viewModel.removeImage(it) },
         isLoading = isLoading
     )
 }
 
 @Composable
-private fun Form(
+private fun GeneratorFinalCheck(
     onNavigateBack: () -> Unit,
     onDone: () -> Unit,
     report: PanelReport?,
@@ -176,7 +176,7 @@ private fun FormPreview() {
     var images by remember { mutableStateOf(listOf(ReportImage("", "", ""))) }
 
     PantherTheme {
-        Form(
+        GeneratorFinalCheck(
             onNavigateBack = {},
             onDone = {},
             report = report,
