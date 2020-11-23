@@ -24,12 +24,12 @@ fun ChoiceChip(
     enabled: Boolean = true,
     isActive: Boolean = false,
     interactionState: InteractionState = remember { InteractionState() },
-    activeColor: Color = MaterialTheme.colors.primary
+    activeColor: Color = Color.Black
 ) {
-    val backgroundColor = if (isActive) activeColor.copy(alpha = 0.1f)
+    val backgroundColor = if (isActive) activeColor.copy(alpha = 0.2f)
     else MaterialTheme.colors.surface
 
-    val borderColor = if (isActive) activeColor.copy(alpha = 0.4f)
+    val borderColor = if (isActive) activeColor.copy(alpha = 0.8f)
     else MaterialTheme.colors.onSurface.copy(alpha = 0.2f)
 
     val textColor = if (isActive) activeColor
