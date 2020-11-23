@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import com.cakrasuryainti.panther.ui.pages.HomeContainer
+import com.cakrasuryainti.panther.ui.pages.report.CreateReport
 import com.cakrasuryainti.panther.ui.pages.HomeViewModel
 import com.cakrasuryainti.panther.ui.pages.report.generator.*
 import com.cakrasuryainti.panther.ui.pages.report.panel.*
@@ -28,6 +29,7 @@ fun Root() {
         // A surface container using the 'background' color from the theme
         NavHost(navController, startDestination = "home") {
             composable("home") { HomeContainer(navController, homeViewModel) }
+            composable("create") { CreateReport(navController) }
 
             // LV Panel Checks
             composable("create/panel") { PanelReportMetaForm(navController, panelViewModel) }
