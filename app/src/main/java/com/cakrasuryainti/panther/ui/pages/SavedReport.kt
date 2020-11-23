@@ -1,31 +1,32 @@
-package com.cakrasuryainti.panther.ui.pages.report
+package com.cakrasuryainti.panther.ui.pages
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
-import androidx.navigation.compose.rememberNavController
-import androidx.ui.tooling.preview.Preview
 
 @Composable
-fun CreateReport(navController: NavHostController) {
+fun SavedReport(navController: NavHostController) {
+    var tabIndex by remember { mutableStateOf(0) }
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Create Report") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.Rounded.ArrowBack)
                     }
                 },
+                title = { Text(text = "Saved Reports") },
+                elevation = 0.dp,
             )
-        }
+        },
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -33,24 +34,14 @@ fun CreateReport(navController: NavHostController) {
             modifier = Modifier.fillMaxWidth().fillMaxHeight()
         ) {
             Button(
-                onClick = { navController.navigate("create/panel") },
+                onClick = { navController.navigate("saved/panel") },
                 Modifier.padding(bottom = 8.dp)
             ) {
                 Text(text = "LV Panel")
             }
-            Button(
-                onClick = { navController.navigate("create/generator") },
-                Modifier.padding(bottom = 16.dp)
-            ) {
+            Button(onClick = { navController.navigate("saved/generator") }, Modifier.padding(8.dp)) {
                 Text(text = "Generator")
             }
         }
     }
-}
-
-@Composable
-@Preview
-fun CreateReportPreview() {
-    val navController = rememberNavController()
-    CreateReport(navController)
 }

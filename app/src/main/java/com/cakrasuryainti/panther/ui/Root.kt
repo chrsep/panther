@@ -11,9 +11,12 @@ import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import com.cakrasuryainti.panther.ui.pages.HomeContainer
 import com.cakrasuryainti.panther.ui.pages.report.CreateReport
-import com.cakrasuryainti.panther.ui.pages.HomeViewModel
+import com.cakrasuryainti.panther.ui.pages.SavedViewModel
+import com.cakrasuryainti.panther.ui.pages.SavedReport
 import com.cakrasuryainti.panther.ui.pages.report.generator.*
 import com.cakrasuryainti.panther.ui.pages.report.panel.*
+import com.cakrasuryainti.panther.ui.pages.saved.ListGeneratorReport
+import com.cakrasuryainti.panther.ui.pages.saved.ListLVPanel
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
 
 
@@ -24,11 +27,22 @@ fun Root() {
     val navController = rememberNavController()
     val panelViewModel: PanelViewModel = viewModel()
     val generatorViewModel: GeneratorViewModel = viewModel()
-    val homeViewModel: HomeViewModel = viewModel()
+    val savedViewModel: SavedViewModel = viewModel()
+
     PantherTheme {
         // A surface container using the 'background' color from the theme
         NavHost(navController, startDestination = "home") {
-            composable("home") { HomeContainer(navController, homeViewModel) }
+            composable("home") { HomeContainer(navController) }
+            composable("saved") { SavedReport(navController) }
+            composable("saved/panel") { ListLVPanel(navController, savedViewModel) }
+            composable("saved/generator") {
+                ListGeneratorReport(
+                    navController,
+                    savedViewModel
+                )
+            }
+
+
             composable("create") { CreateReport(navController) }
 
             // LV Panel Checks
@@ -85,7 +99,12 @@ fun Root() {
                     generatorViewModel
                 )
             }
-            composable("create/generator/final") { GeneratorFinalCheckContainer(navController, generatorViewModel) }
+            composable("create/generator/final") {
+                GeneratorFinalCheckContainer(
+                    navController,
+                    generatorViewModel
+                )
+            }
             composable(
                 "create/generator/image/{imageId}",
                 listOf(navArgument("imageId") { type = NavType.StringType })
@@ -96,7 +115,12 @@ fun Root() {
                     it.arguments?.getString("imageId")
                 )
             }
-            composable("create/generator/done") { GeneratorReportDoneContainer(navController, generatorViewModel) }
+            composable("create/generator/done") {
+                GeneratorReportDoneContainer(
+                    navController,
+                    generatorViewModel
+                )
+            }
         }
     }
 }
