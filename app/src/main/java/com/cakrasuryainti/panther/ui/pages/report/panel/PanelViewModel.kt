@@ -1,6 +1,8 @@
 package com.cakrasuryainti.panther.ui.pages.report.panel
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,6 +20,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import java.io.ByteArrayOutputStream
 import java.util.*
 
 // We currently only use a single viewModel due to the simplicity of the app and the lack of support
@@ -95,9 +98,19 @@ class PanelViewModel @ViewModelInject constructor(
                     // generate filename
                     val pdfFileName = generatePdfFileName(reportWithImages.report)
 
+                    // get logo
+                    val ims = context.assets.open("csi_logo_full.png")
+                    val bmp = BitmapFactory.decodeStream (ims)
+                    val stream = ByteArrayOutputStream()
+                    bmp.compress(Bitmap.CompressFormat.PNG, 100, stream)
                     // Save file
                     context.openFileOutput(pdfFileName, Context.MODE_PRIVATE).use {
-                        generatePanelReport(reportWithImages.report, reportWithImages.images, it)
+                        generatePanelReport(
+                            reportWithImages.report,
+                            reportWithImages.images,
+                            it,
+                            stream.toByteArray()
+                        )
                     }
 
                     // Update DB

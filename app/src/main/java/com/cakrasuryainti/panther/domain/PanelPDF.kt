@@ -26,7 +26,8 @@ val BLUE = DeviceRgb(57, 210, 255)
 fun generatePanelReport(
     report: PanelReport,
     reportImages: List<ReportImage>,
-    outputStream: OutputStream
+    outputStream: OutputStream,
+    logoPath: ByteArray
 ) {
     val writer = PdfWriter(outputStream)
     val pdf = PdfDocument(writer)
@@ -40,7 +41,8 @@ fun generatePanelReport(
             setMarginBottom(32f)
         }
         document.add(title)
-
+        val logo = ImageDataFactory.create(logoPath)
+        document.add(Image(logo, 50f, 730f, 100f))
 
         val metaTable =
             createMetaTable(

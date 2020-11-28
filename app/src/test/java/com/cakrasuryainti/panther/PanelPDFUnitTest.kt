@@ -1,11 +1,15 @@
 package com.cakrasuryainti.panther
 
+import android.graphics.BitmapFactory
 import com.cakrasuryainti.panther.db.model.JobDesc
 import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.db.model.ReportImage
 import com.cakrasuryainti.panther.db.model.Status
 import com.cakrasuryainti.panther.domain.generatePanelReport
 import org.junit.Test
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.time.Instant
 import java.util.*
@@ -19,6 +23,8 @@ class PanelPDFUnitTest {
     @Test
     fun can_generate_panel_pdf() {
         val outputStream = FileOutputStream("test.pdf")
+        val logo = File("./src/main/assets/csi_logo_full.png")
+
         val mockImages = listOf(
             ReportImage(
                 UUID.randomUUID().toString(),
@@ -175,7 +181,8 @@ class PanelPDFUnitTest {
                 true
             ),
             mockImages,
-            outputStream
+            outputStream,
+            logo.readBytes()
         )
     }
 }

@@ -96,9 +96,14 @@ class GeneratorViewModel @ViewModelInject constructor(
                     val pdfFileName = generatePdfFileName(reportWithImages.report)
 
                     // Save file
-                    context.openFileOutput(pdfFileName, Context.MODE_PRIVATE).use {
-                        generatePanelReport(reportWithImages.report, reportWithImages.images, it)
-                    }
+//                    context.openFileOutput(pdfFileName, Context.MODE_PRIVATE).use {
+//                        generatePanelReport(
+//                            reportWithImages.report,
+//                            reportWithImages.images,
+//                            it,
+//                            "file:///android_asset/csi_logo_full.png"
+//                        )
+//                    }
 
                     // Update DB
                     val newReport = reportWithImages.report.copy(
