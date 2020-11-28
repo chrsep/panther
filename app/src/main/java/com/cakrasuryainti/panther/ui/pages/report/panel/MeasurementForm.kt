@@ -128,8 +128,8 @@ fun MeasurementForm(
             OutlinedTextField(
                 label = { Text("Keterangan tambahan") },
                 modifier = Modifier.padding(top = 8.dp, bottom = 32.dp).fillMaxWidth(),
-                value = "",
-                onValueChange = {},
+                value = report?.keteranganPhase ?: "",
+                onValueChange = { handleUpdate(report?.copy(keteranganPhase = it)) },
             )
 
             // Ampere
@@ -163,8 +163,8 @@ fun MeasurementForm(
             OutlinedTextField(
                 label = { Text("Keterangan") },
                 modifier = Modifier.padding(top = 8.dp, bottom = 32.dp).fillMaxWidth(),
-                value = "",
-                onValueChange = {},
+                value = report?.keteranganArus ?: "",
+                onValueChange = { handleUpdate(report?.copy(keteranganArus = it)) },
             )
 
             Divider()
@@ -178,8 +178,8 @@ fun MeasurementForm(
             OutlinedTextField(
                 label = { Text("Keterangan") },
                 modifier = Modifier.padding(top = 8.dp, bottom = 32.dp).fillMaxWidth(),
-                value = "",
-                onValueChange = {},
+                value = report?.keteranganFrekuensi ?: "",
+                onValueChange = { handleUpdate(report?.copy(keteranganFrekuensi = it)) },
             )
 
             Divider()
@@ -193,8 +193,8 @@ fun MeasurementForm(
             OutlinedTextField(
                 label = { Text("Keterangan") },
                 modifier = Modifier.padding(top = 8.dp, bottom = 32.dp).fillMaxWidth(),
-                value = "",
-                onValueChange = {},
+                value = report?.keteranganPowerFactor ?: "",
+                onValueChange = { handleUpdate(report?.copy(keteranganPowerFactor = it)) },
             )
 
             Divider()
@@ -208,8 +208,8 @@ fun MeasurementForm(
             OutlinedTextField(
                 label = { Text("Keterangan") },
                 modifier = Modifier.padding(top = 8.dp, bottom = 32.dp).fillMaxWidth(),
-                value = "",
-                onValueChange = {},
+                value = report?.keteranganKondisiPerangkat ?: "",
+                onValueChange = { handleUpdate(report?.copy(keteranganKondisiPerangkat = it)) },
             )
         }
     }
