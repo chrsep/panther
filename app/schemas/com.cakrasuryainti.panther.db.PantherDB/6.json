@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "7407cc407627c3dc5d030697b5bcbe45",
+    "identityHash": "d20b92355e7128a8f4d803378d465dd3",
     "entities": [
       {
         "tableName": "PanelReport",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `customer` TEXT NOT NULL, `panelName` TEXT NOT NULL, `model` TEXT NOT NULL, `serialNumber` TEXT NOT NULL, `location` TEXT NOT NULL, `jobDesc` TEXT NOT NULL, `dateTime` TEXT NOT NULL, `teganganPhaseToPhaseRS` REAL NOT NULL, `teganganPhaseToPhaseST` REAL NOT NULL, `teganganPhaseToPhaseTR` REAL NOT NULL, `teganganPhaseToNeutralRN` REAL NOT NULL, `teganganPhaseToNeutralSN` REAL NOT NULL, `teganganPhaseToNeutralTN` REAL NOT NULL, `teganganPhaseToNeutralGN` REAL NOT NULL, `arusR` REAL NOT NULL, `arusS` REAL NOT NULL, `arusT` REAL NOT NULL, `frekuensi` REAL NOT NULL, `powerFactor` REAL NOT NULL, `kondisiPerangkat` TEXT NOT NULL, `relay` TEXT NOT NULL, `kabel` TEXT NOT NULL, `MCBInput` TEXT NOT NULL, `MCBOutput` TEXT NOT NULL, `lampuIndikatorPanel` TEXT NOT NULL, `fuse` TEXT NOT NULL, `terminalPower` TEXT NOT NULL, `ampereMeter` TEXT NOT NULL, `voltMeter` TEXT NOT NULL, `modulControlStatus` TEXT NOT NULL, `timer` TEXT NOT NULL, `pushButtonOn` TEXT NOT NULL, `pushButtonOff` TEXT NOT NULL, `selectorMOA` TEXT NOT NULL, `statusIndikator` TEXT NOT NULL, `luarPanel` TEXT NOT NULL, `dalamPanel` TEXT NOT NULL, `jalurKabelPower` TEXT NOT NULL, `kondisiRuangan` TEXT NOT NULL, `lingkungan` TEXT NOT NULL, `penerangan` TEXT NOT NULL, `fanRuangan` TEXT NOT NULL, `notesAndRecommendation` TEXT NOT NULL, `finished` INTEGER NOT NULL, `pdfFilePath` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `customer` TEXT NOT NULL, `panelName` TEXT NOT NULL, `model` TEXT NOT NULL, `serialNumber` TEXT NOT NULL, `location` TEXT NOT NULL, `jobDesc` TEXT NOT NULL, `dateTime` TEXT NOT NULL, `teganganPhaseToPhaseRS` REAL NOT NULL, `teganganPhaseToPhaseST` REAL NOT NULL, `teganganPhaseToPhaseTR` REAL NOT NULL, `teganganPhaseToNeutralRN` REAL NOT NULL, `teganganPhaseToNeutralSN` REAL NOT NULL, `teganganPhaseToNeutralTN` REAL NOT NULL, `teganganPhaseToNeutralGN` REAL NOT NULL, `keteranganPhase` TEXT NOT NULL, `arusR` REAL NOT NULL, `arusS` REAL NOT NULL, `arusT` REAL NOT NULL, `keteranganArus` TEXT NOT NULL, `frekuensi` REAL NOT NULL, `keteranganFrekuensi` TEXT NOT NULL, `powerFactor` REAL NOT NULL, `keteranganPowerFactor` TEXT NOT NULL, `kondisiPerangkat` TEXT NOT NULL, `keteranganKondisiPerangkat` TEXT NOT NULL, `relay` TEXT NOT NULL, `keteranganRelay` TEXT NOT NULL, `kabel` TEXT NOT NULL, `keteranganKabel` TEXT NOT NULL, `MCBInput` TEXT NOT NULL, `keteranganMCBInput` TEXT NOT NULL, `MCBOutput` TEXT NOT NULL, `keteranganMCBOutput` TEXT NOT NULL, `lampuIndikatorPanel` TEXT NOT NULL, `keteranganLampuIndikatorPanel` TEXT NOT NULL, `fuse` TEXT NOT NULL, `keteranganFuse` TEXT NOT NULL, `terminalPower` TEXT NOT NULL, `keteranganTerminalPower` TEXT NOT NULL, `ampereMeter` TEXT NOT NULL, `keteranganAmpereMeter` TEXT NOT NULL, `voltMeter` TEXT NOT NULL, `keteranganVoltMeter` TEXT NOT NULL, `modulControlStatus` TEXT NOT NULL, `keteranganModulControlStatus` TEXT NOT NULL, `timer` TEXT NOT NULL, `keteranganTimer` TEXT NOT NULL, `pushButtonOn` TEXT NOT NULL, `keteranganPushButtonOn` TEXT NOT NULL, `pushButtonOff` TEXT NOT NULL, `keteranganPushButtonOff` TEXT NOT NULL, `selectorMOA` TEXT NOT NULL, `keteranganSelectorMOA` TEXT NOT NULL, `statusIndikator` TEXT NOT NULL, `keteranganStatusIndikator` TEXT NOT NULL, `luarPanel` TEXT NOT NULL, `keteranganLuarPanel` TEXT NOT NULL, `dalamPanel` TEXT NOT NULL, `keteranganDalamPanel` TEXT NOT NULL, `jalurKabelPower` TEXT NOT NULL, `keteranganJalurKabelPower` TEXT NOT NULL, `kondisiRuangan` TEXT NOT NULL, `keteranganKondisiRuangan` TEXT NOT NULL, `lingkungan` TEXT NOT NULL, `keteranganLingkungan` TEXT NOT NULL, `penerangan` TEXT NOT NULL, `keteranganPenerangan` TEXT NOT NULL, `fanRuangan` TEXT NOT NULL, `keteranganFanRuangan` TEXT NOT NULL, `notesAndRecommendation` TEXT NOT NULL, `finished` INTEGER NOT NULL, `pdfFilePath` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -99,6 +99,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "keteranganPhase",
+            "columnName": "keteranganPhase",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "arusR",
             "columnName": "arusR",
             "affinity": "REAL",
@@ -117,9 +123,21 @@
             "notNull": true
           },
           {
+            "fieldPath": "keteranganArus",
+            "columnName": "keteranganArus",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "frekuensi",
             "columnName": "frekuensi",
             "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "keteranganFrekuensi",
+            "columnName": "keteranganFrekuensi",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -129,8 +147,20 @@
             "notNull": true
           },
           {
+            "fieldPath": "keteranganPowerFactor",
+            "columnName": "keteranganPowerFactor",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "kondisiPerangkat",
             "columnName": "kondisiPerangkat",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "keteranganKondisiPerangkat",
+            "columnName": "keteranganKondisiPerangkat",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -141,8 +171,20 @@
             "notNull": true
           },
           {
+            "fieldPath": "keteranganRelay",
+            "columnName": "keteranganRelay",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "kabel",
             "columnName": "kabel",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "keteranganKabel",
+            "columnName": "keteranganKabel",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -153,8 +195,20 @@
             "notNull": true
           },
           {
+            "fieldPath": "keteranganMCBInput",
+            "columnName": "keteranganMCBInput",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "MCBOutput",
             "columnName": "MCBOutput",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "keteranganMCBOutput",
+            "columnName": "keteranganMCBOutput",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -165,8 +219,20 @@
             "notNull": true
           },
           {
+            "fieldPath": "keteranganLampuIndikatorPanel",
+            "columnName": "keteranganLampuIndikatorPanel",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "fuse",
             "columnName": "fuse",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "keteranganFuse",
+            "columnName": "keteranganFuse",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -177,8 +243,20 @@
             "notNull": true
           },
           {
+            "fieldPath": "keteranganTerminalPower",
+            "columnName": "keteranganTerminalPower",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "ampereMeter",
             "columnName": "ampereMeter",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "keteranganAmpereMeter",
+            "columnName": "keteranganAmpereMeter",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -189,8 +267,20 @@
             "notNull": true
           },
           {
+            "fieldPath": "keteranganVoltMeter",
+            "columnName": "keteranganVoltMeter",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "modulControlStatus",
             "columnName": "modulControlStatus",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "keteranganModulControlStatus",
+            "columnName": "keteranganModulControlStatus",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -201,8 +291,20 @@
             "notNull": true
           },
           {
+            "fieldPath": "keteranganTimer",
+            "columnName": "keteranganTimer",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "pushButtonOn",
             "columnName": "pushButtonOn",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "keteranganPushButtonOn",
+            "columnName": "keteranganPushButtonOn",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -213,8 +315,20 @@
             "notNull": true
           },
           {
+            "fieldPath": "keteranganPushButtonOff",
+            "columnName": "keteranganPushButtonOff",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "selectorMOA",
             "columnName": "selectorMOA",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "keteranganSelectorMOA",
+            "columnName": "keteranganSelectorMOA",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -225,8 +339,20 @@
             "notNull": true
           },
           {
+            "fieldPath": "keteranganStatusIndikator",
+            "columnName": "keteranganStatusIndikator",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "luarPanel",
             "columnName": "luarPanel",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "keteranganLuarPanel",
+            "columnName": "keteranganLuarPanel",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -237,8 +363,20 @@
             "notNull": true
           },
           {
+            "fieldPath": "keteranganDalamPanel",
+            "columnName": "keteranganDalamPanel",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "jalurKabelPower",
             "columnName": "jalurKabelPower",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "keteranganJalurKabelPower",
+            "columnName": "keteranganJalurKabelPower",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -249,8 +387,20 @@
             "notNull": true
           },
           {
+            "fieldPath": "keteranganKondisiRuangan",
+            "columnName": "keteranganKondisiRuangan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "lingkungan",
             "columnName": "lingkungan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "keteranganLingkungan",
+            "columnName": "keteranganLingkungan",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -261,8 +411,20 @@
             "notNull": true
           },
           {
+            "fieldPath": "keteranganPenerangan",
+            "columnName": "keteranganPenerangan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "fanRuangan",
             "columnName": "fanRuangan",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "keteranganFanRuangan",
+            "columnName": "keteranganFanRuangan",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -342,7 +504,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7407cc407627c3dc5d030697b5bcbe45')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd20b92355e7128a8f4d803378d465dd3')"
     ]
   }
 }

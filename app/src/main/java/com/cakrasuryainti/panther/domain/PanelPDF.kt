@@ -144,13 +144,31 @@ private fun createCleanlinessTable(report: PanelReport): Table {
                 smallParagraph("KEBERSIHAN").center().setRotationAngle(1.57f)
             )
     )
-    addChecklistRow(table, 1, "Luar panel", report.luarPanel)
-    addChecklistRow(table, 2, "Dalam panel", report.dalamPanel)
-    addChecklistRow(table, 3, "Jalur kabel power", report.jalurKabelPower)
-    addChecklistRow(table, 4, "Kondisi ruangan", report.kondisiRuangan)
-    addChecklistRow(table, 5, "Ruangan / Lingkungan", report.lingkungan)
-    addChecklistRow(table, 6, "Penerangan", report.penerangan)
-    addChecklistRow(table, 7, "Fan Ruangan", report.fanRuangan)
+    addChecklistRow(table, 1, "Luar panel", report.luarPanel, report.keteranganLuarPanel)
+    addChecklistRow(table, 2, "Dalam panel", report.dalamPanel, report.keteranganDalamPanel)
+    addChecklistRow(
+        table,
+        3,
+        "Jalur kabel power",
+        report.jalurKabelPower,
+        report.keteranganJalurKabelPower
+    )
+    addChecklistRow(
+        table,
+        4,
+        "Kondisi ruangan",
+        report.kondisiRuangan,
+        report.keteranganKondisiRuangan
+    )
+    addChecklistRow(
+        table,
+        5,
+        "Ruangan / Lingkungan",
+        report.lingkungan,
+        report.keteranganLingkungan
+    )
+    addChecklistRow(table, 6, "Penerangan", report.penerangan, report.keteranganPenerangan)
+    addChecklistRow(table, 7, "Fan Ruangan", report.fanRuangan, report.keteranganFanRuangan)
     return table
 }
 
@@ -221,7 +239,7 @@ private fun createMainReportTable(report: PanelReport): Table {
             )
             .alignMiddle()
     )
-    table.addCell(Cell(5, 3))
+    table.addCell(Cell(5, 3).add(smallParagraph(report.keteranganPhase)))
 
     // ====================== NEW LINE ===============================================
     table.addCell(Cell(1, 2).add(smallParagraph("R - S").center()))
@@ -283,7 +301,7 @@ private fun createMainReportTable(report: PanelReport): Table {
     table.addCell(Cell().add(smallParagraph(report.arusT.toString()).center()))
 
     table.addCell(Cell(1, 3))
-    table.addCell(Cell(1, 3))
+    table.addCell(Cell(1, 3).add(smallParagraph(report.keteranganArus)))
 
     // ====================== NEW LINE ===============================================
     table.addCell(
@@ -293,7 +311,7 @@ private fun createMainReportTable(report: PanelReport): Table {
     )
     table.addCell(Cell(1, 3).add(smallParagraph(report.frekuensi.toString()).center()))
     table.addCell(Cell(1, 3).add(smallParagraph("50.00HZ").center()))
-    table.addCell(Cell(1, 3))
+    table.addCell(Cell(1, 3).add(smallParagraph(report.keteranganFrekuensi)))
 
     // ====================== NEW LINE ===============================================
     table.addCell(
@@ -303,7 +321,7 @@ private fun createMainReportTable(report: PanelReport): Table {
     )
     table.addCell(Cell(1, 3).add(smallParagraph(report.powerFactor.toString()).center()))
     table.addCell(Cell(1, 3).add(smallParagraph("0,8-1,0").center()))
-    table.addCell(Cell(1, 3))
+    table.addCell(Cell(1, 3).add(smallParagraph(report.keteranganPowerFactor)))
 
     // ====================== NEW LINE ===============================================
     table.addCell(
@@ -316,7 +334,7 @@ private fun createMainReportTable(report: PanelReport): Table {
             .add(smallParagraph(report.kondisiPerangkat))
     )
     table.addCell(Cell(1, 3))
-    table.addCell(Cell(1, 3))
+    table.addCell(Cell(1, 3).add(smallParagraph(report.keteranganKondisiPerangkat)))
 
     // ====================== VISUAL CHECK SECTION ================================
     table.addCell(
@@ -327,25 +345,61 @@ private fun createMainReportTable(report: PanelReport): Table {
                 smallParagraph("PENGECEKAN VISUAL").center().setRotationAngle(1.57f)
             )
     )
-    addChecklistRow(table, 1, "Relay/timer control", report.relay)
-    addChecklistRow(table, 2, "Kabel Instalasi", report.relay)
-    addChecklistRow(table, 3, "ACB/MCCB/MCB (input)", report.MCBInput)
-    addChecklistRow(table, 4, "ACB/MCCB/MCB (output)", report.MCBOutput)
-    addChecklistRow(table, 5, "Lampu indikator panel", report.lampuIndikatorPanel)
-    addChecklistRow(table, 6, "Fuse", report.fuse)
-    addChecklistRow(table, 7, "Terminal power", report.terminalPower)
-    addChecklistRow(table, 8, "Amper meter", report.ampereMeter)
-    addChecklistRow(table, 9, "Volt meter", report.voltMeter)
-    addChecklistRow(table, 10, "Modul control status", report.modulControlStatus)
-    addChecklistRow(table, 11, "Timer (hour counter)", report.timer)
-    addChecklistRow(table, 12, "Push button ON", report.pushButtonOn)
-    addChecklistRow(table, 13, "Push button OFF", report.pushButtonOff)
-    addChecklistRow(table, 14, "Selector MOA", report.selectorMOA)
-    addChecklistRow(table, 15, "Status Indikator", report.statusIndikator)
+    addChecklistRow(table, 1, "Relay/timer control", report.relay, report.keteranganRelay)
+    addChecklistRow(table, 2, "Kabel Instalasi", report.kabel, report.keteranganRelay)
+    addChecklistRow(table, 3, "ACB/MCCB/MCB (input)", report.MCBInput, report.keteranganMCBInput)
+    addChecklistRow(table, 4, "ACB/MCCB/MCB (output)", report.MCBOutput, report.keteranganMCBOutput)
+    addChecklistRow(
+        table,
+        5,
+        "Lampu indikator panel",
+        report.lampuIndikatorPanel,
+        report.keteranganLampuIndikatorPanel
+    )
+    addChecklistRow(table, 6, "Fuse", report.fuse, report.keteranganFuse)
+    addChecklistRow(
+        table,
+        7,
+        "Terminal power",
+        report.terminalPower,
+        report.keteranganTerminalPower
+    )
+    addChecklistRow(table, 8, "Amper meter", report.ampereMeter, report.keteranganAmpereMeter)
+    addChecklistRow(table, 9, "Volt meter", report.voltMeter, report.keteranganVoltMeter)
+    addChecklistRow(
+        table,
+        10,
+        "Modul control status",
+        report.modulControlStatus,
+        report.keteranganModulControlStatus
+    )
+    addChecklistRow(table, 11, "Timer (hour counter)", report.timer, report.keteranganTimer)
+    addChecklistRow(table, 12, "Push button ON", report.pushButtonOn, report.keteranganPushButtonOn)
+    addChecklistRow(
+        table,
+        13,
+        "Push button OFF",
+        report.pushButtonOff,
+        report.keteranganPushButtonOff
+    )
+    addChecklistRow(table, 14, "Selector MOA", report.selectorMOA, report.keteranganSelectorMOA)
+    addChecklistRow(
+        table,
+        15,
+        "Status Indikator",
+        report.statusIndikator,
+        report.keteranganStatusIndikator
+    )
     return table
 }
 
-private fun addChecklistRow(table: Table, rowNumber: Int, name: String, status: Status) {
+private fun addChecklistRow(
+    table: Table,
+    rowNumber: Int,
+    name: String,
+    status: Status,
+    keterangan: String
+) {
     table.addCell(
         Cell()
             .add(smallParagraph(rowNumber.toString()).center())
@@ -365,7 +419,7 @@ private fun addChecklistRow(table: Table, rowNumber: Int, name: String, status: 
         ).alignMiddle()
     )
     table.addCell(Cell(1, 3))
-    table.addCell(Cell(1, 3))
+    table.addCell(Cell(1, 3).add(smallParagraph(keterangan)))
 }
 
 
