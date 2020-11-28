@@ -1,10 +1,8 @@
 package com.cakrasuryainti.panther.ui.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.ScrollableRow
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowDropDown
@@ -20,8 +18,10 @@ import com.cakrasuryainti.panther.db.model.Status
 @Composable
 fun StatusCheckField(
     label: String,
-    value: Status,
-    onChange: (Status) -> Unit,
+    statusValue: Status,
+    onStatusChange: (Status) -> Unit,
+    keteranganValue: String,
+    onKeteranganChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var openDropdown by remember { mutableStateOf(false) }
@@ -51,7 +51,7 @@ fun StatusCheckField(
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
-                            text = when (value) {
+                            text = when (statusValue) {
                                 Status.Ok -> "OK"
                                 Status.NotAvailable -> "N/A"
                                 Status.NotOk -> "NOK"
@@ -68,21 +68,21 @@ fun StatusCheckField(
                             onDismissRequest = { openDropdown = false }
                         ) {
                             DropdownMenuItem(onClick = {
-                                onChange(Status.Ok)
+                                onStatusChange(Status.Ok)
                                 openDropdown = false
                             }) {
                                 Text("OK")
                             }
 
                             DropdownMenuItem(onClick = {
-                                onChange(Status.NotOk)
+                                onStatusChange(Status.NotOk)
                                 openDropdown = false
                             }) {
                                 Text("NOK")
                             }
 
                             DropdownMenuItem(onClick = {
-                                onChange(Status.NotAvailable)
+                                onStatusChange(Status.NotAvailable)
                                 openDropdown = false
                             }) {
                                 Text("N/A")
@@ -104,8 +104,8 @@ fun StatusCheckField(
             }
             OutlinedTextField(
                 label = { Text("Keterangan") },
-                onValueChange = {},
-                value = "",
+                onValueChange = { onKeteranganChange(it) },
+                value = keteranganValue,
                 modifier = Modifier.fillMaxWidth()
             )
             Divider(modifier = Modifier.padding(top = 16.dp))
@@ -120,7 +120,7 @@ fun NotAvailableStatusFieldPreview() {
         var status by remember { mutableStateOf(Status.NotAvailable) }
         StatusCheckField("1. Relay/timer control control control", status, {
             status = it
-        }, modifier = Modifier.padding(16.dp))
+        }, "", {}, modifier = Modifier.padding(16.dp))
     }
 }
 
@@ -131,7 +131,7 @@ fun NotOkStatusFieldPreview() {
         var status by remember { mutableStateOf(Status.NotOk) }
         StatusCheckField("1. Relay/timer control", status, {
             status = it
-        }, modifier = Modifier.padding(16.dp))
+        }, "", {}, modifier = Modifier.padding(16.dp))
     }
 }
 
@@ -142,6 +142,6 @@ fun OkStatusFieldPreview() {
         var status by remember { mutableStateOf(Status.Ok) }
         StatusCheckField("1. Relay/timer control", status, {
             status = it
-        }, modifier = Modifier.padding(16.dp))
+        }, "", {}, modifier = Modifier.padding(16.dp))
     }
 }

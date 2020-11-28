@@ -46,7 +46,7 @@ data class PanelReport(
     val relay: Status = Status.NotAvailable,
     val keteranganRelay: String = "",
     val kabel: Status = Status.NotAvailable,
-    val keteranganKabel: String = "",
+    val keteranganKabelInstalasi: String = "",
     val MCBInput: Status = Status.NotAvailable,
     val keteranganMCBInput: String = "",
     val MCBOutput: Status = Status.NotAvailable,

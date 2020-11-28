@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 7,
-    "identityHash": "d20b92355e7128a8f4d803378d465dd3",
+    "identityHash": "5d4e57d49a465d680f02012918379659",
     "entities": [
       {
         "tableName": "PanelReport",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `customer` TEXT NOT NULL, `panelName` TEXT NOT NULL, `model` TEXT NOT NULL, `serialNumber` TEXT NOT NULL, `location` TEXT NOT NULL, `jobDesc` TEXT NOT NULL, `dateTime` TEXT NOT NULL, `teganganPhaseToPhaseRS` REAL NOT NULL, `teganganPhaseToPhaseST` REAL NOT NULL, `teganganPhaseToPhaseTR` REAL NOT NULL, `teganganPhaseToNeutralRN` REAL NOT NULL, `teganganPhaseToNeutralSN` REAL NOT NULL, `teganganPhaseToNeutralTN` REAL NOT NULL, `teganganPhaseToNeutralGN` REAL NOT NULL, `keteranganPhase` TEXT NOT NULL, `arusR` REAL NOT NULL, `arusS` REAL NOT NULL, `arusT` REAL NOT NULL, `keteranganArus` TEXT NOT NULL, `frekuensi` REAL NOT NULL, `keteranganFrekuensi` TEXT NOT NULL, `powerFactor` REAL NOT NULL, `keteranganPowerFactor` TEXT NOT NULL, `kondisiPerangkat` TEXT NOT NULL, `keteranganKondisiPerangkat` TEXT NOT NULL, `relay` TEXT NOT NULL, `keteranganRelay` TEXT NOT NULL, `kabel` TEXT NOT NULL, `keteranganKabel` TEXT NOT NULL, `MCBInput` TEXT NOT NULL, `keteranganMCBInput` TEXT NOT NULL, `MCBOutput` TEXT NOT NULL, `keteranganMCBOutput` TEXT NOT NULL, `lampuIndikatorPanel` TEXT NOT NULL, `keteranganLampuIndikatorPanel` TEXT NOT NULL, `fuse` TEXT NOT NULL, `keteranganFuse` TEXT NOT NULL, `terminalPower` TEXT NOT NULL, `keteranganTerminalPower` TEXT NOT NULL, `ampereMeter` TEXT NOT NULL, `keteranganAmpereMeter` TEXT NOT NULL, `voltMeter` TEXT NOT NULL, `keteranganVoltMeter` TEXT NOT NULL, `modulControlStatus` TEXT NOT NULL, `keteranganModulControlStatus` TEXT NOT NULL, `timer` TEXT NOT NULL, `keteranganTimer` TEXT NOT NULL, `pushButtonOn` TEXT NOT NULL, `keteranganPushButtonOn` TEXT NOT NULL, `pushButtonOff` TEXT NOT NULL, `keteranganPushButtonOff` TEXT NOT NULL, `selectorMOA` TEXT NOT NULL, `keteranganSelectorMOA` TEXT NOT NULL, `statusIndikator` TEXT NOT NULL, `keteranganStatusIndikator` TEXT NOT NULL, `luarPanel` TEXT NOT NULL, `keteranganLuarPanel` TEXT NOT NULL, `dalamPanel` TEXT NOT NULL, `keteranganDalamPanel` TEXT NOT NULL, `jalurKabelPower` TEXT NOT NULL, `keteranganJalurKabelPower` TEXT NOT NULL, `kondisiRuangan` TEXT NOT NULL, `keteranganKondisiRuangan` TEXT NOT NULL, `lingkungan` TEXT NOT NULL, `keteranganLingkungan` TEXT NOT NULL, `penerangan` TEXT NOT NULL, `keteranganPenerangan` TEXT NOT NULL, `fanRuangan` TEXT NOT NULL, `keteranganFanRuangan` TEXT NOT NULL, `notesAndRecommendation` TEXT NOT NULL, `finished` INTEGER NOT NULL, `pdfFilePath` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `customer` TEXT NOT NULL, `panelName` TEXT NOT NULL, `model` TEXT NOT NULL, `serialNumber` TEXT NOT NULL, `location` TEXT NOT NULL, `jobDesc` TEXT NOT NULL, `dateTime` TEXT NOT NULL, `teganganPhaseToPhaseRS` REAL NOT NULL, `teganganPhaseToPhaseST` REAL NOT NULL, `teganganPhaseToPhaseTR` REAL NOT NULL, `teganganPhaseToNeutralRN` REAL NOT NULL, `teganganPhaseToNeutralSN` REAL NOT NULL, `teganganPhaseToNeutralTN` REAL NOT NULL, `teganganPhaseToNeutralGN` REAL NOT NULL, `keteranganPhase` TEXT NOT NULL, `arusR` REAL NOT NULL, `arusS` REAL NOT NULL, `arusT` REAL NOT NULL, `keteranganArus` TEXT NOT NULL, `frekuensi` REAL NOT NULL, `keteranganFrekuensi` TEXT NOT NULL, `powerFactor` REAL NOT NULL, `keteranganPowerFactor` TEXT NOT NULL, `kondisiPerangkat` TEXT NOT NULL, `keteranganKondisiPerangkat` TEXT NOT NULL, `relay` TEXT NOT NULL, `keteranganRelay` TEXT NOT NULL, `kabel` TEXT NOT NULL, `keteranganKabelInstalasi` TEXT NOT NULL, `MCBInput` TEXT NOT NULL, `keteranganMCBInput` TEXT NOT NULL, `MCBOutput` TEXT NOT NULL, `keteranganMCBOutput` TEXT NOT NULL, `lampuIndikatorPanel` TEXT NOT NULL, `keteranganLampuIndikatorPanel` TEXT NOT NULL, `fuse` TEXT NOT NULL, `keteranganFuse` TEXT NOT NULL, `terminalPower` TEXT NOT NULL, `keteranganTerminalPower` TEXT NOT NULL, `ampereMeter` TEXT NOT NULL, `keteranganAmpereMeter` TEXT NOT NULL, `voltMeter` TEXT NOT NULL, `keteranganVoltMeter` TEXT NOT NULL, `modulControlStatus` TEXT NOT NULL, `keteranganModulControlStatus` TEXT NOT NULL, `timer` TEXT NOT NULL, `keteranganTimer` TEXT NOT NULL, `pushButtonOn` TEXT NOT NULL, `keteranganPushButtonOn` TEXT NOT NULL, `pushButtonOff` TEXT NOT NULL, `keteranganPushButtonOff` TEXT NOT NULL, `selectorMOA` TEXT NOT NULL, `keteranganSelectorMOA` TEXT NOT NULL, `statusIndikator` TEXT NOT NULL, `keteranganStatusIndikator` TEXT NOT NULL, `luarPanel` TEXT NOT NULL, `keteranganLuarPanel` TEXT NOT NULL, `dalamPanel` TEXT NOT NULL, `keteranganDalamPanel` TEXT NOT NULL, `jalurKabelPower` TEXT NOT NULL, `keteranganJalurKabelPower` TEXT NOT NULL, `kondisiRuangan` TEXT NOT NULL, `keteranganKondisiRuangan` TEXT NOT NULL, `lingkungan` TEXT NOT NULL, `keteranganLingkungan` TEXT NOT NULL, `penerangan` TEXT NOT NULL, `keteranganPenerangan` TEXT NOT NULL, `fanRuangan` TEXT NOT NULL, `keteranganFanRuangan` TEXT NOT NULL, `notesAndRecommendation` TEXT NOT NULL, `finished` INTEGER NOT NULL, `pdfFilePath` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -183,8 +183,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "keteranganKabel",
-            "columnName": "keteranganKabel",
+            "fieldPath": "keteranganKabelInstalasi",
+            "columnName": "keteranganKabelInstalasi",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -504,7 +504,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd20b92355e7128a8f4d803378d465dd3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5d4e57d49a465d680f02012918379659')"
     ]
   }
 }

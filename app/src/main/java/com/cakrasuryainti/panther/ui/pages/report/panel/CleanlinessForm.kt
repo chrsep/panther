@@ -66,44 +66,58 @@ private fun Form(
             Column(modifier = Modifier.padding(16.dp)) {
                 StatusCheckField(
                     label = "1. Luar panel",
-                    value = report?.luarPanel ?: Status.NotAvailable,
-                    onChange = { handleUpdate(report?.copy(luarPanel = it)) },
+                    statusValue = report?.luarPanel ?: Status.NotAvailable,
+                    onStatusChange = { handleUpdate(report?.copy(luarPanel = it)) },
+                    keteranganValue = report?.keteranganLuarPanel ?: "",
+                    onKeteranganChange = { handleUpdate(report?.copy(keteranganLuarPanel = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "2. Dalam panel",
-                    value = report?.dalamPanel ?: Status.NotAvailable,
-                    onChange = { handleUpdate(report?.copy(dalamPanel = it)) },
+                    statusValue = report?.dalamPanel ?: Status.NotAvailable,
+                    onStatusChange = { handleUpdate(report?.copy(dalamPanel = it)) },
+                    keteranganValue = report?.keteranganDalamPanel ?: "",
+                    onKeteranganChange = { handleUpdate(report?.copy(keteranganDalamPanel = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "3. Jalur kabel power",
-                    value = report?.jalurKabelPower ?: Status.NotAvailable,
-                    onChange = { handleUpdate(report?.copy(jalurKabelPower = it)) },
+                    statusValue = report?.jalurKabelPower ?: Status.NotAvailable,
+                    onStatusChange = { handleUpdate(report?.copy(jalurKabelPower = it)) },
+                    keteranganValue = report?.keteranganJalurKabelPower ?: "",
+                    onKeteranganChange = { handleUpdate(report?.copy(keteranganJalurKabelPower = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "4. Kondisi ruangan",
-                    value = report?.kondisiRuangan ?: Status.NotAvailable,
-                    onChange = { handleUpdate(report?.copy(kondisiRuangan = it)) },
+                    statusValue = report?.kondisiRuangan ?: Status.NotAvailable,
+                    onStatusChange = { handleUpdate(report?.copy(kondisiRuangan = it)) },
+                    keteranganValue = report?.keteranganKondisiRuangan ?: "",
+                    onKeteranganChange = { handleUpdate(report?.copy(keteranganKondisiRuangan = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "5. Ruangan / Lingkungan",
-                    value = report?.lingkungan ?: Status.NotAvailable,
-                    onChange = { handleUpdate(report?.copy(lingkungan = it)) },
+                    statusValue = report?.lingkungan ?: Status.NotAvailable,
+                    onStatusChange = { handleUpdate(report?.copy(lingkungan = it)) },
+                    keteranganValue = report?.keteranganLingkungan ?: "",
+                    onKeteranganChange = { handleUpdate(report?.copy(keteranganLingkungan = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "6. Penerangan",
-                    value = report?.penerangan ?: Status.NotAvailable,
-                    onChange = { handleUpdate(report?.copy(penerangan = it)) },
+                    statusValue = report?.penerangan ?: Status.NotAvailable,
+                    onStatusChange = { handleUpdate(report?.copy(penerangan = it)) },
+                    keteranganValue = report?.keteranganPenerangan ?: "",
+                    onKeteranganChange = { handleUpdate(report?.copy(keteranganPenerangan = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
                 StatusCheckField(
                     label = "7. Fan Ruangan",
-                    value = report?.fanRuangan ?: Status.NotAvailable,
-                    onChange = { handleUpdate(report?.copy(fanRuangan = it)) },
+                    statusValue = report?.fanRuangan ?: Status.NotAvailable,
+                    onStatusChange = { handleUpdate(report?.copy(fanRuangan = it)) },
+                    keteranganValue = report?.keteranganFanRuangan ?: "",
+                    onKeteranganChange = { handleUpdate(report?.copy(keteranganFanRuangan = it)) },
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
             }
