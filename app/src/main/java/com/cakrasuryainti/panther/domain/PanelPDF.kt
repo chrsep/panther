@@ -112,7 +112,7 @@ private fun createNotesTable(report: PanelReport): Table {
         Cell(1, 4)
             .add(smallParagraph("CATATAN DAN REKOMENDASI:").setMarginBottom(8f))
             .add(smallParagraph(report.notesAndRecommendation))
-    ).setMinHeight(128f)
+    ).setMinHeight(450f)
     return table
 }
 

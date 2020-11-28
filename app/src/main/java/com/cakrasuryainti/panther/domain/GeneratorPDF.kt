@@ -2,7 +2,6 @@ package com.cakrasuryainti.panther.domain
 
 import com.cakrasuryainti.panther.db.model.GeneratorReport
 import com.cakrasuryainti.panther.db.model.GeneratorReportImages
-import com.cakrasuryainti.panther.db.model.ReportImage
 import com.itextpdf.io.image.ImageDataFactory
 import com.itextpdf.kernel.geom.PageSize
 import com.itextpdf.kernel.pdf.PdfDocument
