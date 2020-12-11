@@ -125,7 +125,7 @@ fun MeasurementForm(
                 onValueChange = { handleUpdate(report?.copy(teganganPhaseToNeutralGN = it)) },
             )
             // Todo attach dis somewhere
-            OutlinedTextField(
+            TextField(
                 label = { Text("Keterangan tambahan") },
                 modifier = Modifier.padding(top = 8.dp, bottom = 32.dp).fillMaxWidth(),
                 value = report?.keteranganPhase ?: "",
@@ -160,7 +160,7 @@ fun MeasurementForm(
                 )
             }
             // Todo attach dis somewhere
-            OutlinedTextField(
+            TextField(
                 label = { Text("Keterangan") },
                 modifier = Modifier.padding(top = 8.dp, bottom = 32.dp).fillMaxWidth(),
                 value = report?.keteranganArus ?: "",
@@ -175,7 +175,7 @@ fun MeasurementForm(
                 onValueChange = { handleUpdate(report?.copy(frekuensi = it)) },
             )
             // Todo attach dis somewhere
-            OutlinedTextField(
+            TextField(
                 label = { Text("Keterangan") },
                 modifier = Modifier.padding(top = 8.dp, bottom = 32.dp).fillMaxWidth(),
                 value = report?.keteranganFrekuensi ?: "",
@@ -190,7 +190,7 @@ fun MeasurementForm(
                 onValueChange = { handleUpdate(report?.copy(powerFactor = it)) },
             )
             // Todo attach dis somewhere
-            OutlinedTextField(
+            TextField(
                 label = { Text("Keterangan") },
                 modifier = Modifier.padding(top = 8.dp, bottom = 32.dp).fillMaxWidth(),
                 value = report?.keteranganPowerFactor ?: "",
@@ -198,14 +198,14 @@ fun MeasurementForm(
             )
 
             Divider()
-            OutlinedTextField(
+            TextField(
                 label = { Text("Kondisi Perangkat") },
                 modifier = Modifier.padding(top = 16.dp).fillMaxWidth(),
                 value = report?.kondisiPerangkat ?: "",
                 onValueChange = { handleUpdate(report?.copy(kondisiPerangkat = it)) },
             )
             // Todo attach dis somewhere
-            OutlinedTextField(
+            TextField(
                 label = { Text("Keterangan") },
                 modifier = Modifier.padding(top = 8.dp, bottom = 32.dp).fillMaxWidth(),
                 value = report?.keteranganKondisiPerangkat ?: "",

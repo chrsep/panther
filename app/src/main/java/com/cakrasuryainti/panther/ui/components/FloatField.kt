@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.TextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -26,7 +26,7 @@ fun FloatField(
     var isInvalid by remember { mutableStateOf(false) }
 
     Column(modifier = modifier) {
-        OutlinedTextField(
+        TextField(
             modifier = Modifier.fillMaxWidth(),
             label = { Text(text = label) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),

@@ -93,19 +93,19 @@ private fun GeneratorDocuments(
         })
     {
         ScrollableColumn(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Generator log present?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Daily check forms present?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Manuals present?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),

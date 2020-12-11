@@ -94,7 +94,7 @@ fun MetaForm(
         })
     {
         ScrollableColumn(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
-            OutlinedTextField(
+            TextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.customer ?: "",
                 onValueChange = { updateState(report?.copy(customer = it)) },
@@ -105,7 +105,7 @@ fun MetaForm(
                     .semantics { accessibilityLabel = "pekerjaan" },
                 isErrorValue = isDirty && report?.customer == "",
             )
-            OutlinedTextField(
+            TextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.panelName ?: "",
                 onValueChange = { updateState(report?.copy(panelName = it)) },
@@ -113,7 +113,7 @@ fun MetaForm(
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 isErrorValue = isDirty && report?.panelName == ""
             )
-            OutlinedTextField(
+            TextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.model ?: "",
                 onValueChange = { updateState(report?.copy(model = it)) },

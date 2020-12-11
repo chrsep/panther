@@ -92,8 +92,8 @@ fun MetaForm(
             )
         })
     {
-        ScrollableColumn(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
-            OutlinedTextField(
+        ScrollableColumn(modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp)) {
+            TextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.customer ?: "",
                 onValueChange = { updateState(report?.copy(customer = it)) },
@@ -104,7 +104,7 @@ fun MetaForm(
                     .semantics { accessibilityLabel = "pekerjaan" },
                 isErrorValue = isDirty && report?.customer == "",
             )
-            OutlinedTextField(
+            TextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.panelName ?: "",
                 onValueChange = { updateState(report?.copy(panelName = it)) },
@@ -112,7 +112,7 @@ fun MetaForm(
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 isErrorValue = isDirty && report?.panelName == ""
             )
-            OutlinedTextField(
+            TextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.model ?: "",
                 onValueChange = { updateState(report?.copy(model = it)) },
@@ -120,7 +120,7 @@ fun MetaForm(
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 isErrorValue = isDirty && report?.model == ""
             )
-            OutlinedTextField(
+            TextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.serialNumber ?: "",
                 onValueChange = { updateState(report?.copy(serialNumber = it)) },
@@ -128,7 +128,7 @@ fun MetaForm(
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 isErrorValue = isDirty && report?.serialNumber == ""
             )
-            OutlinedTextField(
+            TextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 onImeActionPerformed = { imeAction, _ ->
                     if (imeAction == ImeAction.Done) handleNext(report)
@@ -141,7 +141,7 @@ fun MetaForm(
             )
             Surface(
                 modifier = Modifier.fillMaxWidth()
-                    .padding(start = 8.dp, end = 8.dp, top = 16.dp, bottom = 32.dp),
+                    .padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 32.dp),
                 border = BorderStroke(1.dp, MaterialTheme.colors.onBackground.copy(alpha = 0.4f)),
                 shape = RoundedCornerShape(8.dp)
             ) {

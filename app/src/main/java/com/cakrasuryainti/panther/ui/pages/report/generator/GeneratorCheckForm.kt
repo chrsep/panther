@@ -93,7 +93,7 @@ private fun GeneratorCheckForm(
         })
     {
         ScrollableColumn(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
-            OutlinedTextField(
+            TextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.customer ?: "",
                 onValueChange = { updateState(report?.copy(customer = it)) },
@@ -105,7 +105,7 @@ private fun GeneratorCheckForm(
                     .semantics { accessibilityLabel = "pekerjaan" },
                 isErrorValue = isDirty && report?.customer == "",
             )
-            OutlinedTextField(
+            TextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.panelName ?: "",
                 onValueChange = { updateState(report?.copy(panelName = it)) },
@@ -113,7 +113,7 @@ private fun GeneratorCheckForm(
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 isErrorValue = isDirty && report?.panelName == ""
             )
-            OutlinedTextField(
+            TextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.model ?: "",
                 onValueChange = { updateState(report?.copy(model = it)) },
@@ -121,81 +121,81 @@ private fun GeneratorCheckForm(
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 isErrorValue = isDirty && report?.model == ""
             )
-            OutlinedTextField(
+            TextField(
                 value = report?.serialNumber ?: "",
                 onValueChange = { updateState(report?.copy(serialNumber = it)) },
                 label = { Text("Fuel tank at least 50% full") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 isErrorValue = isDirty && report?.serialNumber == ""
             )
-            OutlinedTextField(
+            TextField(
                 value = report?.location ?: "",
                 onValueChange = { updateState(report?.copy(location = it)) },
                 label = { Text("Engine oil level is okay?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 isErrorValue = isDirty && report?.location == ""
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Engine oil condition?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Filter oil check condition") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Filter air check condition") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Radiator, no leaks?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Radiator coolant level okay?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Battery connections good?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Battery water level okay?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Battery charger is charging?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Exhaust system is functioning normally?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Manual start is working?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Auto-start is working?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),

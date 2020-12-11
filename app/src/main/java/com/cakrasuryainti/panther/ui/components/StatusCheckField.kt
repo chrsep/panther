@@ -102,11 +102,11 @@ fun StatusCheckField(
 //                    )
                 }
             }
-            OutlinedTextField(
+            TextField(
                 label = { Text("Keterangan") },
                 onValueChange = { onKeteranganChange(it) },
                 value = keteranganValue,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
             )
             Divider(modifier = Modifier.padding(top = 16.dp))
         }

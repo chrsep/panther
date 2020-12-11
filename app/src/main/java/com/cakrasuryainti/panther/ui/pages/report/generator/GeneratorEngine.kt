@@ -87,25 +87,25 @@ private fun GeneratorEngine(
         })
     {
         ScrollableColumn(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Pre-heating works?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Motor starts esaily?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Oil pressure OK") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Battery charging?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
@@ -117,19 +117,19 @@ private fun GeneratorEngine(
                 modifier = Modifier.fillMaxWidth()
                     .padding(start = 8.dp, end = 8.dp, top = 32.dp, bottom = 8.dp)
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Measurement Metering (Volt)") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Measurement Metering (Ampere)") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Measurement Metering (HZ)") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
@@ -141,19 +141,19 @@ private fun GeneratorEngine(
                 modifier = Modifier.fillMaxWidth()
                     .padding(start = 8.dp, end = 8.dp, top = 32.dp, bottom = 8.dp)
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Measurement Metering (Volt)") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Measurement Metering (Ampere)") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Measurement Metering (HZ)") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
@@ -165,19 +165,19 @@ private fun GeneratorEngine(
                 modifier = Modifier.fillMaxWidth()
                     .padding(start = 8.dp, end = 8.dp, top = 32.dp, bottom = 8.dp)
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Measurement Metering (Volt)") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Measurement Metering (Ampere)") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Measurement Metering (HZ)") },
                 modifier = Modifier.fillMaxWidth().padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 32.dp),

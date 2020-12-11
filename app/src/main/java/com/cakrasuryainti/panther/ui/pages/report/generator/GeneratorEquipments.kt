@@ -94,13 +94,13 @@ private fun GeneratorEquipmentForm(
         })
     {
         ScrollableColumn(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("All tools presents and in good conditions?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Wrenches") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
@@ -111,13 +111,13 @@ private fun GeneratorEquipmentForm(
                 modifier = Modifier.fillMaxWidth()
                     .padding(start = 8.dp, end = 8.dp, top = 32.dp, bottom = 8.dp)
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Fire extinguisher present") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Fire extinguisher working") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
@@ -128,19 +128,19 @@ private fun GeneratorEquipmentForm(
                 modifier = Modifier.fillMaxWidth()
                     .padding(start = 8.dp, end = 8.dp, top = 32.dp, bottom = 8.dp)
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("First aid kit present?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("First aid kit complete?") },
                 modifier = Modifier.fillMaxWidth().padding(8.dp),
                 onValueChange = {}
             )
-            OutlinedTextField(
+            TextField(
                 value = "",
                 label = { Text("Water decanter?") },
                 placeholder = { Text("Does it need to be drained?") },
@@ -153,14 +153,14 @@ private fun GeneratorEquipmentForm(
                     .padding(start = 8.dp, end = 8.dp, top = 32.dp, bottom = 8.dp)
             )
             for (i in 1..otherEquipments) {
-                OutlinedTextField(
+                TextField(
                     value = "",
                     label = { Text("Equipment name") },
                     modifier = Modifier.fillMaxWidth()
                         .padding(start = 8.dp, end = 8.dp, bottom = 8.dp),
                     onValueChange = {}
                 )
-                OutlinedTextField(
+                TextField(
                     value = "",
                     label = { Text("Equipment condition") },
                     modifier = Modifier.fillMaxWidth()
