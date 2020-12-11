@@ -116,7 +116,7 @@ data class ReportImage(
 )
 
 public enum class JobDesc {
-    Cleaning,
+    Survey,
     Maintenance,
     Repair,
     Modification
