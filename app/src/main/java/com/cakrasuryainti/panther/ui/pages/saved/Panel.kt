@@ -13,7 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawOpacity
-import androidx.compose.ui.platform.ContextAmbient
+import androidx.compose.ui.platform.AmbientContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -28,7 +28,7 @@ import java.util.*
 
 @Composable
 fun ListLVPanel(navController: NavHostController, savedViewModel: SavedViewModel) {
-    val context = ContextAmbient.current
+    val context = AmbientContext.current
     val allReports by savedViewModel.allReport.collectAsState(initial = listOf())
 
     Scaffold(
@@ -50,7 +50,7 @@ fun ListLVPanel(navController: NavHostController, savedViewModel: SavedViewModel
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Image(
-                    asset = vectorResource(id = R.drawable.undraw_list),
+                    vectorResource(id = R.drawable.undraw_list),
                     modifier = Modifier.width(240.dp).padding(top = 72.dp, bottom = 16.dp)
                 )
                 Text(

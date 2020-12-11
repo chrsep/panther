@@ -5,7 +5,7 @@ import androidx.activity.result.ActivityResultRegistryOwner
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.compose.runtime.*
 import androidx.compose.runtime.savedinstancestate.rememberSavedInstanceState
-import androidx.compose.ui.platform.ContextAmbient
+import androidx.compose.ui.platform.AmbientContext
 import androidx.core.app.ActivityOptionsCompat
 import timber.log.Timber
 import java.util.*
@@ -19,8 +19,8 @@ fun <I, O> registerForActivityResult(
 ): ActivityResultLauncher<I> {
     // First, find the ActivityResultRegistry by casting the Context
     // (which is actually a ComponentActivity) to ActivityResultRegistryOwner
-    // FIXME: Line below crashes the preview window since ContextAmbient is not an activity.
-    val owner = ContextAmbient.current as ActivityResultRegistryOwner
+    // FIXME: Line below crashes the preview window since AmbientContext is not an activity.
+    val owner = AmbientContext.current as ActivityResultRegistryOwner
     val activityResultRegistry = owner.activityResultRegistry
 
     // Keep track of the current onResult listener

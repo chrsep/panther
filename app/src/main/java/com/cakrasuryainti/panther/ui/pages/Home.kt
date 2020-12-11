@@ -34,7 +34,7 @@ fun Home(navController: NavHostController) {
             modifier = Modifier.fillMaxWidth().fillMaxHeight().padding(bottom = 128.dp)
         ) {
             Image(
-                asset = imageResource(id = R.drawable.csi_logo_full),
+                imageResource(id = R.drawable.csi_logo_full),
                 modifier = Modifier.width(180.dp)
             )
             Button(

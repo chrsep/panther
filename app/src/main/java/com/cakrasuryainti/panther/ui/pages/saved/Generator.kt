@@ -9,7 +9,7 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ContextAmbient
+import androidx.compose.ui.platform.AmbientContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -45,7 +45,7 @@ fun ListGeneratorReport(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Image(
-                    asset = vectorResource(id = R.drawable.undraw_list),
+                    vectorResource(id = R.drawable.undraw_list),
                     modifier = Modifier.width(240.dp).padding(top = 72.dp, bottom = 16.dp)
                 )
                 Text(

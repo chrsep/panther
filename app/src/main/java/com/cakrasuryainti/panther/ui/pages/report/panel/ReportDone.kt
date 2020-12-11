@@ -8,7 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ContextAmbient
+import androidx.compose.ui.platform.AmbientContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -35,7 +35,7 @@ fun ReportDone(navController: NavHostController, viewModel: PanelViewModel) {
 
 @Composable
 private fun ReportDaoView(report: PanelReport?, navigateToHome: () -> Unit) {
-    val context = ContextAmbient.current
+    val context = AmbientContext.current
     Surface {
         Column(
             verticalArrangement = Arrangement.Center,
@@ -53,7 +53,7 @@ private fun ReportDaoView(report: PanelReport?, navigateToHome: () -> Unit) {
                 style = MaterialTheme.typography.subtitle1,
             )
             Image(
-                asset = vectorResource(id = R.drawable.undraw_done),
+                vectorResource(id = R.drawable.undraw_done),
                 modifier = Modifier.width(180.dp).padding(bottom = 16.dp)
             )
             Text(

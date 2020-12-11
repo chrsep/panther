@@ -13,7 +13,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.ContextAmbient
+import androidx.compose.ui.platform.AmbientContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -31,7 +31,7 @@ import com.cakrasuryainti.panther.domain.saveImagesIntoReport
 @Composable
 fun FinalCheck(navController: NavHostController, viewModel: PanelViewModel) {
     val reportWithImages by viewModel.currentPanelReport.observeAsState()
-    val context = ContextAmbient.current
+    val context = AmbientContext.current
 
     var isLoading by remember { mutableStateOf(false) }
 
@@ -70,7 +70,7 @@ private fun Form(
     navigateToImageEdit: (ReportImage) -> Unit,
     isLoading: Boolean,
 ) {
-    val context = ContextAmbient.current
+    val context = AmbientContext.current
     val getImages = registerForActivityResult(
         ActivityResultContracts.GetMultipleContents()
     ) { uris ->
@@ -134,7 +134,7 @@ private fun Form(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Image(
-                            asset = vectorResource(id = R.drawable.undraw_camera),
+                            vectorResource(id = R.drawable.undraw_camera),
                             modifier = Modifier.width(180.dp).padding(top = 72.dp, bottom = 16.dp)
                         )
                         Text(
