@@ -2,6 +2,7 @@ package com.cakrasuryainti.panther.ui.pages
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,20 +24,24 @@ fun HomeContainer(navController: NavHostController) {
 @ExperimentalMaterialApi
 @Composable
 fun Home(navController: NavHostController) {
-    Scaffold(
-        topBar = {
-            TopAppBar(title = { Text(text = "Report Creator") })
-        }
-    ) {
+    Scaffold {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxWidth().fillMaxHeight().padding(bottom = 128.dp)
+            modifier = Modifier.fillMaxWidth().fillMaxHeight()
         ) {
             Image(
-                imageResource(id = R.drawable.csi_logo_full),
-                modifier = Modifier.width(180.dp)
+                imageResource(id = R.drawable.background),
+                modifier = Modifier.fillMaxWidth()
             )
+            Surface(
+                modifier = Modifier.offset(y = (-70).dp),
+                shape = CircleShape
+            ) {
+                Image(
+                    imageResource(id = R.drawable.csi_logo_full),
+                    modifier = Modifier.height(140.dp).padding(8.dp)
+                )
+            }
             Button(
                 onClick = { navController.navigate("create") },
                 Modifier.padding(bottom = 8.dp)
