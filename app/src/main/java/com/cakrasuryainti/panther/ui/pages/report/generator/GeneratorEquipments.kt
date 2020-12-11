@@ -18,7 +18,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
-import androidx.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import com.cakrasuryainti.panther.db.model.JobDesc
 import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.ui.components.ChoiceChip

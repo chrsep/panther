@@ -12,15 +12,15 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import java.lang.NumberFormatException
 
 @Composable
 fun FloatField(
+    modifier: Modifier = Modifier,
     label: String = "",
     value: Float,
-    onValueChange: (Float) -> Unit,
-    modifier: Modifier = Modifier
+    onValueChange: (Float) -> Unit
 ) {
     var state by remember { mutableStateOf(if (value == 0f) "" else value.toString()) }
     var isInvalid by remember { mutableStateOf(false) }
@@ -57,6 +57,6 @@ fun FloatFieldPreview() {
     var state by remember { mutableStateOf(0f) }
 
     Surface {
-        FloatField("R - S", onValueChange = { state = it }, value = state)
+        FloatField(label = "R - S", value = state) { state = it }
     }
 }

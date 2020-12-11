@@ -79,12 +79,12 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
-    implementation "androidx.ui:ui-tooling:1.0.0-alpha07"
+    implementation "androidx.compose.ui:ui-tooling:$compose_version"
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
     // Material design icons
     implementation "androidx.compose.material:material-icons-core:$compose_version"
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
-    androidTestImplementation "androidx.ui:ui-test:$compose_version"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 
     // to get the new request permission API
     implementation "androidx.activity:activity-ktx:1.2.0-beta02"
