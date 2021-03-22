@@ -1,8 +1,10 @@
 package com.cakrasuryainti.panther.ui.pages.report.panel
 
-import androidx.compose.foundation.ScrollableColumn
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -11,12 +13,12 @@ import androidx.compose.material.icons.rounded.Save
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.compose.ui.tooling.preview.Preview
 import com.cakrasuryainti.panther.db.model.ReportImage
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
-import dev.chrisbanes.accompanist.coil.CoilImage
+import com.google.accompanist.coil.CoilImage
 
 @Composable
 fun EditImageContainer(
@@ -52,7 +54,8 @@ private fun EditImage(
     var isDeleting by remember { mutableStateOf(false) }
     var newImage by remember { mutableStateOf(image) }
 
-    onCommit(image) {
+    // TODO: this might be buggy.
+    SideEffect {
         newImage = image
     }
 
@@ -62,21 +65,21 @@ private fun EditImage(
                 title = { Text("Edit Gambar") },
                 navigationIcon = {
                     IconButton(onClick = { onNavigateBack() }) {
-                        Icon(Icons.Rounded.ArrowBack)
+                        Icon(Icons.Rounded.ArrowBack, "")
                     }
                 },
                 actions = {
                     IconButton(onClick = { isDeleting = true }) {
-                        Icon(Icons.Rounded.Delete)
+                         Icon(Icons.Rounded.Delete, "")
                     }
                     IconButton(onClick = { onSave(newImage) }) {
-                        Icon(Icons.Rounded.Save)
+                         Icon(Icons.Rounded.Save, "")
                     }
                 }
             )
         })
     {
-        ScrollableColumn {
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
             TextField(
                 value = newImage.description,
                 onValueChange = {
@@ -92,6 +95,7 @@ private fun EditImage(
                 fadeIn = true,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxWidth(),
+                contentDescription = "image",
             )
         }
     }
@@ -133,7 +137,7 @@ fun ConfirmDeleteDialog(onDismissRequest: () -> Unit, onDelete: () -> Unit, desc
             }
         },
         dismissButton = {
-            TextButton( onClick = { onDismissRequest() }, ) {
+            TextButton(onClick = { onDismissRequest() }) {
                 Text("Jangan")
             }
         }

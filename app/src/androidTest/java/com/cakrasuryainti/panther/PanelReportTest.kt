@@ -1,6 +1,5 @@
 package com.cakrasuryainti.panther
 
-import androidx.compose.foundation.layout.ExperimentalLayout
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import com.cakrasuryainti.panther.ui.Root
@@ -9,7 +8,7 @@ import org.junit.Test
 
 
 @ExperimentalMaterialApi
-@ExperimentalLayout
+
 class PanelReportTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<MainActivity>()

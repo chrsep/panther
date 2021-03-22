@@ -21,7 +21,7 @@ fun CreateReport(navController: NavHostController) {
                 title = { Text(text = "Create Report") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Rounded.ArrowBack)
+                         Icon(Icons.Rounded.ArrowBack, "")
                     }
                 },
             )

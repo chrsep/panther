@@ -1,10 +1,11 @@
 package com.cakrasuryainti.panther.ui.pages.report.panel
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -12,20 +13,18 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.accessibilityLabel
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
-import androidx.compose.ui.tooling.preview.Preview
 import com.cakrasuryainti.panther.db.model.JobDesc
 import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.ui.components.ChoiceChip
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
+import com.google.accompanist.flowlayout.FlowRow
 
 
-@ExperimentalLayout
 @Composable
 fun PanelReportMetaForm(
     navController: NavHostController,
@@ -44,7 +43,6 @@ fun PanelReportMetaForm(
     )
 }
 
-@ExperimentalLayout
 @Composable
 fun MetaForm(
     onNavigateBack: () -> Unit,
@@ -78,7 +76,7 @@ fun MetaForm(
                 title = { Text("Data Pekerjaan") },
                 navigationIcon = {
                     IconButton(onClick = { onNavigateBack() }) {
-                        Icon(Icons.Rounded.ArrowBack)
+                         Icon(Icons.Rounded.ArrowBack, "")
                     }
                 },
                 actions = {
@@ -92,7 +90,11 @@ fun MetaForm(
             )
         })
     {
-        ScrollableColumn(modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp)) {
+        Column(
+            modifier = Modifier
+                .padding(start = 8.dp, end = 8.dp, top = 8.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
             TextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.customer ?: "",
@@ -100,47 +102,56 @@ fun MetaForm(
                 label = { Text("Customer") },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp)
-                    .semantics { accessibilityLabel = "pekerjaan" },
-                isErrorValue = isDirty && report?.customer == "",
+                    .padding(8.dp),
+                isError = isDirty && report?.customer == "",
             )
             TextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.panelName ?: "",
                 onValueChange = { updateState(report?.copy(panelName = it)) },
                 label = { Text("Panel") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
-                isErrorValue = isDirty && report?.panelName == ""
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                isError = isDirty && report?.panelName == ""
             )
             TextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.model ?: "",
                 onValueChange = { updateState(report?.copy(model = it)) },
                 label = { Text("Type / Model") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
-                isErrorValue = isDirty && report?.model == ""
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                isError = isDirty && report?.model == ""
             )
             TextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.serialNumber ?: "",
                 onValueChange = { updateState(report?.copy(serialNumber = it)) },
                 label = { Text("Serial Number") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
-                isErrorValue = isDirty && report?.serialNumber == ""
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                isError = isDirty && report?.serialNumber == ""
             )
             TextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                onImeActionPerformed = { imeAction, _ ->
-                    if (imeAction == ImeAction.Done) handleNext(report)
-                },
+                // TODO: Fix later
+//                onImeActionPerformed = { imeAction, _ ->
+//                    if (imeAction == ImeAction.Done) handleNext(report)
+//                },
                 value = report?.location ?: "",
                 onValueChange = { updateState(report?.copy(location = it)) },
                 label = { Text("Lokasi") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
-                isErrorValue = isDirty && report?.location == ""
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                isError = isDirty && report?.location == ""
             )
             Surface(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 32.dp),
                 border = BorderStroke(1.dp, MaterialTheme.colors.onBackground.copy(alpha = 0.4f)),
                 shape = RoundedCornerShape(8.dp)
@@ -151,6 +162,7 @@ fun MetaForm(
                         modifier = Modifier.padding(start = 8.dp, top = 8.dp, bottom = 8.dp),
                         style = MaterialTheme.typography.body2
                     )
+                    // TODO: Row is not good enough here
                     FlowRow {
                         JobDesc.values().forEach { jobDesc ->
                             ChoiceChip(
@@ -167,7 +179,6 @@ fun MetaForm(
     }
 }
 
-@ExperimentalLayout
 @Preview
 @Composable
 private fun FormPreview() {

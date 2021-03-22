@@ -1,9 +1,11 @@
 package com.cakrasuryainti.panther.ui.pages.report.panel
 
+import androidx.activity.compose.registerForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AddAPhoto
@@ -13,25 +15,25 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.AmbientContext
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavHostController
-import com.cakrasuryainti.panther.db.model.PanelReport
-import com.cakrasuryainti.panther.db.model.ReportImage
-import com.cakrasuryainti.panther.registerForActivityResult
-import com.cakrasuryainti.panther.ui.components.ReportImageListItem
-import com.cakrasuryainti.panther.ui.theme.PantherTheme
 import androidx.navigation.compose.navigate
 import com.cakrasuryainti.panther.R
+import com.cakrasuryainti.panther.db.model.PanelReport
+import com.cakrasuryainti.panther.db.model.ReportImage
 import com.cakrasuryainti.panther.domain.saveImagesIntoReport
+import com.cakrasuryainti.panther.ui.components.ReportImageListItem
+import com.cakrasuryainti.panther.ui.theme.PantherTheme
 
 @Composable
 fun FinalCheck(navController: NavHostController, viewModel: PanelViewModel) {
     val reportWithImages by viewModel.currentPanelReport.observeAsState()
-    val context = AmbientContext.current
+    val context = LocalContext.current
 
     var isLoading by remember { mutableStateOf(false) }
 
@@ -70,7 +72,7 @@ private fun Form(
     navigateToImageEdit: (ReportImage) -> Unit,
     isLoading: Boolean,
 ) {
-    val context = AmbientContext.current
+    val context = LocalContext.current
     val getImages = registerForActivityResult(
         ActivityResultContracts.GetMultipleContents()
     ) { uris ->
@@ -93,7 +95,7 @@ private fun Form(
                 title = { Text("Data Tambahan") },
                 navigationIcon = {
                     IconButton(onClick = { onNavigateBack() }) {
-                        Icon(Icons.Rounded.ArrowBack)
+                        Icon(Icons.Rounded.ArrowBack, "")
                     }
                 },
                 actions = {
@@ -113,49 +115,64 @@ private fun Form(
         ConstraintLayout(modifier = Modifier.fillMaxHeight()) {
             val (fab) = createRefs()
 
-            ScrollableColumn(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
-                TextField(
-                    label = { Text("Catatan / Saran") },
-                    value = report?.notesAndRecommendation ?: "",
-                    onValueChange = { handleUpdate(report?.copy(notesAndRecommendation = it)) },
-                    maxLines = 30,
-                    modifier = Modifier.fillMaxWidth().padding(8.dp, top = 16.dp)
-                )
-                Text(
-                    "Gambar",
-                    modifier = Modifier.padding(top = 32.dp, start = 8.dp).fillMaxWidth(),
-                    style = MaterialTheme.typography.h6
-                )
+            Column(
+                modifier = Modifier
+                    .padding(start = 8.dp, end = 8.dp)
+                    .verticalScroll(rememberScrollState())
+            ) {
+                Column(modifier = Modifier.padding(bottom = 60.dp)) {
 
-                if (images.isEmpty()) {
-                    Column(
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Image(
-                            vectorResource(id = R.drawable.undraw_camera),
-                            modifier = Modifier.width(180.dp).padding(top = 72.dp, bottom = 16.dp)
-                        )
-                        Text(
-                            "Belum Ada Gambar Terpasang",
-                            style = MaterialTheme.typography.h5,
-                            modifier = Modifier.width(240.dp),
-                            textAlign = TextAlign.Center
+                    TextField(
+                        label = { Text("Catatan / Saran") },
+                        value = report?.notesAndRecommendation ?: "",
+                        onValueChange = { handleUpdate(report?.copy(notesAndRecommendation = it)) },
+                        maxLines = 30,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp, top = 16.dp)
+                            .height(240.dp)
+                    )
+                    Text(
+                        "Gambar",
+                        modifier = Modifier
+                            .padding(top = 32.dp, start = 8.dp)
+                            .fillMaxWidth(),
+                        style = MaterialTheme.typography.h6
+                    )
+
+                    if (images.isEmpty()) {
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.undraw_camera),
+                                "Empty illustrations",
+                                modifier = Modifier
+                                    .width(180.dp)
+                                    .padding(top = 72.dp, bottom = 16.dp)
+                            )
+                            Text(
+                                "Belum Ada Gambar Terpasang",
+                                style = MaterialTheme.typography.h5,
+                                modifier = Modifier.width(240.dp),
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }
+
+                    images.sortedByDescending { it.createdAt }.forEach { image ->
+                        ReportImageListItem(
+                            image = image,
+                            modifier = Modifier.padding(
+                                start = 12.dp
+                            ),
+                            updateDescription = { updateImage(it) },
+                            removeImage = { handleRemoveImage(it) },
+                            onEditClick = { navigateToImageEdit(it) }
                         )
                     }
-                }
-
-                images.sortedByDescending { it.createdAt }.forEach { image ->
-                    ReportImageListItem(
-                        image = image,
-                        modifier = Modifier.padding(
-                            start = 12.dp
-                        ),
-                        updateDescription = { updateImage(it) },
-                        removeImage = { handleRemoveImage(it) },
-                        onEditClick = { navigateToImageEdit(it) }
-                    )
                 }
             }
             FloatingActionButton(
@@ -164,7 +181,7 @@ private fun Form(
                     bottom.linkTo(parent.bottom, 16.dp)
                     end.linkTo(parent.end, 16.dp)
                 },
-            ) { Icon(Icons.Rounded.AddAPhoto) }
+            ) { Icon(Icons.Rounded.AddAPhoto, "") }
         }
     }
 }

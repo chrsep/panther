@@ -31,7 +31,7 @@ fun FloatField(
             label = { Text(text = label) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             value = state,
-            isErrorValue = isInvalid,
+            isError = isInvalid,
             onValueChange = {
                 state = it
                 isInvalid = try {
