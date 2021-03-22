@@ -120,55 +120,59 @@ private fun Form(
                     .padding(start = 8.dp, end = 8.dp)
                     .verticalScroll(rememberScrollState())
             ) {
-                TextField(
-                    label = { Text("Catatan / Saran") },
-                    value = report?.notesAndRecommendation ?: "",
-                    onValueChange = { handleUpdate(report?.copy(notesAndRecommendation = it)) },
-                    maxLines = 30,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp, top = 16.dp)
-                )
-                Text(
-                    "Gambar",
-                    modifier = Modifier
-                        .padding(top = 32.dp, start = 8.dp)
-                        .fillMaxWidth(),
-                    style = MaterialTheme.typography.h6
-                )
+                Column(modifier = Modifier.padding(bottom = 60.dp)) {
 
-                if (images.isEmpty()) {
-                    Column(
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.undraw_camera),
-                            "Empty illustrations",
-                            modifier = Modifier
-                                .width(180.dp)
-                                .padding(top = 72.dp, bottom = 16.dp)
-                        )
-                        Text(
-                            "Belum Ada Gambar Terpasang",
-                            style = MaterialTheme.typography.h5,
-                            modifier = Modifier.width(240.dp),
-                            textAlign = TextAlign.Center
+                    TextField(
+                        label = { Text("Catatan / Saran") },
+                        value = report?.notesAndRecommendation ?: "",
+                        onValueChange = { handleUpdate(report?.copy(notesAndRecommendation = it)) },
+                        maxLines = 30,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp, top = 16.dp)
+                            .height(240.dp)
+                    )
+                    Text(
+                        "Gambar",
+                        modifier = Modifier
+                            .padding(top = 32.dp, start = 8.dp)
+                            .fillMaxWidth(),
+                        style = MaterialTheme.typography.h6
+                    )
+
+                    if (images.isEmpty()) {
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.undraw_camera),
+                                "Empty illustrations",
+                                modifier = Modifier
+                                    .width(180.dp)
+                                    .padding(top = 72.dp, bottom = 16.dp)
+                            )
+                            Text(
+                                "Belum Ada Gambar Terpasang",
+                                style = MaterialTheme.typography.h5,
+                                modifier = Modifier.width(240.dp),
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }
+
+                    images.sortedByDescending { it.createdAt }.forEach { image ->
+                        ReportImageListItem(
+                            image = image,
+                            modifier = Modifier.padding(
+                                start = 12.dp
+                            ),
+                            updateDescription = { updateImage(it) },
+                            removeImage = { handleRemoveImage(it) },
+                            onEditClick = { navigateToImageEdit(it) }
                         )
                     }
-                }
-
-                images.sortedByDescending { it.createdAt }.forEach { image ->
-                    ReportImageListItem(
-                        image = image,
-                        modifier = Modifier.padding(
-                            start = 12.dp
-                        ),
-                        updateDescription = { updateImage(it) },
-                        removeImage = { handleRemoveImage(it) },
-                        onEditClick = { navigateToImageEdit(it) }
-                    )
                 }
             }
             FloatingActionButton(
