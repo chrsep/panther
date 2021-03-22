@@ -68,6 +68,11 @@ android {
         exclude 'META-INF/LGPL2.1'
         exclude("META-INF/*.kotlin_module")
     }
+
+    // disable temporary error cause of https://issuetracker.google.com/issues/182388985#comment9
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
