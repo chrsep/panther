@@ -2,7 +2,8 @@ package com.cakrasuryainti.panther.ui.pages.saved
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumnFor
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -12,9 +13,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawOpacity
-import androidx.compose.ui.platform.AmbientContext
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,7 +29,7 @@ import java.util.*
 
 @Composable
 fun ListLVPanel(navController: NavHostController, savedViewModel: SavedViewModel) {
-    val context = AmbientContext.current
+    val context = LocalContext.current
     val allReports by savedViewModel.allReport.collectAsState(initial = listOf())
 
     Scaffold(
@@ -36,7 +37,7 @@ fun ListLVPanel(navController: NavHostController, savedViewModel: SavedViewModel
             TopAppBar(
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Rounded.ArrowBack)
+                        Icon(Icons.Rounded.ArrowBack, "")
                     }
                 },
                 title = { Text(text = "LV Panel Reports") }
@@ -50,8 +51,11 @@ fun ListLVPanel(navController: NavHostController, savedViewModel: SavedViewModel
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Image(
-                    vectorResource(id = R.drawable.undraw_list),
-                    modifier = Modifier.width(240.dp).padding(top = 72.dp, bottom = 16.dp)
+                    painterResource(R.drawable.undraw_list),
+                    "limage",
+                    modifier = Modifier
+                        .width(240.dp)
+                        .padding(top = 72.dp, bottom = 16.dp)
                 )
                 Text(
                     "Belum Ada Laporan LV Panel Maintenance Tersimpan",
@@ -62,38 +66,43 @@ fun ListLVPanel(navController: NavHostController, savedViewModel: SavedViewModel
             }
         }
 
-        LazyColumnFor(items = allReports, Modifier.fillMaxWidth()) {
-            Row(
-                Modifier.padding(16.dp).fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Column {
-                    Text(
-                        it.jobDesc.name.toUpperCase(Locale.ROOT),
-                        style = MaterialTheme.typography.overline,
-                        lineHeight = 20.sp
-                    )
-                    Text(
-                        it.customer,
-                        style = MaterialTheme.typography.body1,
-                        color = MaterialTheme.colors.onSurface,
-                        lineHeight = 20.sp,
-                        modifier = Modifier.padding(top = 4.dp)
-                    )
-                    Text(
-                        it.dateTime.atZone(ZoneId.systemDefault())
-                            .format(DateTimeFormatter.ofPattern("dd MMMM yyyy")),
-                        style = MaterialTheme.typography.subtitle2,
-                        color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
-                        lineHeight = 20.sp,
-                        modifier = Modifier.padding(top = 4.dp)
-                    )
-                }
-                IconButton(
-                    onClick = { shareReportPdf(context, it) },
-                    modifier = Modifier.drawOpacity(0.7f)
+        LazyColumn(Modifier.fillMaxWidth()) {
+            items(allReports) {
+
+                Row(
+                    Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Icon(Icons.Rounded.Share)
+                    Column {
+                        Text(
+                            it.jobDesc.name.toUpperCase(Locale.ROOT),
+                            style = MaterialTheme.typography.overline,
+                            lineHeight = 20.sp
+                        )
+                        Text(
+                            it.customer,
+                            style = MaterialTheme.typography.body1,
+                            color = MaterialTheme.colors.onSurface,
+                            lineHeight = 20.sp,
+                            modifier = Modifier.padding(top = 4.dp)
+                        )
+                        Text(
+                            it.dateTime.atZone(ZoneId.systemDefault())
+                                .format(DateTimeFormatter.ofPattern("dd MMMM yyyy")),
+                            style = MaterialTheme.typography.subtitle2,
+                            color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
+                            lineHeight = 20.sp,
+                            modifier = Modifier.padding(top = 4.dp)
+                        )
+                    }
+                    IconButton(
+                        onClick = { shareReportPdf(context, it) },
+                        modifier = Modifier.alpha(0.7f)
+                    ) {
+                        Icon(Icons.Rounded.Share, "")
+                    }
                 }
             }
         }

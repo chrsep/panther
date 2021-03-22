@@ -1,18 +1,18 @@
 package com.cakrasuryainti.panther.ui.pages.report.generator
 
-import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawOpacity
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.accessibilityLabel
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,7 +22,6 @@ import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
 
 
-@ExperimentalLayout
 @Composable
 fun GeneratorMetaForm(
     navController: NavHostController,
@@ -41,7 +40,6 @@ fun GeneratorMetaForm(
     )
 }
 
-@ExperimentalLayout
 @Composable
 fun MetaForm(
     onNavigateBack: () -> Unit,
@@ -75,7 +73,7 @@ fun MetaForm(
                 title = { Text("Data Pekerjaan") },
                 navigationIcon = {
                     IconButton(onClick = { onNavigateBack() }) {
-                        Icon(Icons.Rounded.ArrowBack)
+                         Icon(Icons.Rounded.ArrowBack, "")
                     }
                 },
                 actions = {
@@ -89,44 +87,54 @@ fun MetaForm(
             )
         })
     {
-        ScrollableColumn(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
+        Column(
+            modifier = Modifier
+                .padding(start = 8.dp, end = 8.dp)
+                .verticalScroll(
+                    rememberScrollState()
+                )
+        ) {
             TextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.customer ?: "",
-                onValueChange = { updateState(report?.copy(customer = it)) },
+                onValueChange = { customer -> updateState(report?.copy(customer = customer)) },
                 label = { Text("Customer") },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp)
-                    .semantics { accessibilityLabel = "pekerjaan" },
-                isErrorValue = isDirty && report?.customer == "",
+                    .padding(8.dp),
+//                isError = isDirty && report?.customer == "",
             )
             TextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.panelName ?: "",
-                onValueChange = { updateState(report?.copy(panelName = it)) },
+                onValueChange = { panelName -> updateState(report?.copy(panelName = panelName)) },
                 label = { Text("Generator ID") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
-                isErrorValue = isDirty && report?.panelName == ""
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+//                isError = isDirty && report?.panelName == ""
             )
             TextField(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 value = report?.model ?: "",
-                onValueChange = { updateState(report?.copy(model = it)) },
+                onValueChange = { model -> updateState(report?.copy(model = model)) },
                 label = { Text("Period") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
-                isErrorValue = isDirty && report?.model == ""
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+//                isError = isDirty && report?.model == ""
             )
             Text(
                 "Form generator masih tahap Mockup dan belum berfungsi. Mohon feedback/review tentang flow/ui.",
                 style = MaterialTheme.typography.h6,
-                modifier = Modifier.padding(8.dp).drawOpacity(0.6f)
+                modifier = Modifier
+                    .padding(8.dp)
+                    .alpha(0.6f)
             )
         }
     }
 }
 
-@ExperimentalLayout
 @Preview
 @Composable
 private fun FormPreview() {

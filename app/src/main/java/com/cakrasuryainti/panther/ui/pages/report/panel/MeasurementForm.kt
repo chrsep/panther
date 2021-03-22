@@ -1,7 +1,8 @@
 package com.cakrasuryainti.panther.ui.pages.report.panel
 
-import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -46,7 +47,7 @@ fun MeasurementForm(
                 title = { Text("Pengukuran") },
                 navigationIcon = {
                     IconButton(onClick = { onNavigateBack() }) {
-                        Icon(Icons.Rounded.ArrowBack)
+                         Icon(Icons.Rounded.ArrowBack, "")
                     }
                 },
                 actions = {
@@ -61,7 +62,11 @@ fun MeasurementForm(
             )
         })
     {
-        ScrollableColumn(modifier = Modifier.padding(start = 16.dp, end = 16.dp)) {
+        Column(
+            modifier = Modifier
+                .padding(start = 16.dp, end = 16.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
             // Tegangan P2P
             Text(
                 "Tegangan Phase to Phase",
@@ -73,12 +78,16 @@ fun MeasurementForm(
                 modifier = Modifier.padding(bottom = 16.dp)
             ) {
                 FloatField(
-                    modifier = Modifier.weight(1f).padding(end = 16.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 16.dp),
                     label = "R - S",
                     value = report?.teganganPhaseToPhaseRS ?: 0f,
                 ) { handleUpdate(report?.copy(teganganPhaseToPhaseRS = it)) }
                 FloatField(
-                    modifier = Modifier.weight(1f).padding(end = 8.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 8.dp),
                     label = "S - T",
                     value = report?.teganganPhaseToPhaseST ?: 0f,
                 ) { handleUpdate(report?.copy(teganganPhaseToPhaseST = it)) }
@@ -97,12 +106,16 @@ fun MeasurementForm(
             )
             Row(horizontalArrangement = Arrangement.SpaceEvenly) {
                 FloatField(
-                    modifier = Modifier.weight(1f).padding(end = 8.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 8.dp),
                     label = "R - N",
                     value = report?.teganganPhaseToNeutralRN ?: 0f,
                 ) { handleUpdate(report?.copy(teganganPhaseToNeutralRN = it)) }
                 FloatField(
-                    modifier = Modifier.weight(1f).padding(end = 8.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 8.dp),
                     label = "S - N",
                     value = report?.teganganPhaseToNeutralSN ?: 0f,
                 ) { handleUpdate(report?.copy(teganganPhaseToNeutralSN = it)) }
@@ -113,14 +126,18 @@ fun MeasurementForm(
                 ) { handleUpdate(report?.copy(teganganPhaseToNeutralTN = it)) }
             }
             FloatField(
-                modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
                 label = "G - N",
                 value = report?.teganganPhaseToNeutralGN ?: 0f,
             ) { handleUpdate(report?.copy(teganganPhaseToNeutralGN = it)) }
             // Todo attach dis somewhere
             TextField(
                 label = { Text("Keterangan tambahan") },
-                modifier = Modifier.padding(top = 8.dp, bottom = 32.dp).fillMaxWidth(),
+                modifier = Modifier
+                    .padding(top = 8.dp, bottom = 32.dp)
+                    .fillMaxWidth(),
                 value = report?.keteranganPhase ?: "",
                 onValueChange = { handleUpdate(report?.copy(keteranganPhase = it)) },
             )
@@ -134,17 +151,23 @@ fun MeasurementForm(
             )
             Row(horizontalArrangement = Arrangement.SpaceEvenly) {
                 FloatField(
-                    modifier = Modifier.weight(1f).padding(end = 8.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 8.dp),
                     label = "R",
                     value = report?.arusR ?: 0f,
                 ) { handleUpdate(report?.copy(arusR = it)) }
                 FloatField(
-                    modifier = Modifier.weight(1f).padding(end = 8.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 8.dp),
                     label = "S",
                     value = report?.arusS ?: 0f,
                 ) { handleUpdate(report?.copy(arusS = it)) }
                 FloatField(
-                    modifier = Modifier.weight(1f).padding(),
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(),
                     label = "T",
                     value = report?.arusT ?: 0f,
                 ) { handleUpdate(report?.copy(arusT = it)) }
@@ -152,35 +175,45 @@ fun MeasurementForm(
             // Todo attach dis somewhere
             TextField(
                 label = { Text("Keterangan") },
-                modifier = Modifier.padding(top = 8.dp, bottom = 32.dp).fillMaxWidth(),
+                modifier = Modifier
+                    .padding(top = 8.dp, bottom = 32.dp)
+                    .fillMaxWidth(),
                 value = report?.keteranganArus ?: "",
                 onValueChange = { handleUpdate(report?.copy(keteranganArus = it)) },
             )
 
             Divider()
             FloatField(
-                modifier = Modifier.padding(top = 16.dp).fillMaxWidth(),
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .fillMaxWidth(),
                 label = "Frekuensi",
                 value = report?.frekuensi ?: 0f,
             ) { handleUpdate(report?.copy(frekuensi = it)) }
             // Todo attach dis somewhere
             TextField(
                 label = { Text("Keterangan") },
-                modifier = Modifier.padding(top = 8.dp, bottom = 32.dp).fillMaxWidth(),
+                modifier = Modifier
+                    .padding(top = 8.dp, bottom = 32.dp)
+                    .fillMaxWidth(),
                 value = report?.keteranganFrekuensi ?: "",
                 onValueChange = { handleUpdate(report?.copy(keteranganFrekuensi = it)) },
             )
 
             Divider()
             FloatField(
-                modifier = Modifier.padding(top = 16.dp).fillMaxWidth(),
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .fillMaxWidth(),
                 label = "Power Factor",
                 value = report?.powerFactor ?: 0f,
             ) { handleUpdate(report?.copy(powerFactor = it)) }
             // Todo attach dis somewhere
             TextField(
                 label = { Text("Keterangan") },
-                modifier = Modifier.padding(top = 8.dp, bottom = 32.dp).fillMaxWidth(),
+                modifier = Modifier
+                    .padding(top = 8.dp, bottom = 32.dp)
+                    .fillMaxWidth(),
                 value = report?.keteranganPowerFactor ?: "",
                 onValueChange = { handleUpdate(report?.copy(keteranganPowerFactor = it)) },
             )
@@ -188,14 +221,18 @@ fun MeasurementForm(
             Divider()
             TextField(
                 label = { Text("Kondisi Perangkat") },
-                modifier = Modifier.padding(top = 16.dp).fillMaxWidth(),
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .fillMaxWidth(),
                 value = report?.kondisiPerangkat ?: "",
                 onValueChange = { handleUpdate(report?.copy(kondisiPerangkat = it)) },
             )
             // Todo attach dis somewhere
             TextField(
                 label = { Text("Keterangan") },
-                modifier = Modifier.padding(top = 8.dp, bottom = 32.dp).fillMaxWidth(),
+                modifier = Modifier
+                    .padding(top = 8.dp, bottom = 32.dp)
+                    .fillMaxWidth(),
                 value = report?.keteranganKondisiPerangkat ?: "",
                 onValueChange = { handleUpdate(report?.copy(keteranganKondisiPerangkat = it)) },
             )

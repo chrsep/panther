@@ -10,9 +10,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.Position
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.DpOffset
+import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import com.cakrasuryainti.panther.db.model.Status
 
 @Composable
@@ -44,9 +46,11 @@ fun StatusCheckField(
                 )
 
                 Card(
-                    modifier = Modifier.constrainAs(row) {
-                        end.linkTo(parent.end)
-                    }.clickable(onClick = { openDropdown = true }),
+                    modifier = Modifier
+                        .constrainAs(row) {
+                            end.linkTo(parent.end)
+                        }
+                        .clickable(onClick = { openDropdown = true }),
                     border = BorderStroke(1.dp, Color.LightGray)
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -57,35 +61,35 @@ fun StatusCheckField(
                                 Status.NotOk -> "NOK"
                             }, modifier = Modifier.padding(start = 16.dp)
                         )
-                        DropdownMenu(
-                            dropdownOffset = Position((-50).dp, 0.dp),
-                            toggle = {
-                                IconButton(onClick = { openDropdown = true }) {
-                                    Icon(Icons.Rounded.ArrowDropDown)
+                        Box() {
+                            IconButton(onClick = { openDropdown = true }) {
+                                Icon(Icons.Rounded.ArrowDropDown, contentDescription = "")
+                            }
+                            DropdownMenu(
+                                offset = DpOffset((-50).dp, 0.dp),
+                                expanded = openDropdown,
+                                onDismissRequest = { openDropdown = false }
+                            ) {
+                                DropdownMenuItem(onClick = {
+                                    onStatusChange(Status.Ok)
+                                    openDropdown = false
+                                }) {
+                                    Text("OK")
                                 }
-                            },
-                            expanded = openDropdown,
-                            onDismissRequest = { openDropdown = false }
-                        ) {
-                            DropdownMenuItem(onClick = {
-                                onStatusChange(Status.Ok)
-                                openDropdown = false
-                            }) {
-                                Text("OK")
-                            }
 
-                            DropdownMenuItem(onClick = {
-                                onStatusChange(Status.NotOk)
-                                openDropdown = false
-                            }) {
-                                Text("NOK")
-                            }
+                                DropdownMenuItem(onClick = {
+                                    onStatusChange(Status.NotOk)
+                                    openDropdown = false
+                                }) {
+                                    Text("NOK")
+                                }
 
-                            DropdownMenuItem(onClick = {
-                                onStatusChange(Status.NotAvailable)
-                                openDropdown = false
-                            }) {
-                                Text("N/A")
+                                DropdownMenuItem(onClick = {
+                                    onStatusChange(Status.NotAvailable)
+                                    openDropdown = false
+                                }) {
+                                    Text("N/A")
+                                }
                             }
                         }
                     }
@@ -106,7 +110,9 @@ fun StatusCheckField(
                 label = { Text("Keterangan") },
                 onValueChange = { onKeteranganChange(it) },
                 value = keteranganValue,
-                modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp)
             )
             Divider(modifier = Modifier.padding(top = 16.dp))
         }

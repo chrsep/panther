@@ -2,15 +2,15 @@ package com.cakrasuryainti.panther.ui.pages.saved
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumnFor
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.AmbientContext
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -31,7 +31,7 @@ fun ListGeneratorReport(
             TopAppBar(
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Rounded.ArrowBack)
+                         Icon(Icons.Rounded.ArrowBack, "")
                     }
                 },
                 title = { Text(text = "Generator Reports") }
@@ -45,8 +45,11 @@ fun ListGeneratorReport(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Image(
-                    vectorResource(id = R.drawable.undraw_list),
-                    modifier = Modifier.width(240.dp).padding(top = 72.dp, bottom = 16.dp)
+                    painterResource(id = R.drawable.undraw_list),
+                    "list",
+                    modifier = Modifier
+                        .width(240.dp)
+                        .padding(top = 72.dp, bottom = 16.dp)
                 )
                 Text(
                     "Belum Ada Laporan Generator Inspection Tersimpan",
@@ -57,14 +60,18 @@ fun ListGeneratorReport(
             }
         }
 
-        LazyColumnFor(
-            items = allReports, Modifier.fillMaxWidth(),
+        LazyColumn(
+            Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(bottom = 88.dp)
         ) {
-            Row(
-                Modifier.padding(16.dp).fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
+            items(allReports) {
+
+                Row(
+                    Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
 //            Column {
 //                Text(
 //                    it.jobDesc.name.toUpperCase(Locale.ROOT),
@@ -87,9 +94,10 @@ fun ListGeneratorReport(
 //            }
 //            IconButton(onClick = {
 //                shareReportPdf(context, it)
-//            }, modifier = Modifier.drawOpacity(0.7f)) {
+//            }, modifier = Modifier.alpha(0.7f)) {
 //                Icon(Icons.Rounded.Share)
 //            }
+                }
             }
         }
     }

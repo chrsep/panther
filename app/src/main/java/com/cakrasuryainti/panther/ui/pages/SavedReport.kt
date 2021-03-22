@@ -20,7 +20,7 @@ fun SavedReport(navController: NavHostController) {
             TopAppBar(
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Rounded.ArrowBack)
+                         Icon(Icons.Rounded.ArrowBack, "")
                     }
                 },
                 title = { Text(text = "Saved Reports") },

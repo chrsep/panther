@@ -7,12 +7,12 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
-import androidx.compose.ui.tooling.preview.Preview
 import com.cakrasuryainti.panther.R
 
 @ExperimentalMaterialApi
@@ -27,10 +27,13 @@ fun Home(navController: NavHostController) {
     Scaffold {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth().fillMaxHeight()
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
         ) {
             Image(
-                imageResource(id = R.drawable.background),
+                painterResource(id = R.drawable.background),
+                "background",
                 modifier = Modifier.fillMaxWidth()
             )
             Surface(
@@ -38,8 +41,11 @@ fun Home(navController: NavHostController) {
                 shape = CircleShape
             ) {
                 Image(
-                    imageResource(id = R.drawable.csi_logo_full),
-                    modifier = Modifier.height(140.dp).padding(8.dp)
+                    painterResource(id = R.drawable.csi_logo_full),
+                    "logo",
+                    modifier = Modifier
+                        .height(140.dp)
+                        .padding(8.dp)
                 )
             }
             Button(

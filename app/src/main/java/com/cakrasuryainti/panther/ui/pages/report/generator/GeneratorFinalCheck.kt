@@ -1,9 +1,11 @@
 package com.cakrasuryainti.panther.ui.pages.report.generator
 
+import androidx.activity.compose.registerForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AddAPhoto
@@ -13,25 +15,25 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.AmbientContext
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import androidx.compose.ui.tooling.preview.Preview
-import com.cakrasuryainti.panther.db.model.PanelReport
-import com.cakrasuryainti.panther.db.model.ReportImage
-import com.cakrasuryainti.panther.registerForActivityResult
-import com.cakrasuryainti.panther.ui.components.ReportImageListItem
-import com.cakrasuryainti.panther.ui.theme.PantherTheme
+import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import com.cakrasuryainti.panther.R
+import com.cakrasuryainti.panther.db.model.PanelReport
+import com.cakrasuryainti.panther.db.model.ReportImage
 import com.cakrasuryainti.panther.domain.saveImagesIntoReport
+import com.cakrasuryainti.panther.ui.components.ReportImageListItem
+import com.cakrasuryainti.panther.ui.theme.PantherTheme
 
 @Composable
 fun GeneratorFinalCheckContainer(navController: NavHostController, viewModel: GeneratorViewModel) {
     val reportWithImages by viewModel.currentPanelReport.observeAsState()
-    val context = AmbientContext.current
+    val context = LocalContext.current
 
     var isLoading by remember { mutableStateOf(false) }
 
@@ -70,7 +72,7 @@ private fun GeneratorFinalCheck(
     navigateToImageEdit: (ReportImage) -> Unit,
     isLoading: Boolean,
 ) {
-    val context = AmbientContext.current
+    val context = LocalContext.current
     val getImages = registerForActivityResult(
         ActivityResultContracts.GetMultipleContents()
     ) { uris ->
@@ -93,7 +95,7 @@ private fun GeneratorFinalCheck(
                 title = { Text("Data Tambahan") },
                 navigationIcon = {
                     IconButton(onClick = { onNavigateBack() }) {
-                        Icon(Icons.Rounded.ArrowBack)
+                        Icon(Icons.Rounded.ArrowBack, "")
                     }
                 },
                 actions = {
@@ -113,17 +115,25 @@ private fun GeneratorFinalCheck(
         ConstraintLayout(modifier = Modifier.fillMaxHeight()) {
             val (fab) = createRefs()
 
-            ScrollableColumn(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
+            Column(
+                modifier = Modifier
+                    .padding(start = 8.dp, end = 8.dp)
+                    .verticalScroll(rememberScrollState())
+            ) {
                 TextField(
                     label = { Text("Catatan / Saran") },
                     value = report?.notesAndRecommendation ?: "",
                     onValueChange = { handleUpdate(report?.copy(notesAndRecommendation = it)) },
                     maxLines = 30,
-                    modifier = Modifier.fillMaxWidth().padding(8.dp, top = 16.dp)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp, top = 16.dp)
                 )
                 Text(
                     "Gambar",
-                    modifier = Modifier.padding(top = 32.dp, start = 8.dp).fillMaxWidth(),
+                    modifier = Modifier
+                        .padding(top = 32.dp, start = 8.dp)
+                        .fillMaxWidth(),
                     style = MaterialTheme.typography.h6
                 )
 
@@ -134,8 +144,11 @@ private fun GeneratorFinalCheck(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Image(
-                            vectorResource(id = R.drawable.undraw_camera),
-                            modifier = Modifier.width(180.dp).padding(top = 72.dp, bottom = 16.dp)
+                            painter = painterResource(id = R.drawable.undraw_camera),
+                            "",
+                            modifier = Modifier
+                                .width(180.dp)
+                                .padding(top = 72.dp, bottom = 16.dp)
                         )
                         Text(
                             "Belum Ada Gambar Terpasang",
@@ -164,7 +177,7 @@ private fun GeneratorFinalCheck(
                     bottom.linkTo(parent.bottom, 16.dp)
                     end.linkTo(parent.end, 16.dp)
                 },
-            ) { Icon(Icons.Rounded.AddAPhoto) }
+            ) { Icon(Icons.Rounded.AddAPhoto, "") }
         }
     }
 }

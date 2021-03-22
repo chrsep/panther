@@ -7,10 +7,10 @@ import com.cakrasuryainti.panther.db.PantherDB
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 class DatabaseModule {
     /**
      * Provides DB instance.
@@ -18,7 +18,7 @@ class DatabaseModule {
     @Provides
     fun provideDb(app: Application): PantherDB = Room
         .databaseBuilder(app, PantherDB::class.java, "caniuse.db")
-        .fallbackToDestructiveMigration()
+//        .fallbackToDestructiveMigration()
         .build()
 
     @Provides

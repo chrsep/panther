@@ -1,18 +1,17 @@
 package com.cakrasuryainti.panther.ui
 
-import androidx.compose.foundation.layout.ExperimentalLayout
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.viewinterop.viewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import com.cakrasuryainti.panther.ui.pages.HomeContainer
-import com.cakrasuryainti.panther.ui.pages.report.CreateReport
-import com.cakrasuryainti.panther.ui.pages.SavedViewModel
 import com.cakrasuryainti.panther.ui.pages.SavedReport
+import com.cakrasuryainti.panther.ui.pages.SavedViewModel
+import com.cakrasuryainti.panther.ui.pages.report.CreateReport
 import com.cakrasuryainti.panther.ui.pages.report.generator.*
 import com.cakrasuryainti.panther.ui.pages.report.panel.*
 import com.cakrasuryainti.panther.ui.pages.saved.ListGeneratorReport
@@ -21,7 +20,7 @@ import com.cakrasuryainti.panther.ui.theme.PantherTheme
 
 
 @ExperimentalMaterialApi
-@ExperimentalLayout
+
 @Composable
 fun Root() {
     val navController = rememberNavController()

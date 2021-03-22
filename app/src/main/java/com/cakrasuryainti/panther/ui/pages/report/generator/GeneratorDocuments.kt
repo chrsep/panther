@@ -1,10 +1,8 @@
 package com.cakrasuryainti.panther.ui.pages.report.generator
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -12,20 +10,14 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.accessibilityLabel
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
-import androidx.compose.ui.tooling.preview.Preview
-import com.cakrasuryainti.panther.db.model.JobDesc
 import com.cakrasuryainti.panther.db.model.PanelReport
-import com.cakrasuryainti.panther.ui.components.ChoiceChip
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
 
 
-@ExperimentalLayout
 @Composable
 fun GeneratorDocumentsContainer(
     navController: NavHostController,
@@ -44,7 +36,7 @@ fun GeneratorDocumentsContainer(
     )
 }
 
-@ExperimentalLayout
+
 @Composable
 private fun GeneratorDocuments(
     onNavigateBack: () -> Unit,
@@ -62,7 +54,7 @@ private fun GeneratorDocuments(
 //            report?.serialNumber != "" &&
 //            report?.location != ""
 //        ) {
-            onNext()
+        onNext()
 //        } else {
 //            isDirty = true
 //        }
@@ -78,7 +70,7 @@ private fun GeneratorDocuments(
                 title = { Text("Check documents") },
                 navigationIcon = {
                     IconButton(onClick = { onNavigateBack() }) {
-                        Icon(Icons.Rounded.ArrowBack)
+                         Icon(Icons.Rounded.ArrowBack, "")
                     }
                 },
                 actions = {
@@ -92,30 +84,40 @@ private fun GeneratorDocuments(
             )
         })
     {
-        ScrollableColumn(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
+        Column(
+            modifier = Modifier
+                .padding(start = 8.dp, end = 8.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
             TextField(
                 value = "",
                 label = { Text("Generator log present?") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
                 onValueChange = {}
             )
             TextField(
                 value = "",
                 label = { Text("Daily check forms present?") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
                 onValueChange = {}
             )
             TextField(
                 value = "",
                 label = { Text("Manuals present?") },
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
                 onValueChange = {}
             )
         }
     }
 }
 
-@ExperimentalLayout
+
 @Preview
 @Composable
 private fun FormPreview() {

@@ -5,17 +5,18 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Edit
-import androidx.compose.material.icons.rounded.Remove
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawOpacity
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import com.cakrasuryainti.panther.db.model.ReportImage
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
-import dev.chrisbanes.accompanist.coil.CoilImage
+import com.google.accompanist.coil.CoilImage
 
 @Composable
 fun ReportImageListItem(
@@ -34,10 +35,17 @@ fun ReportImageListItem(
                 data = "file://" + image.filePath,
                 fadeIn = true,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.height(48.dp).width(48.dp),
+                contentDescription = "image",
+                modifier = Modifier
+                    .height(48.dp)
+                    .width(48.dp),
             )
         }
-        ConstraintLayout(modifier = Modifier.fillMaxWidth().height(56.dp)) {
+        ConstraintLayout(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+        ) {
             val (text, button) = createRefs()
             if (image.description != "") {
                 Row(
@@ -83,7 +91,7 @@ fun ReportImageListItem(
                 IconButton(
                     onClick = { onEditClick(image) }
                 ) {
-                    Icon(Icons.Rounded.Edit, modifier = Modifier.drawOpacity(0.7f))
+                    Icon(Icons.Rounded.Edit, "", modifier = Modifier.alpha(0.7f))
                 }
             }
         }
