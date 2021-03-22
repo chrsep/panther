@@ -22,6 +22,7 @@ import com.cakrasuryainti.panther.db.model.JobDesc
 import com.cakrasuryainti.panther.db.model.PanelReport
 import com.cakrasuryainti.panther.ui.components.ChoiceChip
 import com.cakrasuryainti.panther.ui.theme.PantherTheme
+import com.google.accompanist.flowlayout.FlowRow
 
 
 @Composable
@@ -162,7 +163,7 @@ fun MetaForm(
                         style = MaterialTheme.typography.body2
                     )
                     // TODO: Row is not good enough here
-                    Row {
+                    FlowRow {
                         JobDesc.values().forEach { jobDesc ->
                             ChoiceChip(
                                 modifier = Modifier.padding(start = 8.dp, bottom = 8.dp),

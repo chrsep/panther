@@ -127,7 +127,7 @@ dependencies {
 
     def accompanist_version = '0.6.2'
     implementation "com.google.accompanist:accompanist-coil:$accompanist_version"
-//    implementation "com.google.accompanist:accompanist-flowlayout:0.6.3-SNAO"
+    implementation "com.google.accompanist:accompanist-flowlayout:0.6.3-SNAPSHOT"
 
 
     // crash reporting
